@@ -1065,18 +1065,12 @@ function CheckQuestLevel()
 					NameMon = "Mercenary"
 					CFrameQuest = CFrame.new(-427.72567749023, 72.99634552002, 1835.9426269531)
 					CFrameMon = CFrame.new(-864.85009765625, 122.47104644775, 1453.1505126953)
-				elseif Lv == 775 or Lv <= 799 then 
+				elseif Lv == 775 or Lv <= 874 then 
 					NameQuest = "Area2Quest"
 					LevelQuest = 1
 					NameMon = "Swan Pirate"
 					CFrameQuest = CFrame.new(635.61151123047, 73.096351623535, 917.81298828125)
 					CFrameMon = CFrame.new(1065.3669433594, 137.64012145996, 1324.3798828125)
-				elseif Lv == 800 or Lv <= 874 then 
-					NameQuest = "Area2Quest"
-					LevelQuest = 2
-					NameMon = "Factory Staff"
-					CFrameQuest = CFrame.new(635.61151123047, 73.096351623535, 917.81298828125)
-					CFrameMon = CFrame.new(533.22045898438, 128.46876525879, 355.62615966797)
 				elseif Lv == 875 or Lv <= 899 then 
 					NameQuest = "MarineQuest3"
 					LevelQuest = 1
@@ -1955,7 +1949,7 @@ local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
+		    if FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -1969,7 +1963,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		  	if Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
+		  	if FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2438,9 +2432,10 @@ Main:Toggle("Random Xương",false,function(value)
 end)
 end
 --Weapon--
+Weapon:Seperator("Sự Kiện")
+
+
 if World3 then
-    Weapon:Seperator("Sự Kiện")
-   
     Weapon:Toggle("Đánh Hải Tặc",false,function(value)
         PirateRaid = value
         StopTween(value)
@@ -2526,7 +2521,34 @@ if World3 then
     end)
 end
 if World2 then
+
+    Weapon:Toggle("Đánh Nhà Máy",false,function(value)
+        FarmFactory = value
+        StopTween(value)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if FarmFactory then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Core") or game:GetService("ReplicatedStorage"):FindFirstChild("Core") then
+                        if game:GetService("Workspace").Enemies:FindFirstChild("Core") then
+                            repeat task.wait()
+                                TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
+                                SuperAttack = true
+                            until not game:GetService("Workspace").Enemies:FindFirstChild("Core") or not FarmFactory
+                            SuperAttack = false
+                        else
+                            TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+
 Weapon:Seperator("Tộc")
+
 Weapon:Toggle("Up Tộc V2",false,function(value)
     UpRaceV2 = value
     StopTween(value)
@@ -3124,6 +3146,14 @@ spawn(function()
             end
         end
     end)
+end)
+
+Setting:Toggle("Không Hiện Damage",false,function(value)
+    if value then
+        game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+    else
+        game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = tr
+    end
 end)
 
 Setting:Toggle("Xuyên Tường",false,function(value)
