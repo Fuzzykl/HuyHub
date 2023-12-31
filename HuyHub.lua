@@ -2111,20 +2111,19 @@ if World1 then
             while wait() do
                 if Sea2 then
                     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 1 then
-                    else
-                        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.CanCollide == true and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 0 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
                             repeat wait()
                                 EquipWeapon("Key")
                                 TPD(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
                                 TP(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
                                 Look(game:GetService("Workspace").Map.Ice.Door)
-                            until not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Workspace").Map.Ice.Door.CanCollide == false or not Sea2
-                        elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.CanCollide == false and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                            until not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Workspace").Map.Ice.Door.Transparency == 1 or not Sea2
+                        elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 1 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
                                 local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
                                 if BossIce:FindFirstChild("HumanoidRootPart") and BossIce:FindFirstChild("Humanoid") and BossIce:FindFirstChild("Humanoid").Health > 0 then
                                     repeat wait()
-                                        EquipWeapon(SelectWeapon)
+                                        EquipWeapon(Weapon)
                                         AutoHaki()
                                         TPD(BossIce.HumanoidRootPart.CFrame)
                                         TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
@@ -2137,8 +2136,9 @@ if World1 then
                                 TP(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
                             end
                         end
+                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 2 then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
                     end
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
                 end
             end
         end)
@@ -2915,7 +2915,8 @@ if World2 then
         "Lâu Đài Băng",
         "Đảo Lãng Quên",
         "Đảo Ussop",
-        "Đảo Trên Không Mini"
+        "Đảo Trên Không Mini",
+        "Đảo Kẹo [Sea 2]"
     },function(value)
         SelectIsland = value
     end)
@@ -3012,6 +3013,8 @@ Tele:Toggle("Đi Tới Đảo",false,function(value)
             TP(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
         elseif SelectIsland == "Đảo Trên Không Mini" then
             TP(CFrame.new(-288.74060058594, 49326.31640625, -35248.59375))
+        elseif SelectIsland == "Đảo Kẹo [Sea 2]" then
+            TP(CFrame.new(-5275.51171875, 14.802701950073242, 1532.5760498046875))
         elseif SelectIsland == "Cây Đại Thụ" then
             TP(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
         elseif SelectIsland == "Pháo Đài Trên Biển" then
