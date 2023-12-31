@@ -1955,7 +1955,7 @@ local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
+		    if Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -1969,7 +1969,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		  	if PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
+		  	if Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
