@@ -1761,6 +1761,10 @@ function StopTween(target)
     end
 end
 
+function Look(Target)
+    game:GetService("Workspace").Camera.CFrame = CFrame.new(game:GetService("Workspace").Camera.CFrame.Position, Target.Position)
+end
+
 local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework"))
 	local CombatFrameworkR = getupvalues(CombatFramework)[2]
 	local RigController = require(game:GetService("Players")["LocalPlayer"].PlayerScripts.CombatFramework.RigController)
@@ -2093,6 +2097,53 @@ spawn(function()
         end
     end
 end)
+
+if World1 then
+    Main:Seperator("Sea 2")
+    
+    Main:Toggle("Qua Sea 2",false,function(value)
+        Sea2 = value
+        StopTween(value)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if Sea2 then
+                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 1 then
+                    else
+                        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.CanCollide == true and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                            repeat wait()
+                                EquipWeapon("Key")
+                                TPD(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
+                                TP(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
+                                Look(game:GetService("Workspace").Map.Ice.Door)
+                            until not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Workspace").Map.Ice.Door.CanCollide == false or not Sea2
+                        elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.CanCollide == false and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
+                                local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
+                                if BossIce:FindFirstChild("HumanoidRootPart") and BossIce:FindFirstChild("Humanoid") and BossIce:FindFirstChild("Humanoid").Health > 0 then
+                                    repeat wait()
+                                        EquipWeapon(SelectWeapon)
+                                        AutoHaki()
+                                        TPD(BossIce.HumanoidRootPart.CFrame)
+                                        TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                        FastAttack = true
+                                    until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
+                                    FastAttack = false
+                                end
+                            else
+                                TPD(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
+                                TP(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
+                            end
+                        end
+                    end
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
+                end
+            end
+        end)
+    end)
+end
 
 Main:Seperator("Kẹo")
 
