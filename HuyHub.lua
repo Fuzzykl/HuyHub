@@ -2072,7 +2072,7 @@ spawn(function()
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-					                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+					                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
 					                        PosMon = v.HumanoidRootPart.CFrame
                                             FastAttack = true
                                             LevelMagnet = true
@@ -2120,7 +2120,7 @@ if World1 then
                                         EquipWeapon(Weapon)
                                         AutoHaki()
                                         TPD(BossIce.HumanoidRootPart.CFrame)
-                                        TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                        TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                         FastAttack = true
                                     until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
                                     FastAttack = false
@@ -2196,7 +2196,7 @@ spawn(function()
                             repeat task.wait()
                                 EquipWeapon(Weapon)
                                 AutoHaki()
-                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                 NearName = v.Name
                                 NearPos = v.HumanoidRootPart.CFrame
                                 FastAttack = true
@@ -2322,7 +2322,7 @@ spawn(function()
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    TP(CakePrince.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                    TP(CakePrince.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                     SuperAttack = true
                                 until CakePrince:FindFirstChild("Humanoid").Health <= 0 or not FarmKata
                                 SuperAttack = false
@@ -2341,7 +2341,7 @@ spawn(function()
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    TP(v.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                    TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                     KataPos = v.HumanoidRootPart.CFrame
                                     KataName = v.Name
                                     FastAttack = true
@@ -2403,7 +2403,7 @@ spawn(function()
                                repeat task.wait()
                                    EquipWeapon(Weapon)
                                    AutoHaki()
-                                   TP(v.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                   TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                    BoneName = v.Name
                                    BonePos = v.HumanoidRootPart.CFrame
                                    BoneMagnet = true
@@ -2472,7 +2472,7 @@ if World3 then
                                      repeat task.wait()
                                          EquipWeapon(Weapon)
                                          AutoHaki()
-                                         TP(v.HumanoidRootPart.CFrame * CFrame.new(0,20,10))
+                                         TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                          PirateName = v.Name
                                          PiratePos = v.HumanoidRootPart.CFrame
                                          PirateMagnet = true
@@ -2604,7 +2604,7 @@ spawn(function()
                                                 ZombiePos = v.HumanoidRootPart.CFrame
                                                 ZombieMagnet = true
                                                 FastAttack = true
-                                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0, 25, 10))
+                                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0, 28, 0))
                                             until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") or not UpRaceV2 or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
                                             ZombieMagnet = false
                                             FastAttack = false
