@@ -1929,7 +1929,7 @@ local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScr
 	                if tick() - cooldownfastattack > 3.5 then task.wait() cooldownfastattack = tick() end
 	            elseif FastAttack then
 	                AttackFunction()
-	    	        if tick() - cooldownfastattack > 3.5 then wait() cooldownfastattack = tick() end
+	    	        if tick() - cooldownfastattack > 3.5 then wait(1) cooldownfastattack = tick() end
 	    	    end
 	        end
     	end
