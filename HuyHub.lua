@@ -2056,6 +2056,7 @@ spawn(function()
                 if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
                     repeat
                         wait()
+                        TPD(CFrameQuest)
                         TP(CFrameQuest)
                     until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not FarmLevel
                     if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
@@ -2084,6 +2085,7 @@ spawn(function()
                             end
                         end
                     else
+                        TPD(CFrameMon)
                         TP(CFrameMon)
                     end
                 end
@@ -2119,7 +2121,6 @@ if World1 then
                                     repeat wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        TPD(BossIce.HumanoidRootPart.CFrame)
                                         TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                         FastAttack = true
                                     until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
@@ -2430,10 +2431,13 @@ Main:Toggle("Random Xương",false,function(value)
         wait()
     end
 end)
+
+Main:Button("Thử Vận May [Ban Đêm]",function()
+    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",1)
+end)
 end
 --Weapon--
 Weapon:Seperator("Sự Kiện")
-
 
 if World3 then
     Weapon:Toggle("Đánh Hải Tặc",false,function(value)
@@ -2534,11 +2538,15 @@ if World2 then
                     if game:GetService("Workspace").Enemies:FindFirstChild("Core") or game:GetService("ReplicatedStorage"):FindFirstChild("Core") then
                         if game:GetService("Workspace").Enemies:FindFirstChild("Core") then
                             repeat task.wait()
+                                EquipWeapon(Weapon)
+                                AutoHaki()
+                                TPD(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
                                 TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
                                 SuperAttack = true
                             until not game:GetService("Workspace").Enemies:FindFirstChild("Core") or not FarmFactory
                             SuperAttack = false
                         else
+                            TPD(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
                             TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
                         end
                     end
@@ -2546,9 +2554,39 @@ if World2 then
             end
         end)
     end)
-
-Weapon:Seperator("Tộc")
-
+    
+    Weapon:Toggle("Đánh Râu Đen",false,function(value)
+        BlackBeard = value
+        StopTween(value)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+               if BlackBeard then
+                   if game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard") or game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard") then
+                       if game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard") then
+                           local DarkBeard = game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard")
+                           if DarkBeard:FindFirstChild("HumanoidRootPart") and DarkBeard:FindFirstChild("Humanoid") and DarkBeard:FindFirstChild("Humanoid").Health > 0 then
+                               repeat task.wait()
+                                   EquipWeapon(Weapon)
+                                   AutoHaki()
+                                   TPD(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                   TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                   FastAttack = true
+                               until DarkBeard:FindFirstChild("Humanoid").Health <= 0 or not BlackBeard or not DarkBeard.Parent
+                               FastAttack = false
+                           end
+                       else
+                           TPD(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
+                           TP(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
+                       end
+                   end
+               end
+            end
+        end)
+    end)
+    
 Weapon:Toggle("Up Tộc V2",false,function(value)
     UpRaceV2 = value
     StopTween(value)
@@ -2574,6 +2612,7 @@ spawn(function()
             if UpRaceV2 then
                 if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","1") == 0 then
                     if (Vector3.new(-2777.236328125, 72.99190521240234, -3571.5791015625) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 5 then
+                        TPD(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
                         TP(CFrame.new(-2777.236328125, 72.99190521240234, -3571.5791015625))
                     else
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","2")
@@ -2582,6 +2621,7 @@ spawn(function()
                     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","2") == "Come back when you find them." then
                         if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 1") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 2") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") then
                             if game:GetService("Workspace"):FindFirstChild("Flower1").Transparency == 0 then
+                                TPD(game:GetService("Workspace"):FindFirstChild("Flower1").CFrame)
                                 TP(game:GetService("Workspace"):FindFirstChild("Flower1").CFrame)
                             else
                                 game.StarterGui:SetCore("SendNotification", {
@@ -2592,6 +2632,7 @@ spawn(function()
 	                            wait(5)
                             end
                         elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 1") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 2") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") then
+                            TPD(game:GetService("Workspace"):FindFirstChild("Flower2").CFrame)
                             TP(game:GetService("Workspace"):FindFirstChild("Flower2").CFrame)
                         elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 2") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Zombie") then
@@ -2614,6 +2655,7 @@ spawn(function()
                             else
                                 FastAttack = false
                                 MagnetZombie = false
+                                TPD(CFrame.new(-5536.4970703125, 101.08577728271, -835.59075927734))     
                                 TP(CFrame.new(-5536.4970703125, 101.08577728271, -835.59075927734))                                
                             end
                         end
@@ -2621,6 +2663,67 @@ spawn(function()
                 elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","1") == 2 then
                     if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 1") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 2") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") then
                          game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Alchemist","3")
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Weapon:Toggle("Lấy Rengoku",false,function(value)
+    AutoRengoku = value
+    StopTween(value)
+end)
+
+spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
+		pcall(function()
+	    	for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+				if AutoRengoku and RengokuMagnet and v.Name == RengokuName and (v.HumanoidRootPart.Position - RengokuPos.Position).magnitude <= 500 then
+					v.HumanoidRootPart.CFrame = RengokuPos
+					if v.Humanoid:FindFirstChild("Animator") then
+						v.Humanoid.Animator:Destroy()
+					end
+					sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius",  math.huge)
+				end
+			end
+	    end)
+    end)
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoRengoku then
+                if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") then
+                    EquipWeapon("Hidden Key")
+                    TPD(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                    TP(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hidden Key") then
+                    TPD(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                    TP(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hidden Key") then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Snow Lurker") or game:GetService("Workspace").Enemies:FindFirstChild("Arctic Warrior") then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == "Snow Lurker" or v.Name == "Arctic Warrior" then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoRengoku then
+                                    repeat task.wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                        RengokuName = v.Name
+                                        RengokuPos = v.HumanoidRootPart.CFrame
+                                        RengokuMagnet = true
+                                        FastAttack = true
+                                    until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") or not AutoRengoku or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
+                                    RengokuMagnet = false
+                                    FastAttack = false
+                                end
+                            end
+                        end
+                    else
+                        TPD(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
+                        TP(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
                     end
                 end
             end
@@ -2968,81 +3071,107 @@ Tele:Toggle("Đi Tới Đảo",false,function(value)
     TeleTween = value
     repeat wait()
          if SelectIsland == "Đảo Cối Xay" then
+            TPD(CFrame.new(979.79895019531, 16.516613006592, 1429.0466308594))
             TP(CFrame.new(979.79895019531, 16.516613006592, 1429.0466308594))
         elseif SelectIsland == "Đảo Hải Quân" then
+            TPD(CFrame.new(-2566.4296875, 6.8556680679321, 2045.2561035156))
             TP(CFrame.new(-2566.4296875, 6.8556680679321, 2045.2561035156))
         elseif SelectIsland == "Thị Trấn Trung Tâm" then
+            TPD(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
             TP(CFrame.new(-690.33081054688, 15.09425163269, 1582.2380371094))
         elseif SelectIsland == "Đảo Khỉ" then
+            TPD(CFrame.new(-1612.7957763672, 36.852081298828, 149.12843322754))
             TP(CFrame.new(-1612.7957763672, 36.852081298828, 149.12843322754))
         elseif SelectIsland == "Đảo Hải Tặc" then
+            TPD(CFrame.new(-1181.3093261719, 4.7514905929565, 3803.5456542969))
             TP(CFrame.new(-1181.3093261719, 4.7514905929565, 3803.5456542969))
         elseif SelectIsland == "Sa Mạc" then
+            TPD(CFrame.new(944.15789794922, 20.919729232788, 4373.3002929688))
             TP(CFrame.new(944.15789794922, 20.919729232788, 4373.3002929688))
         elseif SelectIsland == "Đảo Tuyết" then
+            TPD(CFrame.new(1347.8067626953, 104.66806030273, -1319.7370605469))
             TP(CFrame.new(1347.8067626953, 104.66806030273, -1319.7370605469))
         elseif SelectIsland == "Tổng Bộ" then
+            TPD(CFrame.new(-4914.8212890625, 50.963626861572, 4281.0278320313))
             TP(CFrame.new(-4914.8212890625, 50.963626861572, 4281.0278320313))
         elseif SelectIsland == "Đấu Trường La Mã" then
+            TPD( CFrame.new(-1427.6203613281, 7.2881078720093, -2792.7722167969))
             TP( CFrame.new(-1427.6203613281, 7.2881078720093, -2792.7722167969))
-        elseif SelectIsland == "Đảo Trên Không 1" then
+        elseif SelectIsland == "Đảo Trên Trời 1" then
+            TPD(CFrame.new(-4869.1025390625, 733.46051025391, -2667.0180664063))
             TP(CFrame.new(-4869.1025390625, 733.46051025391, -2667.0180664063))
-        elseif SelectIsland == "Đảo Trên Không 2" then  
+        elseif SelectIsland == "Đảo Trên Trời 2" then  
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-4607.82275, 872.54248, -1667.55688))
-        elseif SelectIsland == "Đảo Trên Không 3" then
+        elseif SelectIsland == "Đảo Trên Trời 3" then
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-7894.6176757813, 5547.1416015625, -380.29119873047))
         elseif SelectIsland == "Nhà Tù" then
+            TPD( CFrame.new(4875.330078125, 5.6519818305969, 734.85021972656))
             TP( CFrame.new(4875.330078125, 5.6519818305969, 734.85021972656))
         elseif SelectIsland == "Đảo Dung Nham" then
+            TPD(CFrame.new(-5247.7163085938, 12.883934020996, 8504.96875))
             TP(CFrame.new(-5247.7163085938, 12.883934020996, 8504.96875))
         elseif SelectIsland == "Đảo Dưới Nước" then
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(61163.8515625, 11.6796875, 1819.7841796875))
         elseif SelectIsland == "Thành Phố Công Nghiệp" then
+            TPD(CFrame.new(5127.1284179688, 59.501365661621, 4105.4458007813))
             TP(CFrame.new(5127.1284179688, 59.501365661621, 4105.4458007813))
         elseif SelectIsland == "Phòng Của Shank" then
+            TPD(CFrame.new(-1442.16553, 29.8788261, -28.3547478))
             TP(CFrame.new(-1442.16553, 29.8788261, -28.3547478))
         elseif SelectIsland == "Đảo Của Mob" then
+            TPD(CFrame.new(-2850.20068, 7.39224768, 5354.99268))
             TP(CFrame.new(-2850.20068, 7.39224768, 5354.99268))
         elseif SelectIsland == "Quán Cafe" then
+            TPD(CFrame.new(-380.47927856445, 77.220390319824, 255.82550048828))
             TP(CFrame.new(-380.47927856445, 77.220390319824, 255.82550048828))
-        elseif SelectIsland == "Cảng 1" then
+        elseif SelectIsland == "Cảng" then
+            TPD(CFrame.new(-11.311455726624, 29.276733398438, 2771.5224609375))
             TP(CFrame.new(-11.311455726624, 29.276733398438, 2771.5224609375))
         elseif SelectIsland == "Đảo Râu Đen" then
+            TPD(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
             TP(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375))
         elseif SelectIsland == "Dinh Thự Của Flamingo" then
+            TPD(CFrame.new(-483.73370361328, 332.0383605957, 595.32708740234))
             TP(CFrame.new(-483.73370361328, 332.0383605957, 595.32708740234))
         elseif SelectIsland == "Phòng Của Flamingo" then
+            TPD(CFrame.new(2284.4140625, 15.152037620544, 875.72534179688))
             TP(CFrame.new(2284.4140625, 15.152037620544, 875.72534179688))
         elseif SelectIsland == "Vườn Thực Vật" then
+            TPD( CFrame.new(-2448.5300292969, 73.016105651855, -3210.6306152344))
             TP( CFrame.new(-2448.5300292969, 73.016105651855, -3210.6306152344))
         elseif SelectIsland == "Nhà Máy" then
+            TPD(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
             TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
         elseif SelectIsland == "Đấu Trường" then
+            TPD( CFrame.new(-1503.6224365234, 219.7956237793, 1369.3101806641))
             TP( CFrame.new(-1503.6224365234, 219.7956237793, 1369.3101806641))
         elseif SelectIsland == "Đảo Thây Ma" then
+            TPD(CFrame.new(-5622.033203125, 492.19604492188, -781.78552246094))
             TP(CFrame.new(-5622.033203125, 492.19604492188, -781.78552246094))
         elseif SelectIsland == "Núi Đôi" then
+            TPD(CFrame.new(753.14288330078, 408.23559570313, -5274.6147460938))
             TP(CFrame.new(753.14288330078, 408.23559570313, -5274.6147460938))
         elseif SelectIsland == "Đảo Hỏa - Băng" then
+            TPD(CFrame.new(-6127.654296875, 15.951762199402, -5040.2861328125))
             TP(CFrame.new(-6127.654296875, 15.951762199402, -5040.2861328125))
         elseif SelectIsland == "Thuyền Ma" then
-            TP(CFrame.new(923.40197753906, 125.05712890625, 32885.875))
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
         elseif SelectIsland == "Lâu Đài Băng" then
+            TPD(CFrame.new(6148.4116210938, 294.38687133789, -6741.1166992188))
             TP(CFrame.new(6148.4116210938, 294.38687133789, -6741.1166992188))
         elseif SelectIsland == "Đảo Lãng Quên" then
+            TPD(CFrame.new(-3032.7641601563, 317.89672851563, -10075.373046875))
             TP(CFrame.new(-3032.7641601563, 317.89672851563, -10075.373046875))
         elseif SelectIsland == "Đảo Ussop" then
+            TPD(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
             TP(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
-        elseif SelectIsland == "Đảo Trên Không Mini" then
-            TP(CFrame.new(-288.74060058594, 49326.31640625, -35248.59375))
         elseif SelectIsland == "Đảo Kẹo [Sea 2]" then
+            TPD(CFrame.new(-5275.51171875, 14.802701950073242, 1532.5760498046875))
             TP(CFrame.new(-5275.51171875, 14.802701950073242, 1532.5760498046875))
         elseif SelectIsland == "Cây Đại Thụ" then
             TP(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
         elseif SelectIsland == "Pháo Đài Trên Biển" then
             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-5078.60546875, 314.5412902832031, -3151.4267578125))
-        elseif SelectIsland == "MiniSky" then
-            TP(CFrame.new(-260.65557861328, 49325.8046875, -35253.5703125))
         elseif SelectIsland == "Cảng Thị Trấn" then
             TP(CFrame.new(-290.7376708984375, 6.729952812194824, 5343.5537109375))
         elseif SelectIsland == "Đảo Phụ Nữ" then
