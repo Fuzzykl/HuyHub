@@ -1183,13 +1183,13 @@ function CheckQuestLevel()
 					NameQuest = "ForgottenQuest"
 					LevelQuest = 1
 					NameMon = "Sea Soldier"
-					CFrameQuest = CFrame.new(-3028.2236328125, 64.67451477050781, -9775.4267578125)
+					CFrameQuest = CFrame.new(-3054.423583984375, 239.6720428466797, -10145.8671875)
 					CFrameMon = CFrame.new(-3185.0153808594, 58.789089202881, -9663.6064453125)
 				elseif Lv >= 1450 then 
 					NameQuest = "ForgottenQuest"
 					LevelQuest = 2
 					NameMon = "Water Fighter"
-					CFrameQuest = CFrame.new(-3352.9013671875, 285.01556396484375, -10534.841796875)
+					CFrameQuest = CFrame.new(-3054.423583984375, 239.6720428466797, -10145.8671875)
 					CFrameMon = CFrame.new(-3262.9301757813, 298.69036865234, -10552.529296875)
 				end
 			end
@@ -2697,11 +2697,11 @@ spawn(function()
             if AutoRengoku then
                 if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") then
                     EquipWeapon("Hidden Key")
-                    TPD(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
-                    TP(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                    TPD(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
+                    TP(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
                 elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hidden Key") then
-                    TPD(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
-                    TP(CFrame.new(5439.716796875, 84.420944213867, -6715.1635742188))
+                    TPD(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
+                    TP(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
                 elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hidden Key") then
                     if game:GetService("Workspace").Enemies:FindFirstChild("Snow Lurker") or game:GetService("Workspace").Enemies:FindFirstChild("Arctic Warrior") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
@@ -2722,8 +2722,8 @@ spawn(function()
                             end
                         end
                     else
-                        TPD(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
-                        TP(CFrame.new(6571.1201171875, 299.23028564453, -6967.841796875))
+                        TPD(CFrame.new(5787.12744140625, 104.92536163330078, -6592.59521484375))
+                        TP(CFrame.new(5787.12744140625, 104.92536163330078, -6592.59521484375))
                     end
                 end
             end
@@ -3402,6 +3402,22 @@ Shop:Button("Đổi Tộc [3.000F]",function()
 end)
 
 Shop:Seperator("Kẹo")
+
+Shop:Toggle("Tự Đổi X2 Exp",false,function(value)
+    AutoExp = value
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoExp then
+                if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Check") >= 50 then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,1)
+                end
+            end
+        end
+    end)
+end)
 
 Shop:Button("X2 Exp [50 Kẹo]",function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,1)
