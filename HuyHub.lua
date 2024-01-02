@@ -1949,7 +1949,7 @@ local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if BlackBeard or AutoBartilo or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
+		    if Sea3 or BlackBeard or AutoBartilo or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -1963,7 +1963,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		  	if AutoBartilo or BlackBeard or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
+		  	if Sea3 or AutoBartilo or BlackBeard or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2170,7 +2170,7 @@ if World1 then
                                         AutoHaki()
                                         TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                         FastAttack = true
-                                    until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
+                                    until BossIce:FindFirstChild("Humanoid").Health <= 0 or not BossIce.Parent or not Sea2
                                     FastAttack = false
                                 end
                             else
@@ -2180,6 +2180,47 @@ if World1 then
                         end
                     elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 2 then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
+                    end
+                end
+            end
+        end)
+    end)
+elseif World2 then
+    Main:Toggle("Qua Sea 3",false,function(value)
+        Sea3 = value
+        StopTween(value)
+    end)
+
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if Sea3 then
+                    if game:GetService("Players").LocalPlayer.Data.Level.Value >= 1500 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 3 then
+                        if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Check") == 0 then
+                            TP(CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016))
+                            if (CFrame.new(-1926.3221435547, 12.819851875305, 1738.3092041016).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 10 then
+                                wait(1.5)
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Begin")
+                            end
+                            wait(1.8)
+                            if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") or game:GetService("ReplicatedStorage"):FindFirstChild("rip_indra") then
+                                if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
+                                    local Rip = game:GetService("Workspace").Enemies:FindFirstChild("rip_indra")
+                                    if Rip:FindFirstChild("HumanoidRootPart") and Rip:FindFirstChild("Humanoid") and Rip:FindFirstChild("Humanoid").Health > 0 then
+                                        repeat task.wait()
+                                            AutoHaki()
+                                            EquipWeapon(Weapon)
+                                            TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                            FastAttack = true
+                                        until not Sea3 or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
+                                        FastAttack = false
+                                    end
+                                else
+                                    TP(CFrame.new(-26880.93359375, 22.848554611206, 473.18951416016))
+                                end
+                            end
+                        end
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
                     end
                 end
             end
