@@ -1941,7 +1941,7 @@ local Race = Library:Tab("Tộc V4","rbxassetid://11446900930")
 local Stat = Library:Tab("Chỉ Số","rbxassetid://11447069304")
 local P = Library:Tab("Người Chơi","rbxassetid://11446900930")
 local Tele = Library:Tab("Dịch Chuyển","rbxassetid://11446920523")
-local Dungeon = Library:Tab("Raid","rbxassetid://11446957539")
+local Raid = Library:Tab("Raid","rbxassetid://11446957539")
 local DevilFruit = Library:Tab("Trái Blox-Esp","rbxassetid://11446965348")
 local Shop = Library:Tab("Mua Sắm","rbxassetid://6031265976")
 local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
@@ -1949,7 +1949,7 @@ local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
+		    if NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -1963,7 +1963,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		  	if AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
+		  	if NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2094,79 +2094,7 @@ spawn(function()
     end
 end)
 
-if World1 then
-    Main:Seperator("Sea 2")
-    
-    Main:Toggle("Qua Sea 2",false,function(value)
-        Sea2 = value
-        StopTween(value)
-    end)
-    
-    spawn(function()
-        pcall(function()
-            while wait() do
-                if Sea2 then
-                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 1 then
-                        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 0 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
-                            repeat wait()
-                                EquipWeapon("Key")
-                                TPD(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
-                                TP(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
-                                Look(game:GetService("Workspace").Map.Ice.Door)
-                            until not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Workspace").Map.Ice.Door.Transparency == 1 or not Sea2
-                        elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 1 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
-                            if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
-                                local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
-                                if BossIce:FindFirstChild("HumanoidRootPart") and BossIce:FindFirstChild("Humanoid") and BossIce:FindFirstChild("Humanoid").Health > 0 then
-                                    repeat wait()
-                                        EquipWeapon(Weapon)
-                                        AutoHaki()
-                                        TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
-                                        FastAttack = true
-                                    until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
-                                    FastAttack = false
-                                end
-                            else
-                                TPD(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
-                                TP(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
-                            end
-                        end
-                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 2 then
-                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
-                    end
-                end
-            end
-        end)
-    end)
-end
-
-Main:Seperator("Kẹo")
-
-local CandyEvent = Main:Label("Sự Kiện Tiếp Theo Sau : 00:00:00")
-
-spawn(function()
-    pcall(function()
-        while wait() do
-            if game:GetService("Workspace").Countdown:GetChildren()[1].TextLabel.Text == "STARTING!" then
-                CandyEvent:Set("Sự Kiện Đang Diễn Ra")
-            else
-                CandyEvent:Set("Sự Kiện Tiếp Theo Sau "..game:GetService("Workspace").Countdown:GetChildren()[1].TextLabel.Text)
-            end
-        end
-    end)
-end)
-
-local CandyCheck = Main:Label("Kẹo Hiện Có : 0")
-
-spawn(function()
-    pcall(function()
-        while wait(.5) do
-            CandyCheck:Set("Kẹo Hiện Có : "..game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Check"))
-        end
-    end)
-end)
-
-Main:Toggle("Farm Gần [Kẹo]",false,function(value)
+Main:Toggle("Farm Gần",false,function(value)
     NearFarm = value
     StopTween(value)
 end)
@@ -2212,6 +2140,52 @@ spawn(function()
         end
     end)
 end)
+
+if World1 then
+    Main:Seperator("Sea 2")
+    
+    Main:Toggle("Qua Sea 2",false,function(value)
+        Sea2 = value
+        StopTween(value)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if Sea2 then
+                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 1 then
+                        if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 0 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                            repeat wait()
+                                EquipWeapon("Key")
+                                TPD(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
+                                TP(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875))
+                                Look(game:GetService("Workspace").Map.Ice.Door)
+                            until not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Workspace").Map.Ice.Door.Transparency == 1 or not Sea2
+                        elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") and game:GetService("Workspace").Map.Ice.Door.Transparency == 1 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
+                                local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
+                                if BossIce:FindFirstChild("HumanoidRootPart") and BossIce:FindFirstChild("Humanoid") and BossIce:FindFirstChild("Humanoid").Health > 0 then
+                                    repeat wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                        FastAttack = true
+                                    until BossIce:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not Sea2
+                                    FastAttack = false
+                                end
+                            else
+                                TPD(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
+                                TP(CFrame.new(1305.9105224609375, 29.890796661376953, -1373.1566162109375))
+                            end
+                        end
+                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 2 then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
+                    end
+                end
+            end
+        end)
+    end)
+end
 
 if World3 then
 Main:Seperator("Đảo Bí Ẩn")
@@ -3009,9 +2983,9 @@ if World1 then
         "Đảo Tuyết",
         "Tổng Bộ",
         "Đấu Trường La Mã",
-        "Đảo Trên Không 1",
-        "Đảo Trên Không 2",
-        "Đảo Trên Không 3",
+        "Đảo Trên Trời 1",
+        "Đảo Trên Trời 2",
+        "Đảo Trên Trời 3",
         "Nhà Tù",
         "Đảo Dung Nham",
         "Đảo Dưới Nước",
@@ -3026,7 +3000,7 @@ end
 if World2 then
     Tele:Dropdown("Chọn Đảo",{
         "Quán Cafe",
-        "Cảng 1",
+        "Cảng",
         "Đảo Râu Đen",
         "Dinh Thự Của Flamingo",
         "Phòng Của Flamingo",
@@ -3039,9 +3013,7 @@ if World2 then
         "Thuyền Ma",
         "Lâu Đài Băng",
         "Đảo Lãng Quên",
-        "Đảo Ussop",
-        "Đảo Trên Không Mini",
-        "Đảo Kẹo [Sea 2]"
+        "Đảo Ussop"
     },function(value)
         SelectIsland = value
     end)
@@ -3053,7 +3025,6 @@ if World3 then
         "Cảng Thị Trấn",
         "Cây Đại Thụ",
         "Pháo Đài Trên Biển",
-        "MiniSky", 
         "Đảo Phụ Nữ",
         "Đảo Rùa",
         "Lâu Đài Bóng Tối",
@@ -3165,9 +3136,6 @@ Tele:Toggle("Đi Tới Đảo",false,function(value)
         elseif SelectIsland == "Đảo Ussop" then
             TPD(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
             TP(CFrame.new(4816.8618164063, 8.4599885940552, 2863.8195800781))
-        elseif SelectIsland == "Đảo Kẹo [Sea 2]" then
-            TPD(CFrame.new(-5275.51171875, 14.802701950073242, 1532.5760498046875))
-            TP(CFrame.new(-5275.51171875, 14.802701950073242, 1532.5760498046875))
         elseif SelectIsland == "Cây Đại Thụ" then
             TP(CFrame.new(2681.2736816406, 1682.8092041016, -7190.9853515625))
         elseif SelectIsland == "Pháo Đài Trên Biển" then
@@ -3399,55 +3367,6 @@ end)
 Shop:Button("Đổi Tộc [3.000F]",function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","1")
 	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","2")
-end)
-
-Shop:Seperator("Kẹo")
-
-Shop:Toggle("Tự Đổi X2 Exp",false,function(value)
-    AutoExp = value
-end)
-
-spawn(function()
-    pcall(function()
-        while wait() do
-            if AutoExp then
-                if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Check") >= 50 then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,1)
-                end
-            end
-        end
-    end)
-end)
-
-Shop:Button("X2 Exp [50 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,1)
-end)
-
-Shop:Button("Đặt Lại Điểm [75 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,2)
-end)
-
-Shop:Button("Đổi Tộc [100 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",1,3)
-end)
-Shop:Button("200F [50 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",2,1)
-end)
-
-Shop:Button("500F [100 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",2,2)
-end)
-
-Shop:Button("Đổi Mũ Yêu Tinh [250 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",3,1)
-end)
-
-Shop:Button("Đổi Mũ Santa [500 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",3,2)
-end)
-
-Shop:Button("Đổi Xe Trượt Tuyết [1000 Kẹo]",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Candies","Buy",3,3)
 end)
 
 --Misc--
@@ -3688,4 +3607,163 @@ spawn(function()
         end)
     end
 end)
+end
+
+if not World1 then
+Raid:Seperator("Raid")
+
+local RaidSelect = {}
+
+RaidsModule = require(game:GetService("ReplicatedStorage").Raids)
+for i,v in pairs(RaidsModule.raids) do
+	table.insert(RaidSelect,v)
+end
+for i,v in pairs(RaidsModule.advancedRaids) do
+	table.insert(RaidSelect,v)
+end
+
+Raid:Dropdown("Chọn Chip",RaidSelect,function(value)
+    RaidSelected = value
+end)
+
+local TimeRaid = Raid:Label("Đang Chờ Raid")
+    
+spawn(function()
+    pcall(function()
+        while wait() do
+            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
+                TimeRaid:Set(game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Text)
+            else
+                TimeRaid:Set("Đang Chờ Raid")
+            end
+        end
+    end)
+end)
+
+Raid:Button("Mua Chip Đã Chọn",function()
+    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == false then
+        if RaidSelected then
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", RaidSelected)
+        else
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", "Flame")
+        end
+    end
+end)
+
+Raid:Button("Bắt Đầu Raid",function()
+    if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == false then
+        if World2 then
+            fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
+        elseif World3 then
+            fireclickdetector(game:GetService("Workspace").Map["Boat Castle"].RaidSummon2.Button.Main.ClickDetector)
+        end
+    end
+end)
+
+Raid:Toggle("Tự Mua Chip",false,function(value)
+    AutoBuyChip = value
+end)
+
+spawn(function()
+    pcall(function()
+        while wait(.5) do
+            if AutoBuyChip then
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == false then
+                    if RaidSelected then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", RaidSelected)
+                    else
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaidsNpc", "Select", "Flame")
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Raid:Toggle("Tự Bắt Đầu Raid",false,function(value)
+    AutoStartRaid = value
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoStartRaid then
+                if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Special Microchip") then
+                    if World2 then
+                        fireclickdetector(game:GetService("Workspace").Map.CircleIsland.RaidSummon2.Button.Main.ClickDetector)
+                    elseif World3 then
+                        fireclickdetector(game:GetService("Workspace").Map["Boat Castle"].RaidSummon2.Button.Main.ClickDetector)
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Raid:Toggle("Tự Qua Đảo",false,function(value)
+    NextIslandRaid = value
+    StopTween(value)
+end)
+    
+spawn(function()
+    pcall(function()
+        while wait() do
+            if NextIslandRaid then
+                if game:GetService("Players")["LocalPlayer"].PlayerGui.Main.Timer.Visible == true then
+                    if game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5") then
+                        TP(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 5").CFrame * CFrame.new(0,40,0))
+                    elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4") then
+                        TP(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 4").CFrame * CFrame.new(0,40,0))
+                    elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3") then
+                        TP(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 3").CFrame * CFrame.new(0,40,0))
+                    elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2") then
+                        TP(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 2").CFrame * CFrame.new(0,40,0))
+                    elseif game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1") then
+                        TP(game:GetService("Workspace")["_WorldOrigin"].Locations:FindFirstChild("Island 1").CFrame * CFrame.new(0,40,0))
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Raid:Toggle("Kill Aura",false,function(value)
+    KillAura = value
+end)
+
+spawn(function()
+    pcall(function() 
+        while wait() do
+            if KillAura then
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
+                    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                        if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 then
+                            repeat wait()
+                                sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
+                                v.Humanoid.Health = 0
+                                v.HumanoidRootPart.CanCollide = false
+                            until not KillAura or not v.Parent or v:FindFirstChild("Humanoid").Health <= 0
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end)
+
+Raid:Toggle("Tự Thức Tỉnh",false,function(value)
+    AutoAwakener = value
+end)
+    
+    spawn(function()
+        pcall(function()
+            while wait(.1) do
+                if AutoAwakener then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Awakener","Check")
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Awakener","Awaken")
+                end
+            end
+        end)
+    end)
+    
 end
