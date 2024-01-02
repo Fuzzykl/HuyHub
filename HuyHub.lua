@@ -2210,7 +2210,7 @@ elseif World2 then
                                         repeat task.wait()
                                             AutoHaki()
                                             EquipWeapon(Weapon)
-                                            TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                            TP(Rip.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                             FastAttack = true
                                         until not Sea3 or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
                                         FastAttack = false
@@ -2872,7 +2872,7 @@ end)
                         end
                     elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == true then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","2")
-                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == true then
+                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == 1 then
                         if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("LoadFruit","Quake-Quake") == true then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","3")
                         end
