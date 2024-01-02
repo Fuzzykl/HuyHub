@@ -2863,7 +2863,7 @@ end)
                                         AutoHaki()
                                         TP(DonSwan.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                         FastAttack = true
-                                    until
+                                    until DonSwan:FindFirstChild("Humanoid").Health <= 0 or not AutoDonSwan or not DonSwan.Parent
                                     FastAttack = false
                                 end
                             else
