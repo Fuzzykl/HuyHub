@@ -1949,7 +1949,7 @@ local Misc = Library:Tab("Linh Tinh","rbxassetid://11447063791")
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
+		    if BlackBeard or AutoBartilo or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 or NoClip then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -1963,7 +1963,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		  	if NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
+		  	if AutoBartilo or BlackBeard or NextIslandRaid or AutoRengoku or FarmFactory or Sea2 or PirateRaid or FarmBone or NearFarm or Mirage or FarmKata or FarmLevel or TeleTween or BringFruit or UpRaceV2 then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2704,6 +2704,104 @@ spawn(function()
         end
     end)
 end)
+
+    Weapon:Toggle("Làm Nhiệm Vụ Bartilo",false,function(value)
+        AutoBartilo = value
+        StopTween(value)
+    end)
+
+spawn(function()
+    game:GetService("RunService").Heartbeat:Connect(function()
+		pcall(function()
+	    	for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+				if AutoBartilo and BartiloMagnet and v.Name == "Swan Pirate" and (v.HumanoidRootPart.Position - BartiloPos.Position).magnitude <= 500 then
+					v.HumanoidRootPart.CFrame = BartiloPos
+					if v.Humanoid:FindFirstChild("Animator") then
+						v.Humanoid.Animator:Destroy()
+					end
+					sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius",  math.huge)
+				end
+			end
+	    end)
+    end)
+end)
+
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoBartilo then
+                    if game:GetService("Players").LocalPlayer.Data.Level.Value >= 800 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 0 then
+                        if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "Swan Pirates") and string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "50") and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then 
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Swan Pirate") then
+                                for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                                    if v.Name == "Swan Pirate" then
+                                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoBartilo then
+                                            repeat task.wait()
+                                                EquipWeapon(Weapon)
+                                                AutoHaki()
+                                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                                FastAttack = true										
+                                                BartiloPos = v.HumanoidRootPart.CFrame
+                                                BartiloMagnet = true
+                                            until not v.Parent or v:FindFirstChild("Humanoid").Health <= 0 or not AutoBartilo or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
+                                            BartiloMagnet = false
+                                            FastAttack = false
+                                        end
+                                    end
+                                end
+                            else
+                                TPD(CFrame.new(932.624451, 156.106079, 1180.27466))
+                                TP(CFrame.new(932.624451, 156.106079, 1180.27466))
+                            end
+                        else
+                            TP(CFrame.new(-456.28952, 73.0200958, 299.895966))
+                            wait(1)
+                            if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-456.28952, 73.0200958, 299.895966)).Magnitude <= 10 and AutoBartilo then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest","BartiloQuest",1)
+                            end
+                        end 
+                    elseif game:GetService("Players").LocalPlayer.Data.Level.Value >= 800 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 1 then
+                        if game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") or game:GetService("ReplicatedStorage"):FindFirstChild("Jeremy") then
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") then
+                                local Jeremy = game:GetService("Workspace").Enemies:FindFirstChild("Jeremy")
+                                repeat task.wait()
+                                    EquipWeapon(Weapon)
+                                    AutoHaki()
+                                    TP(Jeremy.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                    FastAttack = true
+                                until not Jeremy.Parent or Jeremy:FindFirstChild("Humanoid").Health <= 0 or not AutoBartilo
+                                FastAttack = false
+                            else
+                                TP(CFrame.new(2099.88159, 448.931, 648.997375))
+                            end
+                        else
+                            TP(CFrame.new(-456.28952, 73.0200958, 299.895966))
+                            wait(1)
+                            if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-456.28952, 73.0200958, 299.895966)).Magnitude <= 10 and AutoBartilo then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo")
+                            end
+                        end
+                    elseif game:GetService("Players").LocalPlayer.Data.Level.Value >= 800 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 and game:GetService("Workspace").Map.Dressrosa.CellDoor:GetChildren()[1].CanCollide == true then
+                        repeat TP(CFrame.new(-1850.49329, 13.1789551, 1750.89685)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1850.49329, 13.1789551, 1750.89685)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1858.87305, 19.3777466, 1712.01807)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1858.87305, 19.3777466, 1712.01807)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1803.94324, 16.5789185, 1750.89685)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1803.94324, 16.5789185, 1750.89685)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1858.55835, 16.8604317, 1724.79541)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1858.55835, 16.8604317, 1724.79541)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1869.54224, 15.987854, 1681.00659)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1869.54224, 15.987854, 1681.00659)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1800.0979, 16.4978027, 1684.52368)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1800.0979, 16.4978027, 1684.52368)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1819.26343, 14.795166, 1717.90625)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1819.26343, 14.795166, 1717.90625)).Magnitude <= 10
+                        wait(1)
+                        repeat TP(CFrame.new(-1813.51843, 14.8604736, 1724.79541)) wait() until not AutoBartilo or (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position-Vector3.new(-1813.51843, 14.8604736, 1724.79541)).Magnitude <= 10
+                    end
+                end 
+            end
+        end)
+    end)
 end
 --Fruit--
 function CheckFruit(FruitName)
@@ -3741,7 +3839,6 @@ spawn(function()
                             repeat wait()
                                 sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
                                 v.Humanoid.Health = 0
-                                v.HumanoidRootPart.CanCollide = false
                             until not KillAura or not v.Parent or v:FindFirstChild("Humanoid").Health <= 0
                         end
                     end
