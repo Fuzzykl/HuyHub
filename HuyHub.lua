@@ -2203,20 +2203,17 @@ elseif World2 then
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ZQuestProgress","Begin")
                             end
                             wait(1.8)
-                            if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") or game:GetService("ReplicatedStorage"):FindFirstChild("rip_indra") then
-                                if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
-                                    local Rip = game:GetService("Workspace").Enemies:FindFirstChild("rip_indra")
-                                    if Rip:FindFirstChild("HumanoidRootPart") and Rip:FindFirstChild("Humanoid") and Rip:FindFirstChild("Humanoid").Health > 0 then
-                                        repeat task.wait()
-                                            AutoHaki()
-                                            EquipWeapon(Weapon)
-                                            TP(Rip.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
-                                            FastAttack = true
-                                        until not Sea3 or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
-                                        FastAttack = false
-                                    end
-                                else
-                                    TP(CFrame.new(-26880.93359375, 22.848554611206, 473.18951416016))
+                            if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
+                                local Rip = game:GetService("Workspace").Enemies:FindFirstChild("rip_indra")
+                                if Rip:FindFirstChild("HumanoidRootPart") and Rip:FindFirstChild("Humanoid") and Rip:FindFirstChild("Humanoid").Health > 0 then
+                                    repeat task.wait()
+                                        AutoHaki()
+                                        EquipWeapon(Weapon)
+                                        TP(Rip.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
+                                        FastAttack = true
+                                    until not Sea3 or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
+                                    FastAttack = false
                                 end
                             end
                         end
