@@ -2853,7 +2853,7 @@ end)
         pcall(function()
             while wait() do
                 if AutoDonSwan then
-                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Travor","1") == 0 then
+                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == 0 then
                         if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan") then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") then
                                 local DonSwan = game:GetService("Workspace").Enemies:FindFirstChild("Don Swan")
@@ -2872,7 +2872,7 @@ end)
                         end
                     else
                         if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("LoadFruit","Quake-Quake") == true then
-                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Travor","3")
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","3")
                         end
                     end
                 end
