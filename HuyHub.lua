@@ -2857,7 +2857,7 @@ end)
                         if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan") then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") then
                                 local DonSwan = game:GetService("Workspace").Enemies:FindFirstChild("Don Swan")
-                                if DonSwan:FindFirstChid("HumanoidRootPart") and DonSwan:FindFirstChid("Humanoid") and DonSwan:FindFirstChid("Humanoid").Health > 0 then
+                                if DonSwan:FindFirstChild("HumanoidRootPart") and DonSwan:FindFirstChild("Humanoid") and DonSwan:FindFirstChild("Humanoid").Health > 0 then
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
