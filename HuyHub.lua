@@ -2586,8 +2586,8 @@ if World2 then
                                repeat task.wait()
                                    EquipWeapon(Weapon)
                                    AutoHaki()
-                                   TPD(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
-                                   TP(v.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                   TPD(DarkBeard.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
+                                   TP(DarkBeard.HumanoidRootPart.CFrame * CFrame.new(0,28,0))
                                    FastAttack = true
                                until DarkBeard:FindFirstChild("Humanoid").Health <= 0 or not BlackBeard or not DarkBeard.Parent
                                FastAttack = false
@@ -2870,7 +2870,9 @@ end)
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(2284.912109375, 15.537666320801, 905.48291015625))
                             end
                         end
-                    else
+                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == true then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","2")
+                    elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == true then
                         if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("LoadFruit","Quake-Quake") == true then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","3")
                         end
