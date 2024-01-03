@@ -1289,13 +1289,13 @@ function CheckQuestLevel()
 					CFrameQuest = CFrame.new(-9515.39551, 172.266037, 6078.89746)
 					CFrameMon = CFrame.new(-9554.11035, 65.6141663, 6041.73584)
 				elseif Lv >= 2075 and Lv <= 2099 then 
-					NameQuest = "PeanutQuest1"
+					NameQuest = "NutsIslandQuest"
 					LevelQuest = 1
 					NameMon = "Peanut Scout"
 					CFrameQuest = CFrame.new(-2104.453125, 38.129974365234, -10194.0078125)
 					CFrameMon = CFrame.new(-2068.0949707031, 76.512603759766, -10117.150390625)
 				elseif Lv >= 2100 and Lv <= 2124 then 
-					NameQuest = "PeanutQuest2"
+					NameQuest = "NutsIslandQuest"
 					LevelQuest = 2
 					NameMon = "Peanut President"
 					CFrameQuest = CFrame.new(-2104.453125, 38.129974365234, -10194.0078125)
