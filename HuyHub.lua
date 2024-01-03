@@ -1301,7 +1301,7 @@ function CheckQuestLevel()
 					CFrameQuest = CFrame.new(-2104.453125, 38.129974365234, -10194.0078125)
 					CFrameMon = CFrame.new(-2067.33203125, 90.557350158691, -10552.051757812)
 				elseif Lv >= 2125 and Lv <= 2149 then 
-					NameQuest = "IceCreamQuest1"
+					NameQuest = "IceCreamIslandQuest"
 					LevelQuest = 1
 					NameMon = "Ice Cream Chef"
 					CFrameQuest = CFrame.new(-821.35913085938, 65.845329284668, -10965.2578125)
@@ -3366,7 +3366,7 @@ spawn(function()
     end)
 end)
 
-Setting:Toggle("Không Hiện Damage",false,function(value)
+Setting:Toggle("Không Hiện Damage",true,function(value)
     if value then
         game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
     else
