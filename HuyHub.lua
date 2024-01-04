@@ -2199,7 +2199,7 @@ spawn(function()
         if FarmLevel then
             pcall(function()
                 CheckQuestLevel()
-                if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) then
+                if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) and NameMon ~= "Sun-kissed Warrior" then
                     LevelMagnet = false
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                 end
