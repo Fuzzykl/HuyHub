@@ -2130,7 +2130,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScales or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if AutoFarmElite or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScales or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2144,7 +2144,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScales or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if AutoFarmElite or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScales or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2962,12 +2962,6 @@ if World3 then
         StopTween(AutoElectricClaw)
     end)
     
-    
-    Weapon:Toggle("Auto Dragon Talon",AutoDragonTalon,function(value)
-        AutoDragonTalon = value
-        StopTween(AutoDragonTalon)
-    end)
-    
     spawn(function()
         pcall(function()
             while wait() do
@@ -3021,12 +3015,17 @@ if World3 then
             end
         end)
     end)
-        
+    
+    Weapon:Toggle("Auto Dragon Talon",AutoDragonTalon,function(value)
+        AutoDragonTalon = value
+        StopTween(AutoDragonTalon)
+    end)
+    
     spawn(function()
         pcall(function()
             while wait() do
                 if AutoDragonTalon then
-                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon") == 0 then
+                    if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon") == "Set your heart ablaze." then
                         if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Claw") then
                             local MasMelee = game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Dragon Claw") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Dragon Claw")
                             if MasMelee.Level.Value >= 400 then
@@ -3047,7 +3046,7 @@ if World3 then
                                                         TargetPos = v.HumanoidRootPart.CFrame
                                                         Magnet = true
                                                         FastAttack = true
-                                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon
+                                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fire Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fire Essence")
                                                     Magnet = false
                                                     FastAttack = false
                                                     wait(1)
@@ -3067,7 +3066,9 @@ if World3 then
                                                     EquipWeapon(Weapon)
                                                     AutoHaki()
                                                     v.HumanoidRootPart.CFrame = CFrame.new(v.HumanoidRootPart.Position)
-                                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
+                                                    if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fire Essence") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fire Essence") then
+                                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
+                                                    end
                                                     TP(v.HumanoidRootPart.CFrame * SetUp)
                                                     TargetName = v.Name
                                                     TargetPos = v.HumanoidRootPart.CFrame
@@ -3087,6 +3088,60 @@ if World3 then
                         else
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","DragonClaw","1")
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","DragonClaw","2")
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+    
+    Weapon:Seperator("Quest 📃")
+    
+    local EliteStatus = Weapon:Label("Elite Not Found ❌️")
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
+                    EliteStatus:Set("Elite Found ✅️")
+                else
+                    EliteStatus:Set("Elite Not Found ❌️")
+                end
+            end
+        end)
+    end)
+    
+    Weapon:Toggle("Auto Farm Elite",AutoFarmElite,function(value)
+        AutoFarmElite = value
+        StopTween(AutoFarmElite)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoFarmElite then
+                    if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
+                        if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
+                        end
+                        local EliteName = (game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban")).Name
+                        if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, EliteName) then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                        end
+                        if game:GetService("Workspace").Enemies:FindFirstChild(EliteName) then
+                            local EliteTarget = game:GetService("Workspace").Enemies:FindFirstChild(EliteName)
+                            if EliteTarget:FindFirstChild("HumanoidRootPart") and EliteTarget:FindFirstChild("Humanoid") and EliteTarget:FindFirstChild("Humanoid").Health > 0 then
+                                repeat wait()
+                                    EquipWeapon(Weapon)
+                                    AutoHaki()
+                                    EliteTarget.HumanoidRootPart.CFrame = CFrame.new(EliteTarget.HumanoidRootPart.Position)
+                                    TP(EliteTarget.HumanoidRootPart.CFrame)
+                                    FastAttack = true
+                                until not EliteTarget.Parent or not AutoFarmElite or EliteTarget:FindFirstChild("Humanoid").Health <= 0
+                                FastAttack = false
+                            end
+                        else
+                            TP(game:GetService("ReplicatedStorage"):FindFirstChild(EliteName):FindFirstChild("HumanoidRootPart").CFrame)
                         end
                     end
                 end
@@ -4128,7 +4183,6 @@ Shop:Button("Buy True Triple Katana",function()
 end)
 end
 
---Misc--
 Misc:Seperator("Server ⚠️")
 
 Misc:Button("Rejoin Server",function()
@@ -4157,6 +4211,50 @@ Misc:Label("Job ID : "..tostring(game.JobId))
 
 Misc:Button("Copy Code Server",function()
     setclipboard("game:GetService(\"ReplicatedStorage\").__ServerBrowser:InvokeServer(\"teleport\", \""..tostring(game.JobId).."\")")
+end)
+
+Misc:Seperator("Code 🎁")
+
+local CodeList = {
+    "NEWTROLL",
+    "fudd10",
+    "fudd10_V2",
+    "BigNews",
+    "Sub2Fer999",
+    "Enyu_is_Pro",
+    "JCWK",
+    "StarcodeHEO",
+    "MagicBUS",
+    "KittGaming",
+    "Sub2CaptainMaui",
+    "Sub2OfficialNoobie",
+    "TheGreatAce",
+    "Sub2NoobMaster123",
+    "Sub2Daigrock",
+    "Axiore",
+    "StrawHatMaine",
+    "TantaiGaming",
+    "Bluxxy",
+    "SUB2GAMERROBOT_EXP1",
+    "KITT_RESET",
+    "Sub2UncleKizaru",
+    "SUB2GAMERROBOT_RESET1"
+}
+
+Misc:Dropdown("Chọn Code",CodeList,function(value)
+    SelectCode = value
+end)
+
+Misc:Button("Redeem Code",function()
+    if SelectCode ~= nil then
+        game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(SelectCode)
+    end
+end)
+
+Misc:Button("Redeem All Code",function()
+    for i,v in pairs(CodeList) do
+        game:GetService("ReplicatedStorage").Remotes.Redeem:InvokeServer(v)
+    end
 end)
 
 Misc:Seperator("Open 🪧")
