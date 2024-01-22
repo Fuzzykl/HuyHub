@@ -3897,7 +3897,7 @@ Setting:Toggle("Auto Spawn Point",AutoSpawnPoint,function(value)
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
         wait(1)
     end
-end
+end)
 Setting:Toggle("Auto Turn Haki",AutoTurnHaki,function(value)
     AutoTurnHaki = value
     while AutoTurnHaki do
