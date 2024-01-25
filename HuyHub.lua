@@ -2129,7 +2129,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if FarmChest2 or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2143,7 +2143,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if FarmChest2 or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2498,30 +2498,21 @@ spawn(function()
                                     wait(1)
                                 end
                             end
-                            if game:GetService("Workspace").Enemies:FindFirstChild(v) then
-                                local Boss = game:GetService("Workspace").Enemies:FindFirstChild(v)
-                                if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
-                                    repeat task.wait()
-                                        EquipWeapon(Weapon)
-                                        AutoHaki()
-                                        Boss.HumanoidRootPart.CFrame = CFrame.new(Boss.HumanoidRootPart.Position)
-                                        if Boss.Energy.Value ~= 100 then
-                                            TP(Boss.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
-                                        else
+                            if BypassLongma and v == "Longma" then
+                            else
+                                if game:GetService("Workspace").Enemies:FindFirstChild(v) then
+                                    local Boss = game:GetService("Workspace").Enemies:FindFirstChild(v)
+                                    if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
+                                        repeat task.wait()
+                                            EquipWeapon(Weapon)
+                                            AutoHaki()
+                                            Boss.HumanoidRootPart.CFrame = CFrame.new(Boss.HumanoidRootPart.Position)
                                             TP(Boss.HumanoidRootPart.CFrame * SetUp)
-                                        end
-                                        FastAttack = true
-                                    until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
-                                    FastAttack = false
-                                end
-                            elseif not BypassBoss then
-                                CheckBossQuest(v)
-                                if SelectBoss == "Beautiful Pirate" and (Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
-                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
-				                end
-                                repeat wait() TP(CFrameBoss) until (CFrameBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoFarmAllBoss
-                            elseif BypassLongma then
-                                if v ~= "Longma" then
+                                            FastAttack = true
+                                        until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
+                                        FastAttack = false
+                                    end
+                                else
                                     CheckBossQuest(v)
                                     if SelectBoss == "Beautiful Pirate" and (Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
@@ -2540,6 +2531,7 @@ end)
 Main:Toggle("Boss Quest",true,function(value)
     BossQuest = value
 end)
+BypassLongma = false
 if World3 then
     Main:Toggle("Bypass Longma",BypassLongma,function(value)
         BypassLongma = value
@@ -2590,7 +2582,7 @@ spawn(function()
             if FarmChest2 then
                 for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                     if v.Name == "Chest1" or v.Name == "Chest2" or v.Name == "Chest3" then
-                        if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 500 and FarmChest2 then
+                        if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500 and FarmChest2 then
                             repeat wait()
                                 TP(v.CFrame * CFrame.new(0,2.5,2))
                                 if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
@@ -2600,20 +2592,8 @@ spawn(function()
                         end
                     end
                 end
-                ChestMax = true
-                for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                    if v.Name == "Chest1" or v.Name == "Chest2" or v.Name == "Chest3" then
-                        if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 20000 and FarmChest2 and ChestMax then
-                            repeat wait()
-                                TP(v.CFrame * CFrame.new(0,2.5,2))
-                                if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-                                    game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
-                                end
-                            until not v.Parent or not FarmChest2
-                            ChestMax = false
-                        end
-                    end
-                end
+                local Chest = game:GetService("Workspace"):FindFirstChild("Chest2")
+                repeat wait() TP(Chest.CFrame) until (Chest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not FarmChest2
             end
         end
     end)
