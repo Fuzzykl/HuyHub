@@ -2129,7 +2129,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if FarmChest2 or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2143,7 +2143,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if FarmChest2 or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2549,7 +2549,7 @@ spawn(function()
     pcall(function()
         while wait() do
             if FarmChest then
-                DisChest = {200,400,600,800,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,11000,12000,13000,14000,15000,16000,17000,18000,19000,20000}
+                DisChest = {500,1000,2000,4000,8000,11000,15000}
                 for i,v in pairs(DisChest) do
                     if FarmChest then
                         for i2,v2 in pairs(game:GetService("Workspace"):GetChildren()) do
@@ -2566,34 +2566,6 @@ spawn(function()
                         end
                     end
                 end
-            end
-        end
-    end)
-end)
-
-Main:Toggle("Auto Farm Chest 2",FarmChest2,function(value)
-    FarmChest2 = value
-    StopTween(FarmChest2)
-end)
-
-spawn(function()
-    pcall(function()
-        while wait() do
-            if FarmChest2 then
-                for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                    if v.Name == "Chest1" or v.Name == "Chest2" or v.Name == "Chest3" then
-                        if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 1500 and FarmChest2 then
-                            repeat wait()
-                                TP(v.CFrame * CFrame.new(0,2.5,2))
-                                if (v.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-                                    game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
-                                end
-                            until not v.Parent or not FarmChest2
-                        end
-                    end
-                end
-                local Chest = game:GetService("Workspace"):FindFirstChild("Chest2")
-                repeat wait() TP(Chest.CFrame) until (Chest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not FarmChest2
             end
         end
     end)
@@ -3219,6 +3191,45 @@ if World3 then
                             end
                         else
                             TP(game:GetService("ReplicatedStorage"):FindFirstChild(EliteName):FindFirstChild("HumanoidRootPart").CFrame * SetUp)
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+    
+    Weapon:Seperator("Dough King 🤴")
+    
+    Weapon:Toggle("Auto Dough King",AutoDoughKing,function(value)
+        AutoDoughKing = value
+        StopTween(AutoDoughKing)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoDoughKing then
+                    if game:GetService("ReplicatedStorage"):FindFirstChild("Dough King") or game:GetService("Workspace").Enemies:FindFirstChild("Dough King") then
+                        if (Vector3.new(-1995.837158203125, 4532.998046875, -14981.3525390625) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 2000 then
+                            repeat wait() TP(CFrame.new(-2153.50732421875, 70.00881958007812, -12405.11328125)) until (Vector3.new(-2153.50732421875, 70.00881958007812, -12405.11328125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoDoughKing
+                            wait(1)
+                        else
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Dough King") then
+                                local DoughKing = game:GetService("Workspace").Enemies:FindFirstChild("Dough King")
+                                if DoughKing:FindFirstChild("HumanoidRootPart") and DoughKing:FindFirstChild("Humanoid") and DoughKing:FindFirstChild("Humanoid").Health > 0 then
+                                    repeat task.wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        DoughKing.HumanoidRootPart.CFrame = CFrame.new(DoughKing.HumanoidRootPart.Position)
+                                        TP(DoughKing.HumanoidRootPart.CFrame * SetUp)
+                                        SuperAttack = true
+                                    until DoughKing:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0
+                                    SuperAttack = false
+                                    wait(5)
+                                end
+                            else
+                                repeat wait() TP(CFrame.new(-2153.50732421875, 70.00881958007812, -12405.11328125)) until (Vector3.new(-2153.50732421875, 70.00881958007812, -12405.11328125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoDoughKing
+                            end
                         end
                     end
                 end
