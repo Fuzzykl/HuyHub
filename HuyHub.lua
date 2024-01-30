@@ -2098,6 +2098,9 @@ local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScr
 	            elseif FastAttack then
 	                AttackFunction()
 	    	        if tick() - cooldownfastattack > 3.5 then wait(1) cooldownfastattack = tick() end
+	    	    elseif SlowAttack then
+	                AttackFunction()
+	    	        if tick() - cooldownfastattack > 1 then wait(2) cooldownfastattack = tick() end
 	    	    end
 	        end
     	end
@@ -2136,7 +2139,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2150,7 +2153,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2197,12 +2200,6 @@ spawn(function()
 					end
 			    elseif SelectWeapon == "Devil Fruit" then
 					if v.ToolTip == "Blox Fruit" then
-						if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
-						    Weapon = v.Name
-						end
-					end
-			    elseif SelectWeapon == "Gun" then
-					if v.ToolTip == "Gun" then
 						if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(tostring(v.Name)) then
 						    Weapon = v.Name
 						end
@@ -2331,7 +2328,7 @@ if World1 then
                                         AutoHaki()
                                         BossIce.HumanoidRootPart.CFrame = CFrame.new(BossIce.HumanoidRootPart.Position)
                                         if BossIce.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                            TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(BossIce.HumanoidRootPart.CFrame * SetUp)
                                         end
@@ -2377,7 +2374,7 @@ elseif World2 then
                                         EquipWeapon(Weapon)
                                         Rip.HumanoidRootPart.CFrame = CFrame.new(Rip.HumanoidRootPart.Position)
                                         if Rip.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(Rip.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                            TP(Rip.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(Rip.HumanoidRootPart.CFrame * SetUp)
                                         end
@@ -2459,7 +2456,7 @@ spawn(function()
                                 AutoHaki()
                                 Boss.HumanoidRootPart.CFrame = CFrame.new(Boss.HumanoidRootPart.Position)
                                 if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                    TP(Boss.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                    TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                 else
                                     TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                 end
@@ -2524,7 +2521,7 @@ spawn(function()
                                             AutoHaki()
                                             Boss.HumanoidRootPart.CFrame = CFrame.new(Boss.HumanoidRootPart.Position)
                                             if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                                TP(Boss.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                                TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                             else
                                                 TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                             end
@@ -2693,7 +2690,7 @@ spawn(function()
                                     AutoHaki()
                                     CakePrince.HumanoidRootPart.CFrame = CFrame.new(CakePrince.HumanoidRootPart.Position)
                                     if CakePrince.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(CakePrince.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(CakePrince.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CakePrince.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -2791,6 +2788,148 @@ Main:Toggle("Auto Random Bone",RandomBone,function(value)
     end
 end)
 end
+
+Main:Seperator("Mastery 🍎")
+
+local MasBF = Main:Label("Don't Have Devil Fruit ❌️")
+
+Main:Toggle("Farm Mastery Fruit",AutoFarmMastery,function(value)
+    AutoFarmMastery = value
+    StopTween(AutoFarmMastery)
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+                if v.ToolTip == "Blox Fruit" then
+                    MasBF:Set("Mastery Fruit : "..v.Level.Value)
+                    TargetBF = v.Name
+                end
+            end
+        end
+    end)
+end)
+KillAt = 60
+Main:Dropdown("Kill At %",{10,20,30,40,50,60,70,80,90,100},function(value)
+    KillAt = value
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoFarmMastery and UseSkill then
+                if SkillZ and AutoFarmMastery and UseSkill then
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true,"Z",false,game)
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false,"Z",false,game)
+                end
+                wait(1)
+                if SkillX and AutoFarmMastery and UseSkill then
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true,"X",false,game)
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false,"X",false,game)
+                end
+                wait(1)
+                if SkillC and AutoFarmMastery and UseSkill then
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true,"C",false,game)
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false,"C",false,game)
+                end
+                wait(1)
+                if SkillV and AutoFarmMastery and UseSkill then
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true,"V",false,game)
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false,"V",false,game)
+                end
+                wait(1)
+                if SkillF and AutoFarmMastery and UseSkill then
+                    game:GetService("VirtualInputManager"):SendKeyEvent(true,"F",false,game)
+                    game:GetService("VirtualInputManager"):SendKeyEvent(false,"F",false,game)
+                end
+            end
+        end
+    end)
+end)
+
+spawn(function()
+    while wait() do
+        if AutoFarmMastery then
+            pcall(function()
+                CheckQuestLevel()
+                if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) and NameMon ~= "Sun-kissed Warrior" then
+                    Magnet = false
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                end
+                if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                    repeat
+                        wait()
+                        TP(CFrameQuest)
+                    until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not AutoFarmMastery
+                    if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - CFrameQuest.Position).Magnitude < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and AutoFarmMastery then
+                        wait(1)
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuest,LevelQuest)
+                        wait(1)
+                    end
+                elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                    if game:GetService("Workspace").Enemies:FindFirstChild(NameMon) then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == NameMon then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmMastery then
+                                    if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or NameMon == "Sun-kissed Warrior" then
+                                        repeat task.wait()
+                                            AutoHaki()
+                                            v.HumanoidRootPart.CFrame = CFrame.new(v.HumanoidRootPart.Position)
+                                            if v.Humanoid.Health * 100 / v.Humanoid.MaxHealth <= KillAt then
+                                                EquipWeapon(TargetBF)
+                                                TP(v.HumanoidRootPart.CFrame * CFrame.new(0,0,15))
+                                                SlowAttack = false
+                                                UseSkill = true
+                                                AimbotPos = v.HumanoidRootPart.CFrame
+                                                Look(v.HumanoidRootPart.CFrame)
+                                            else
+                                                EquipWeapon(Weapon)
+					                            TP(v.HumanoidRootPart.CFrame * SetUp)
+					                            SlowAttack = true
+					                            UseSkill = false
+					                        end
+					                        TargetPos = v.HumanoidRootPart.CFrame
+					                        TargetName = v.Name
+                                            Magnet = true
+                                        until v:FindFirstChild("Humanoid").Health <= 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not AutoFarmMastery or not v.Parent
+                                        Magnet = false
+                                        UseSkill = false
+                                        SlowAttack = false
+                                    end
+                                end
+                            end
+                        end
+                    else
+                        CheckQuestLevel()
+                        repeat wait() TP(CFrameMon) until (CFrameMon.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoFarmMastery
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+Main:Toggle("Use Skill Z",true,function(value)
+    SkillZ = value
+end)
+
+Main:Toggle("Use Skill X",true,function(value)
+    SkillX = value
+end)
+
+Main:Toggle("Use Skill C",true,function(value)
+    SkillC = value
+end)
+
+Main:Toggle("Use Skill V",true,function(value)
+    SkillV = value
+end)
+
+Main:Toggle("Use Skill F",SkillF,function(value)
+    SkillF = value
+end)
+
 Main:Seperator("Material 🪨")
 if World1 then
 elseif World2 then
@@ -3104,7 +3243,7 @@ if World3 then
                                     AutoHaki()
                                     EliteTarget.HumanoidRootPart.CFrame = CFrame.new(EliteTarget.HumanoidRootPart.Position)
                                     if EliteTarget.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(EliteTarget.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3145,7 +3284,7 @@ if World3 then
                                         AutoHaki()
                                         DoughKing.HumanoidRootPart.CFrame = CFrame.new(DoughKing.HumanoidRootPart.Position)
                                         if DoughKing.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(DoughKing.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                            TP(DoughKing.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(DoughKing.HumanoidRootPart.CFrame * SetUp)
                                         end
@@ -3224,7 +3363,7 @@ if World3 then
                                         AutoHaki()
                                         EliteTarget.HumanoidRootPart.CFrame = CFrame.new(EliteTarget.HumanoidRootPart.Position)
                                         if EliteTarget.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                            TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(EliteTarget.HumanoidRootPart.CFrame * SetUp)
                                         end
@@ -3295,7 +3434,7 @@ if World3 then
                                     AutoHaki()
                                     CaptainElephant.HumanoidRootPart.CFrame = CFrame.new(CaptainElephant.HumanoidRootPart.Position)
                                     if CaptainElephant.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(CaptainElephant.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(CaptainElephant.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CaptainElephant.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3345,7 +3484,7 @@ if World3 then
                                     AutoHaki()
                                     BeautifulPirate.HumanoidRootPart.CFrame = CFrame.new(BeautifulPirate.HumanoidRootPart.Position)
                                     if BeautifulPirate.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(BeautifulPirate.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(BeautifulPirate.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(BeautifulPirate.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3393,7 +3532,7 @@ if World3 then
                                     AutoHaki()
                                     CakeQueen.HumanoidRootPart.CFrame = CFrame.new(CakeQueen.HumanoidRootPart.Position)
                                     if CakeQueen.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(CakeQueen.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(CakeQueen.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CakeQueen.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3428,7 +3567,7 @@ if World3 then
                                     AutoHaki()
                                     SoulReaper.HumanoidRootPart.CFrame = CFrame.new(SoulReaper.HumanoidRootPart.Position)
                                     if SoulReaper.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(SoulReaper.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(SoulReaper.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3521,7 +3660,7 @@ elseif World2 then
                                    AutoHaki()
                                    DarkBeard.HumanoidRootPart.CFrame = CFrame.new(DarkBeard.HumanoidRootPart.Position)
                                    if DarkBeard.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                       TP(DarkBeard.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                       TP(DarkBeard.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                    else
                                        TP(DarkBeard.HumanoidRootPart.CFrame * SetUp)
                                    end
@@ -3693,7 +3832,7 @@ elseif World2 then
                                     AutoHaki()
                                     Jeremy.HumanoidRootPart.CFrame = CFrame.new(Jeremy.HumanoidRootPart.Position)
                                     if Jeremy.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(Jeremy.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                        TP(Jeremy.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(Jeremy.HumanoidRootPart.CFrame * SetUp)
                                     end
@@ -3751,7 +3890,7 @@ elseif World2 then
                                         AutoHaki()
                                         DonSwan.HumanoidRootPart.CFrame = CFrame.new(DonSwan.HumanoidRootPart.Position)
                                         if DonSwan.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(DonSwan.HumanoidRootPart.CFrame * CFrame.new(20,20,20))
+                                            TP(DonSwan.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(DonSwan.HumanoidRootPart.CFrame * SetUp)
                                         end
@@ -4108,6 +4247,57 @@ P:Button("Refesh Player List",function()
     end
 end)
 
+spawn(function()
+	local gg = getrawmetatable(game)
+	local old = gg.__namecall
+	setreadonly(gg,false)
+	gg.__namecall = newcclosure(function(...)
+		local method = getnamecallmethod()
+		local args = {...}
+		if tostring(method) == "FireServer" then
+			if tostring(args[1]) == "RemoteEvent" then
+				if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
+					if AimbotSkill or UseSkill then
+					    args[2] = AimbotPos.Position
+					    return old(unpack(args))
+					end
+				end
+			end
+		end
+		if tostring(method) == "InvokeServer" then
+		    if tostring(args[1]) == "" then
+		        if typeof(args[2]) == "string" and typeof(args[3]) == "CFrame" then
+				    if AimbotSkill or UseSkill then
+					    args[3] = AimbotPos
+					end
+				end
+				if typeof(args[2]) == "string" and typeof(args[3]) == "Vector3" then
+				    if AimbotSkill or UseSkill then
+					    args[3] = AimbotPos.Position
+					end
+				end
+			end
+		end
+		return old(...)
+	end)
+end)
+
+P:Toggle("Aimbot Skill",AimbotSkill,function(value)
+    AimbotSkill = value
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AimbotSkill then
+                if game:GetService("Players"):FindFirstChild(SelectPlayer) and game:GetService("Players"):FindFirstChild(SelectPlayer).Character:FindFirstChild("HumanoidRootPart") and game:GetService("Players"):FindFirstChild(SelectPlayer).Character:FindFirstChild("Humanoid") and game:GetService("Players"):FindFirstChild(SelectPlayer).Character.Humanoid.Health > 0 then
+                    AimbotPos = game:GetService("Players"):FindFirstChild(SelectPlayer).Character.HumanoidRootPart.CFrame
+                end
+            end
+        end
+    end)
+end)
+
 Stat:Seperator("Stat ⭐️")
 
 Stat:Toggle("Auto Melee Point",PointMelee,function(value)
@@ -4434,9 +4624,19 @@ end)
 Setting:Toggle("Auto Turn V4 Skill",AutoTurnV4,function(value)
     AutoTurnV4 = value
     while AutoTurnV4 do
+        wait()
         if game:GetService("Players").LocalPlayer.Character.RaceTransformed.Value == false then
             game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening").RemoteFunction:InvokeServer(true)
         end
+    end
+end)
+
+Setting:Toggle("Auto Tap",AutoTap,function(value)
+    AutoTap = value
+    while AutoTap do
+        wait(1)
+        game:GetService'VirtualUser':CaptureController()
+        game:GetService'VirtualUser':Button1Down(Vector2.new(0,1,0,1))
     end
 end)
 
