@@ -2881,7 +2881,7 @@ spawn(function()
                                                 TP(v.HumanoidRootPart.CFrame * CFrame.new(0,0,15))
                                                 SlowAttack = false
                                                 UseSkill = true
-                                                AimbotPos = v.HumanoidRootPart.CFrame
+                                                AimbotPos = v.HumanoidRootPart.Position
                                                 Look(v.HumanoidRootPart.CFrame)
                                             else
                                                 EquipWeapon(Weapon)
@@ -4258,7 +4258,7 @@ spawn(function()
 			if tostring(args[1]) == "RemoteEvent" then
 				if tostring(args[2]) ~= "true" and tostring(args[2]) ~= "false" then
 					if AimbotSkill or UseSkill then
-					    args[2] = AimbotPos.Position
+					    args[2] = AimbotPos
 					    return old(unpack(args))
 					end
 				end
@@ -4268,12 +4268,12 @@ spawn(function()
 		    if tostring(args[1]) == "" then
 		        if typeof(args[2]) == "string" and typeof(args[3]) == "CFrame" then
 				    if AimbotSkill or UseSkill then
-					    args[3] = AimbotPos
+					    args[3] = AimbotCF
 					end
 				end
 				if typeof(args[2]) == "string" and typeof(args[3]) == "Vector3" then
 				    if AimbotSkill or UseSkill then
-					    args[3] = AimbotPos.Position
+					    args[3] = AimbotPos
 					end
 				end
 			end
@@ -4291,7 +4291,8 @@ spawn(function()
         while wait() do
             if AimbotSkill then
                 if game:GetService("Players"):FindFirstChild(SelectPlayer) and game:GetService("Players"):FindFirstChild(SelectPlayer).Character:FindFirstChild("HumanoidRootPart") and game:GetService("Players"):FindFirstChild(SelectPlayer).Character:FindFirstChild("Humanoid") and game:GetService("Players"):FindFirstChild(SelectPlayer).Character.Humanoid.Health > 0 then
-                    AimbotPos = game:GetService("Players"):FindFirstChild(SelectPlayer).Character.HumanoidRootPart.CFrame
+                    AimbotPos = game:GetService("Players"):FindFirstChild(SelectPlayer).Character.HumanoidRootPart.Position
+                    AimbotCF = game:GetService("Players"):FindFirstChild(SelectPlayer).Character.HumanoidRootPart.CFrame
                 end
             end
         end
