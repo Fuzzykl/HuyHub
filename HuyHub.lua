@@ -1,3 +1,14 @@
+repeat wait() until game:IsLoaded()
+if SetTeam then
+game:GetService('StarterGui'):SetCoreGuiEnabled(Enum.CoreGuiType.PlayerList, false)
+if game:GetService("Players").LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam") then
+    game:GetService("ReplicatedStorage").Remotes["CommF_"]:InvokeServer("SetTeam",SetTeam)
+    game:GetService("Players").LocalPlayer.PlayerGui.Main:FindFirstChild("ChooseTeam"):Destroy()
+    game:GetService("Workspace").CurrentCamera.CameraType=Enum.CameraType.Custom
+    game:GetService("Workspace").CurrentCamera.CameraSubject=game:GetService("Players").LocalPlayer.Character.Humanoid
+    game:GetService("Workspace").CurrentCamera.CFrame=game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame
+end
+end
 local openshit = Instance.new("ScreenGui")
 local mainopen = Instance.new("TextButton")
 local mainopens = Instance.new("UICorner")
@@ -1900,6 +1911,30 @@ function TP(Pos)
     end
 end
 
+function GetInventory(WeaponName)
+    for i,v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
+	    if type(v) == "table" then
+		    if v.Name == WeaponName then
+			    return true
+		    end
+	    end
+    end
+	return false
+end
+
+function GetMaterial(MaterialName)
+    for i,v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
+	    if type(v) == "table" then
+		    if v.Name == MaterialName then
+		        if v.Type == "Material" then
+			        return v.Count
+			    end
+		    end
+	    end
+    end
+	return 0
+end
+
 function AutoHaki()
     if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
@@ -2099,7 +2134,7 @@ local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScr
 	                if tick() - cooldownfastattack > 3.5 then task.wait() cooldownfastattack = tick() end
 	            elseif FastAttack then
 	                AttackFunction()
-	    	        if tick() - cooldownfastattack > 3.5 then wait(1) cooldownfastattack = tick() end
+	    	        if tick() - cooldownfastattack > 1 then wait() cooldownfastattack = tick() end
 	    	    end
 	        end
     	end
@@ -2124,11 +2159,8 @@ spawn(function()
 		pcall(function()
 	    	for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 				if Magnet and v.Name == TargetName and (v.HumanoidRootPart.Position - TargetPos.Position).magnitude <= 700 then
-					v.HumanoidRootPart.CFrame = TargetPos
-					if v.Humanoid:FindFirstChild("Animator") then
-						v.Humanoid.Animator:Destroy()
-					end
-					sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius",  math.huge)
+				    v.HumanoidRootPart.CFrame = TargetPos
+				    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
 				end
 			end
 	    end)
@@ -2138,7 +2170,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2152,7 +2184,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or GoTemple or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2182,7 +2214,7 @@ Main:Dropdown("Select Weapon",WeaponType,function(value)
 end)
 
 spawn(function()
-	while wait() do
+	while wait(.5) do
 		pcall(function()
 		    for i ,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
 			    if SelectWeapon == "Melee" or SelectWeapon == nil then
@@ -2241,17 +2273,16 @@ spawn(function()
                             if v.Name == NameMon then
                                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmLevel then
                                     if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or NameMon == "Sun-kissed Warrior" then
-                                        local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                        TargetPos = OldPos
-					                    TargetName = v.Name
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-                                            v.HumanoidRootPart.CFrame = OldPos
 					                        TP(v.HumanoidRootPart.CFrame * SetUp)
+					                        v.Humanoid.WalkSpeed = 0
+					                        TargetPos = v.HumanoidRootPart.CFrame
+					                        TargetName = v.Name
                                             FastAttack = true
                                             Magnet = true
-                                        until v:FindFirstChild("Humanoid").Health <= 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not AutoFarmLevel or not v.Parent
+                                        until v:FindFirstChild("Humanoid").Health <= 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not AutoFarmLevel or not v.Parent or wait(10)
                                         Magnet = false
                                         FastAttack = false
                                     end
@@ -2280,14 +2311,13 @@ spawn(function()
                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                     if (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 700 then
                         if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoNearestFarm and not string.find(v:FindFirstChild("Humanoid").DisplayName, "Boss") then
-                             local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                             TargetName = v.Name
-                             TargetPos = OldPos
                              repeat task.wait()
                                 EquipWeapon(Weapon)
                                 AutoHaki()
-                                v.HumanoidRootPart.CFrame = OldPos
                                 TP(v.HumanoidRootPart.CFrame * SetUp)
+                                v.Humanoid.WalkSpeed = 0
+                                TargetPos = v.HumanoidRootPart.CFrame
+		                        TargetName = v.Name
                                 FastAttack = true
                                 Magnet = true
                             until v:FindFirstChild("Humanoid").Health <= 0 or not AutoNearestFarm or not v.Parent
@@ -2300,6 +2330,59 @@ spawn(function()
         end
     end)
 end)
+
+if World2 then
+    Main:Seperator("Ectoplasm 🤮")
+    
+    local Ectoplasm = Main:Label("Ectoplasm : ???")
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                Ectophasm:Set("Ectoplasm : "..GetMaterial("Ectoplasm"))
+            end
+        end)
+    end)
+    
+    Main:Toggle("Auto Farm Ectoplasm",AutoFarmEctoplasm,function(value)
+        AutoFarmEctoplasm = value
+        StopTween(AutoFarmEctoplasm)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoFarmEctoplasm then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Ship Officer") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Steward") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Deckhand") or game:GetService("Workspace").Enemies:FindFirstChild("Ship Engineer") then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == "Ship Officer" or v.Name == "Ship Steward" or v.Name == "Ship Deckhand" or v.Name == "Ship Engineer" then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmEctoplasm then
+                                    repeat task.wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        v.Humanoid.WalkSpeed = 0
+                                        TargetPos = v.HumanoidRootPart.CFrame
+                                        TargetName = v.Name
+                                        Magnet = true
+                                        FastAttack = true
+                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmEctoplasm
+                                    FastAttack = false
+                                    Magnet = false
+                                end
+                            end
+                        end
+                    else
+                        if (Vector3.new(923.21252441406, 126.9760055542, 32852.83203125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 3000 then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(923.21252441406, 126.9760055542, 32852.83203125))
+                        end
+                        repeat wait() TP(CFrame.new(919.0540161132812, 181.05751037597656, 33260.40625)) until (Vector3.new(919.0540161132812, 181.05751037597656, 33260.40625) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoFarmEctoplasm
+                    end
+                end
+            end
+        end)
+    end)
+end
 
 if World1 then
     Main:Seperator("Main Quest ✈️")
@@ -2324,16 +2407,15 @@ if World1 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
                                 local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
                                 if BossIce:FindFirstChild("HumanoidRootPart") and BossIce:FindFirstChild("Humanoid") and BossIce:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(BossIce.HumanoidRootPart.Position)
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        BossIce.HumanoidRootPart.CFrame = OldPos
                                         if BossIce.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                             TP(BossIce.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(BossIce.HumanoidRootPart.CFrame * SetUp)
                                         end
+                                        BossIce.Humanoid.WalkSpeed = 0
                                         FastAttack = true
                                     until BossIce:FindFirstChild("Humanoid").Health <= 0 or not BossIce.Parent or not AutoSecondSea
                                     FastAttack = false
@@ -2371,16 +2453,15 @@ elseif World2 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("rip_indra") then
                                 local Rip = game:GetService("Workspace").Enemies:FindFirstChild("rip_indra")
                                 if Rip:FindFirstChild("HumanoidRootPart") and Rip:FindFirstChild("Humanoid") and Rip:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(Rip.HumanoidRootPart.Position)
                                     repeat task.wait()
                                         AutoHaki()
                                         EquipWeapon(Weapon)
-                                        Rip.HumanoidRootPart.CFrame = OldPos
                                         if Rip.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                             TP(Rip.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(Rip.HumanoidRootPart.CFrame * SetUp)
                                         end
+                                        Rip.Humanoid.WalkSpeed = 0
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
                                         FastAttack = true
                                     until not AutoThirdSea or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
@@ -2413,11 +2494,14 @@ spawn(function()
 end)
 
 if World1 then
-	TableBoss = {"The Gorilla King","Bobby","Yeti","Mob Leader","Vice Admiral","Warden","Chief Warden","Swan","Magma Admiral","Fishman Lord","Wysper","Thunder God","Cyborg","The Saw"}
+	TableBoss = {"The Saw","The Gorilla King","Bobby","Yeti","Mob Leader","Vice Admiral","Warden","Chief Warden","Swan","Magma Admiral","Fishman Lord","Wysper","Thunder God","Cyborg","Greybeard"}
+    TableAllBoss = {"The Saw","The Saw","The Gorilla King","The Gorilla King","Bobby","Bobby","Yeti","Yeti","Mob Leader","Mob Leader","Vice Admiral","Vice Admiral","Warden","Warden","Chief Warden","Chief Warden","Swan","Swan","Magma Admiral","Magma Admiral","Fishman Lord","Fishman Lord","Wysper","Wysper","Thunder God","Thunder God","Cyborg","Cyborg","Greybeard","Greybeard"}
 elseif World2 then
 	TableBoss = {"Diamond","Jeremy","Fajita","Don Swan","Smoke Admiral","Awakened Ice Admiral","Tide Keeper","Cursed Captain","Darkbeard","Order"}
+	TableAllBoss = {"Diamond","Diamond","Jeremy","Jeremy","Fajita","Fajita","Don Swan","Don Swan","Smoke Admiral","Smoke Admiral","Awakened Ice Admiral","Awakened Ice Admiral","Tide Keeper","Tide Keeper","Cursed Captain","Cursed Captain","Darkbeard","Darkbeard"}
 elseif World3 then
 	TableBoss = {"Stone","Island Empress","Kilo Admiral","Captain Elephant","Beautiful Pirate","Longma","Cake Queen","rip_indra True Form","Soul Reaper"}
+    TableAllBoss = {"Stone","Stone","Island Empress","Island Empress","Kilo Admiral","Kilo Admiral","Captain Elephant","Captain Elephant","Beautiful Pirate","Beautiful Pirate","Longma","Longma","Cake Queen","Cake Queen","rip_indra True Form","rip_indra True Form","Soul Reaper","Soul Reaper"}
 end
 
 Main:Dropdown("Select Boss",TableBoss,function(value)
@@ -2438,7 +2522,7 @@ spawn(function()
                     if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, SelectBoss) then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                     end
-                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and SelectBoss ~= "Don Swan" and SelectBoss ~= "Darkbeard" and SelectBoss ~= "Order" and SelectBoss ~= "Greybeard" and SelectBoss ~= "The Saw" and SelectBoss ~= "rip_indra True Form" and SelectBoss ~= "Soul Reaper" and SelectBoss ~= "Longma" and SelectBoss ~= "Mob Leader" and BossQuest then
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and SelectBoss ~= "Don Swan" and SelectBoss ~= "Darkbeard" and SelectBoss ~= "Order" and SelectBoss ~= "Greybeard" and SelectBoss ~= "The Saw" and SelectBoss ~= "rip_indra True Form" and SelectBoss ~= "Soul Reaper" and SelectBoss ~= "Longma" and SelectBoss ~= "Mob Leader" and SelectBoss ~= "Greybeard" and BossQuest then
                         if SelectBoss == "Beautiful Pirate" and (CFrameQuestBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
 				        end
@@ -2454,19 +2538,18 @@ spawn(function()
                     if game:GetService("Workspace").Enemies:FindFirstChild(SelectBoss) then
                         local Boss = game:GetService("Workspace").Enemies:FindFirstChild(SelectBoss)
                         if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
-                            local OldPos = CFrame.new(Boss.HumanoidRootPart.Position)
                             repeat task.wait()
                                 EquipWeapon(Weapon)
                                 AutoHaki()
-                                Boss.HumanoidRootPart.CFrame = OldPos
+                                Boss.Humanoid.WalkSpeed = 0
                                 if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                     TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                 else
                                     TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                 end
-                                FastAttack = true
+                                SuperAttack = true
                             until not AutoFarmBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
-                            FastAttack = false
+                            SuperAttack = false
                         end
                     else
                         CheckBossQuest(SelectBoss)
@@ -2490,7 +2573,7 @@ spawn(function()
     while wait() do
         if AutoFarmAllBoss then
             pcall(function()
-                for i,v in pairs(TableBoss) do
+                for i,v in pairs(TableAllBoss) do
                     if AutoFarmAllBoss then
                         if game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v) then
                             CheckBossQuest(v)
@@ -2502,8 +2585,8 @@ spawn(function()
                             if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, v) then
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                             end
-                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and v ~= "Don Swan" and v ~= "Darkbeard" and v ~= "Order" and v ~= "Greybeard" and v ~= "The Saw" and v ~= "rip_indra True Form" and v ~= "Soul Reaper" and v ~= "Longma" and v ~= "Mob Leader" and BossQuest then
-                                if SelectBoss == "Beautiful Pirate" and (CFrameQuestBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
+                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and v ~= "Don Swan" and v ~= "Darkbeard" and v ~= "Greybeard" and v ~= "The Saw" and v ~= "rip_indra True Form" and v ~= "Soul Reaper" and v ~= "Longma" and v ~= "Mob Leader" and v ~= "Greybeard" and BossQuest then
+                                if v == "Beautiful Pirate" and (CFrameQuestBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
                                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
 				                end
                                 repeat wait()
@@ -2520,23 +2603,22 @@ spawn(function()
                                 if game:GetService("Workspace").Enemies:FindFirstChild(v) then
                                     local Boss = game:GetService("Workspace").Enemies:FindFirstChild(v)
                                     if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
-                                        local OldPos = CFrame.new(Boss.HumanoidRootPart.Position)
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-                                            Boss.HumanoidRootPart.CFrame = OldPos
                                             if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                                 TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                             else
                                                 TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                             end
-                                            FastAttack = true
+                                            Boss.Humanoid.WalkSpeed = 0
+                                            SuperAttack = true
                                         until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
-                                        FastAttack = false
+                                        SuperAttack = false
                                     end
                                 else
                                     CheckBossQuest(v)
-                                    if SelectBoss == "Beautiful Pirate" and (Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
+                                    if v == "Beautiful Pirate" and (Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
 				                    end
                                     repeat wait() TP(CFrameBoss) until (CFrameBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoFarmAllBoss
@@ -2545,15 +2627,22 @@ spawn(function()
                         end
                     end
                 end
+                if AutoFarmAllBossHop then
+                   Hop()
+                   wait(15)
+                end
             end)
         end
     end
 end)
 
+Main:Toggle("Auto Farm All Boss [Hop]",AutoFarmAllBossHop,function(value)
+    AutoFarmAllBossHop = value
+end)
+
 Main:Toggle("Boss Quest",true,function(value)
     BossQuest = value
 end)
-BypassLongma = false
 if World3 then
     Main:Toggle("Bypass Longma",BypassLongma,function(value)
         BypassLongma = value
@@ -2566,26 +2655,29 @@ Main:Toggle("Auto Farm Chest",FarmChest,function(value)
     FarmChest = value
     StopTween(FarmChest)
 end)
+local DistanceChest = {200,500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,11000,12000,13000,14000,15000,16000,17000,18000,19000,20000}
+function GetNearestChest()
+    for i,v in pairs(DistanceChest) do
+        for i2,v2 in pairs(game:GetService("Workspace"):GetChildren()) do
+            if v2.Name == "Chest1" or v2.Name == "Chest2" or v2.Name == "Chest3" then
+                if (v2.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= v then
+                    return v2
+                end
+            end
+        end
+    end
+    return 0
+end
 
 spawn(function()
     pcall(function()
         while wait() do
             if FarmChest then
-                DisChest = {500,1000,2000,4000,8000,11000,15000}
-                for i,v in pairs(DisChest) do
-                    if FarmChest then
-                        for i2,v2 in pairs(game:GetService("Workspace"):GetChildren()) do
-                            if v2.Name == "Chest1" or v2.Name == "Chest2" or v2.Name == "Chest3" then
-                                if (v2.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= v and FarmChest then
-                                    repeat wait()
-                                        TP(v2.CFrame * CFrame.new(0,2.5,2))
-                                        if (v2.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-                                            game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
-                                        end
-                                    until not v2.Parent or not FarmChest
-                                end
-                            end
-                        end
+                local Chest = GetNearestChest()
+                if Chest ~= 0 then
+                    TP(Chest.CFrame)
+                    if (Chest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
+                        game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
                     end
                 end
             end
@@ -2662,7 +2754,7 @@ end)
 spawn(function()
     pcall(function()
         while wait(.5) do
-            if SummonKata or AutoCakePrince then
+            if SummonKata then
                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner",true)
             end
         end
@@ -2690,16 +2782,16 @@ spawn(function()
                         if game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") then
                             local CakePrince = game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince")
                             if CakePrince:FindFirstChild("HumanoidRootPart") and CakePrince:FindFirstChild("Humanoid") and CakePrince:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(CakePrince.HumanoidRootPart.Position)
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    CakePrince.HumanoidRootPart.CFrame = OldPos
                                     if CakePrince.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                         TP(CakePrince.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CakePrince.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
+                                    CakePrince.Humanoid.WalkSpeed = 0
                                     SuperAttack = true
                                 until CakePrince:FindFirstChild("Humanoid").Health <= 0 or not AutoCakePrince or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0
                                 SuperAttack = false
@@ -2712,23 +2804,29 @@ spawn(function()
                 else
                     if (Vector3.new(-2153.50732421875, 70.00881958007812, -12405.11328125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude >= 300 then
                         repeat wait() TP(CFrame.new(-1946.752685546875, 251.5355987548828, -12407.5146484375)) until (Vector3.new(-1946.752685546875, 251.5355987548828, -12407.5146484375) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoCakePrince
+                        wait(1)
                     end
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Head Baker" or v.Name == "Baking Staff" then
                             if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoCakePrince then
-                                local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                TargetPos = OldPos
-                                TargetName = v.Name
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    v.HumanoidRootPart.CFrame = OldPos
-                                    TP(v.HumanoidRootPart.CFrame * SetUp)
+                                    if game:GetService("Players").LocalPlayer.Character.Humanoid.Health <= 5000 then
+                                        repeat wait() TP(CFrame.new(-1946.752685546875, 251.5355987548828, -12407.5146484375)) until game:GetService("Players").LocalPlayer.Character.Humanoid.Health == game:GetService("Players").LocalPlayer.Character.Humanoid.MaxHealth or not AutoCakePrince
+                                    else
+                                        TP(v.HumanoidRootPart.CFrame * SetUp)
+                                    end
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner",true)
+                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
+                                    TargetPos = v.HumanoidRootPart.CFrame
+                                    TargetName = v.Name
                                     FastAttack = true
                                     Magnet = true
                                 until v:FindFirstChild("Humanoid").Health <= 0 or not AutoCakePrince or not v.Parent or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince")
                                 Magnet = false
                                 FastAttack = false
+                                SuperAttack = false
                             end
                         end
                     end
@@ -2740,7 +2838,7 @@ end)
 
 Main:Seperator("Bone 🦴")
 
-local CheckBone = Main:Label("Bone : 0")
+local CheckBone = Main:Label("Bone : ???")
 
 spawn(function()
     pcall(function()
@@ -2763,14 +2861,12 @@ spawn(function()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmBone then
-                               local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                               TargetName = v.Name
-                               TargetPos = OldPos
                                repeat task.wait()
                                    EquipWeapon(Weapon)
                                    AutoHaki()
-                                   v.HumanoidRootPart.CFrame = OldPos
                                    TP(v.HumanoidRootPart.CFrame * SetUp)
+                                   TargetName = v.Name
+                                   TargetPos = v.HumanoidRootPart.CFrame
                                    Magnet = true
                                    FastAttack = true
                                until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmBone
@@ -2892,13 +2988,10 @@ spawn(function()
                             if v.Name == NameMon then
                                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmMastery then
                                     if string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameMon) or NameMon == "Sun-kissed Warrior" then
-                                        local OldPos = v.HumanoidRootPart.CFrame
-                                        TargetPos = OldPos
-					                    TargetName = v.Name
                                         repeat task.wait()
                                             AutoHaki()
-                                            v.HumanoidRootPart.CFrame = OldPos
                                             SlowAttack = true
+                                            v.Humanoid.WalkSpeed = 0
                                             if v.Humanoid.Health * 100 / v.Humanoid.MaxHealth <= Kill then
                                                 EquipWeapon(TargetBF)
                                                 TP(v.HumanoidRootPart.CFrame * CFrame.new(0,0,20))
@@ -2909,6 +3002,8 @@ spawn(function()
 					                            TP(v.HumanoidRootPart.CFrame * SetUp)
 					                            UseSkill = false
 					                        end
+					                        TargetPos = v.HumanoidRootPart.CFrame
+					                        TargetName = v.Name
                                             Magnet = true
                                         until v:FindFirstChild("Humanoid").Health <= 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not AutoFarmMastery or not v.Parent
                                         Magnet = false
@@ -2961,28 +3056,44 @@ elseif World3 then
         pcall(function()
             while wait() do
                 if FarmDragonScale then
-                    if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer") then
+                    if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "Dragon Crew Archer") then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                    end
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and game:GetService("Players").LocalPlayer.Data.Level.Value >= 1575 then
+                        if (Vector3.new(6720.99169921875, 433.4623107910156, 115.74989318847656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
+		                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5742.65087890625, 610.9649658203125, -269.2676696777344))
+		                end
+                        repeat wait() TP(CFrame.new(5833.1147460938, 51.60498046875, -1103.0693359375)) until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(5833.1147460938, 51.60498046875, -1103.0693359375)).Magnitude < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not FarmDragonScale
+                        if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(5833.1147460938, 51.60498046875, -1103.0693359375)).Magnitude < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and FarmDragonScale then
+                            wait(1)
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest","AmazonQuest",2)
+                            wait(1)
+                        end
+                    end
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior") then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                            if v.Name == "Dragon Crew Archer" then
-                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and FarmDragonScale then
-                                    local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                    TargetPos = OldPos
-                                    TargetName = v.Name
+                            if v.Name == "Dragon Crew Archer" or v.Name == "Dragon Crew Warrior" then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and FarmDragonScale and (game:GetService("Players").LocalPlayer.Data.Level.Value < 1575 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true) then
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        v.HumanoidRootPart.CFrame = OldPos
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        v.Humanoid.WalkSpeed = 0
+                                        TargetPos = v.HumanoidRootPart.CFrame
+                                        TargetName = v.Name
                                         Magnet = true
                                         FastAttack = true
-                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not FarmDragonScale
+                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not FarmDragonScale or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                     FastAttack = false
                                     Magnet = false
                                 end
                             end
                         end
                     else
-                        repeat wait() TP(CFrame.new(6720.99169921875, 433.4623107910156, 115.74989318847656)) until (Vector3.new(6720.99169921875, 433.4623107910156, 115.74989318847656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not FarmDragonScale or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer")
+                        if (Vector3.new(6720.99169921875, 433.4623107910156, 115.74989318847656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 2000 then
+		                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5742.65087890625, 610.9649658203125, -269.2676696777344))
+		                end
+                        repeat wait() TP(CFrame.new(6720.99169921875, 433.4623107910156, 115.74989318847656)) until (Vector3.new(6720.99169921875, 433.4623107910156, 115.74989318847656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not FarmDragonScale or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Archer") or game:GetService("Workspace").Enemies:FindFirstChild("Dragon Crew Warrior")
                     end
                 end
             end
@@ -3002,14 +3113,13 @@ elseif World3 then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                             if v.Name == "Cocoa Warrior" or v.Name == "Chocolate Bar Battler" or v.Name == "Sweet Thief" or v.Name == "Candy Rebel" then
                                 if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmCocoa then
-                                    local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                    TargetName = v.Name
-                                    TargetPos = OldPos
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        v.HumanoidRootPart.CFrame = OldPos
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        v.Humanoid.WalkSpeed = 0
+                                        TargetName = v.Name
+                                        TargetPos = v.HumanoidRootPart.CFrame
                                         FastAttack = true
                                         Magnet = true
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not AutoFarmCocoa or not v.Parent
@@ -3021,6 +3131,59 @@ elseif World3 then
                         end
                     else
                         repeat wait() TP(CFrame.new(210.93252563476562, 126.59194946289062, -12605.1748046875)) until (Vector3.new(210.93252563476562, 126.59194946289062, -12605.1748046875) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoFarmCocoa
+                    end
+                end
+            end
+        end)
+    end)
+    
+    Main:Toggle("Auto Farm Fish Tail",AutoFarmFishTail,function(value)
+        AutoFarmFishTail = value
+        StopTween(AutoFarmFishTail)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoFarmFishTail then
+                    if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, "Fishman Captain") then
+                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                    end
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and game:GetService("Players").LocalPlayer.Data.Level.Value >= 1775 then
+                        if (Vector3.new(-10583.099609375, 331.76263427734375, -8759.4638671875) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 5000 then
+		                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
+		                end
+                        repeat wait() TP(CFrame.new(-10583.099609375, 331.76263427734375, -8759.4638671875)) until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(-10583.099609375, 331.76263427734375, -8759.4638671875)).Magnitude < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not AutoFarmFishTail
+                        if (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - Vector3.new(-10583.099609375, 331.76263427734375, -8759.4638671875)).Magnitude < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and AutoFarmFishTail then
+                            wait(1)
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest","DeepForestIsland3",2)
+                            wait(1)
+                        end
+                    end
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Fishman Raider") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Captain") then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == "Fishman Raider" or v.Name == "Fishman Captain" then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmFishTail and (game:GetService("Players").LocalPlayer.Data.Level.Value < 1775 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true) then
+                                    repeat task.wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        v.Humanoid.WalkSpeed = 0
+                                        TargetPos = v.HumanoidRootPart.CFrame
+                                        TargetName = v.Name
+                                        Magnet = true
+                                        FastAttack = true
+                                    until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmFishTail
+                                    FastAttack = false
+                                    Magnet = false
+                                end
+                            end
+                        end
+                    else
+                        if (Vector3.new(-10727.619140625, 388.7049865722656, -8756.8134765625) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 5000 then
+		                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
+		                end
+                        repeat wait() TP(CFrame.new(-10727.619140625, 388.7049865722656, -8756.8134765625)) until (Vector3.new(-10789.401367188, 427.18637084961, -9131.4423828125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoFarmFishTail or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Captain") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Raider")
                     end
                 end
             end
@@ -3041,10 +3204,6 @@ if World3 then
 	    	    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 				     if AutoPirateRaid and PirateMagnet and (v.HumanoidRootPart.Position - PiratePos.Position).magnitude <= 700 then
 					      v.HumanoidRootPart.CFrame = PiratePos
-					      if v.Humanoid:FindFirstChild("Animator") then
-						      v.Humanoid.Animator:Destroy()
-					      end
-					      sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius",  math.huge)
 			    	 end
 			    end
 	        end)
@@ -3061,13 +3220,12 @@ if World3 then
                          for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                              if (v.HumanoidRootPart.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 700 then
                                  if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoPirateRaid then
-                                     local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                     PiratePos = OldPos
                                      repeat task.wait()
                                          EquipWeapon(Weapon)
                                          AutoHaki()
-                                         v.HumanoidRootPart.CFrame = OldPos
                                          TP(v.HumanoidRootPart.CFrame * SetUp)
+                                         v.Humanoid.WalkSpeed = 0
+                                         PiratePos = v.HumanoidRootPart.CFrame
                                          PirateMagnet = true
                                          FastAttack = true
                                      until v:FindFirstChild("Humanoid").Health <= 0 or not AutoPirateRaid or not v.Parent
@@ -3114,14 +3272,13 @@ if World3 then
                                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                         if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                                             if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoElectricClaw then
-                                                local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                                TargetName = v.Name
-                                                TargetPos = OldPos
                                                 repeat task.wait()
                                                     EquipWeapon(Weapon)
                                                     AutoHaki()
-                                                    v.HumanoidRootPart.CFrame = OldPos
                                                     TP(v.HumanoidRootPart.CFrame * SetUp)
+                                                    v.Humanoid.WalkSpeed = 0
+                                                    TargetName = v.Name
+                                                    TargetPos = v.HumanoidRootPart.CFrame
                                                     Magnet = true
                                                     FastAttack = true
                                                 until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoElectricClaw or MasMelee.Level.Value >= 400
@@ -3166,16 +3323,17 @@ if World3 then
                                     if game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") then
                                         local SoulReaper = game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper")
                                         if SoulReaper:FindFirstChild("HumanoidRootPart") and SoulReaper:FindFirstChild("Humanoid") and SoulReaper:FindFirstChild("Humanoid").Health > 0 then
-                                            local OldPos = CFrame.new(SoulReaper.HumanoidRootPart.Position)
                                             repeat task.wait()
                                                 EquipWeapon("Dragon Claw")
                                                 AutoHaki()
-                                                SoulReaper.HumanoidRootPart.CFrame = OldPos
                                                 if SoulReaper.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                                 else
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                                 end
+                                                v.Humanoid.WalkSpeed = 0
+                                                TargetName = v.Name
+                                                TargetPos = v.HumanoidRootPart.CFrame
                                                 SuperAttack = true
                                             until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoDragonTalon or not SoulReaper.Parent
                                             SuperAttack = false
@@ -3188,17 +3346,16 @@ if World3 then
                                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                             if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoDragonTalon then
-                                                    local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                                    TargetName = v.Name
-                                                    TargetPos = OldPos
                                                     repeat task.wait()
                                                         EquipWeapon("Dragon Claw")
                                                         AutoHaki()
-                                                        v.HumanoidRootPart.CFrame = OldPos
                                                         if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fire Essence") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fire Essence") and not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence") then
                                                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
                                                         end
                                                         TP(v.HumanoidRootPart.CFrame * SetUp)
+                                                        v.Humanoid.WalkSpeed = 0
+                                                        TargetName = v.Name
+                                                        TargetPos = v.HumanoidRootPart.CFrame
                                                         Magnet = true
                                                         FastAttack = true
                                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fire Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fire Essence") or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence")
@@ -3220,16 +3377,15 @@ if World3 then
                                     if game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") then
                                         local SoulReaper = game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper")
                                         if SoulReaper:FindFirstChild("HumanoidRootPart") and SoulReaper:FindFirstChild("Humanoid") and SoulReaper:FindFirstChild("Humanoid").Health > 0 then
-                                            local OldPos = CFrame.new(SoulReaper.HumanoidRootPart.Position)
                                             repeat task.wait()
                                                 EquipWeapon("Dragon Claw")
                                                 AutoHaki()
-                                                SoulReaper.HumanoidRootPart.CFrame = OldPos
                                                 if SoulReaper.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                                 else
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                                 end
+                                                SoulReaper.Humanoid.WalkSpeed = 0
                                                 SuperAttack = true
                                             until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoDragonTalon or not SoulReaper.Parent
                                             SuperAttack = false
@@ -3242,14 +3398,13 @@ if World3 then
                                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                             if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoDragonTalon then
-                                                    local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                                    TargetName = v.Name
-                                                    TargetPos = OldPos
                                                     repeat task.wait()
                                                         EquipWeapon("Dragon Claw")
                                                         AutoHaki()
-                                                        v.HumanoidRootPart.CFrame = OldPos
                                                         TP(v.HumanoidRootPart.CFrame * SetUp)
+                                                        v.Humanoid.WalkSpeed = 0
+                                                        TargetName = v.Name
+                                                        TargetPos = v.HumanoidRootPart.CFrame
                                                         Magnet = true
                                                         FastAttack = true
                                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence")
@@ -3277,7 +3432,7 @@ if World3 then
     Weapon:Seperator("Quest 📃")
     
     local EliteStatus = Weapon:Label("Elite Not Spawn ❌")
-    local EliteProgress = Weapon:Label("Status : 0")
+    local EliteProgress = Weapon:Label("Status : ???")
     spawn(function()
         pcall(function()
             while wait(.5) do
@@ -3296,43 +3451,45 @@ if World3 then
         StopTween(AutoEliteHunter)
     end)
     
+    local EliteList = {"Deandre","Diablo","Urban"}
+    
     spawn(function()
         pcall(function()
             while wait() do
                 if AutoEliteHunter then
-                    if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
+                    local Elite = game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban")
+                    if Elite then
                         if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
                         end
-                        if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") then
-                            local EliteName = "Diablo"
-                        elseif game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") then
-                            local EliteName = "Deandre"
-                        elseif game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
-                            local EliteName = "Urban"
-                        end
-                        if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, EliteName) then
+                        if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, Elite.Name) then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                         end
-                        if game:GetService("Workspace").Enemies:FindFirstChild(EliteName) then
-                            local EliteTarget = game:GetService("Workspace").Enemies:FindFirstChild(EliteName)
-                            if EliteTarget:FindFirstChild("HumanoidRootPart") and EliteTarget:FindFirstChild("Humanoid") and EliteTarget:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(EliteTarget.HumanoidRootPart.Position)
-                                repeat task.wait()
-                                    EquipWeapon(Weapon)
-                                    AutoHaki()
-                                    EliteTarget.HumanoidRootPart.CFrame = OldPos
-                                    if EliteTarget.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                        TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
+                        if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                            for i,v in pairs(EliteList) do
+                                if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter"), v) then
+                                    if game:GetService("Workspace").Enemies:FindFirstChild(v) then
+                                        local Elite = game:GetService("Workspace").Enemies:FindFirstChild(v)
+                                        if Elite:FindFirstChild("HumanoidRootPart") and Elite:FindFirstChild("Humanoid") and Elite:FindFirstChild("Humanoid").Health > 0 then
+                                            repeat task.wait()
+                                                EquipWeapon(Weapon)
+                                                AutoHaki()
+                                                if Elite.HumanoidRootPart:FindFirstChild("BodyPosition") then
+                                                    TP(Elite.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
+                                                else
+                                                    TP(Elite.HumanoidRootPart.CFrame * SetUp)
+                                                end
+                                                Elite.Humanoid.WalkSpeed = 0
+                                                SuperAttack = true
+                                            until not Elite.Parent or not AutoEliteHunter or Elite:FindFirstChild("Humanoid").Health <= 0
+                                            SuperAttack = false
+                                        end
                                     else
-                                        TP(EliteTarget.HumanoidRootPart.CFrame * SetUp)
+                                        local Elite = game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban")
+                                        TP(Elite.HumanoidRootPart.CFrame)
                                     end
-                                    FastAttack = true
-                                until not EliteTarget.Parent or not AutoEliteHunter or EliteTarget:FindFirstChild("Humanoid").Health <= 0
-                                FastAttack = false
+                                end
                             end
-                        else
-                            TP(game:GetService("ReplicatedStorage"):FindFirstChild(EliteName):FindFirstChild("HumanoidRootPart").CFrame * SetUp)
                         end
                     end
                 end
@@ -3359,16 +3516,15 @@ if World3 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Dough King") then
                                 local DoughKing = game:GetService("Workspace").Enemies:FindFirstChild("Dough King")
                                 if DoughKing:FindFirstChild("HumanoidRootPart") and DoughKing:FindFirstChild("Humanoid") and DoughKing:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(DoughKing.HumanoidRootPart.Position)
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        DoughKing.HumanoidRootPart.CFrame = OldPos
                                         if DoughKing.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                             TP(DoughKing.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(DoughKing.HumanoidRootPart.CFrame * SetUp)
                                         end
+                                        DoughKing.Humanoid.WalkSpeed = 0
                                         SuperAttack = true
                                     until DoughKing:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0
                                     SuperAttack = false
@@ -3387,15 +3543,19 @@ if World3 then
                         for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                             if v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Head Baker" or v.Name == "Baking Staff" then
                                 if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoDoughKing then
-                                    local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                    TargetPos = OldPos
-                                    TargetName = v.Name
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        v.HumanoidRootPart.CFrame = OldPos
-                                        TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        if game:GetService("Players").LocalPlayer.Character.Humanoid.Health <= 5000 then
+                                            repeat wait() TP(CFrame.new(-1946.752685546875, 251.5355987548828, -12407.5146484375)) until game:GetService("Players").LocalPlayer.Character.Humanoid.Health == game:GetService("Players").LocalPlayer.Character.Humanoid.MaxHealth or not AutoDoughKing
+                                        else
+                                            TP(v.HumanoidRootPart.CFrame * SetUp)
+                                        end
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner",true)
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
+                                        v.Humanoid.WalkSpeed = 0
+                                        TargetPos = v.HumanoidRootPart.CFrame
+                                        TargetName = v.Name
                                         FastAttack = true
                                         Magnet = true
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or not v.Parent or game:GetService("Workspace").Enemies:FindFirstChild("Dough King") or game:GetService("ReplicatedStorage"):FindFirstChild("Dough King")
@@ -3409,14 +3569,13 @@ if World3 then
                             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                 if v.Name == "Cocoa Warrior" or v.Name == "Chocolate Bar Battler" or v.Name == "Sweet Thief" or v.Name == "Candy Rebel" then
                                     if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoDoughKing then
-                                        local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                        TargetName = v.Name
-                                        TargetPos = OldPos
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-                                            v.HumanoidRootPart.CFrame = OldPos
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
+                                            v.Humanoid.WalkSpeed = 0
+                                            TargetName = v.Name
+                                            TargetPos = v.HumanoidRootPart.CFrame
                                             FastAttack = true
                                             Magnet = true
                                         until v:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or not v.Parent
@@ -3429,59 +3588,55 @@ if World3 then
                         else
                             repeat wait() TP(CFrame.new(210.93252563476562, 126.59194946289062, -12605.1748046875)) until (Vector3.new(210.93252563476562, 126.59194946289062, -12605.1748046875) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoDoughKing
                         end
-                    elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("God's Chalice") then
-                        if game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban") then
-                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
-                            end
-                            local EliteName = (game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban")).Name
-                            if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, EliteName) then
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
-                            end
-                            if game:GetService("Workspace").Enemies:FindFirstChild(EliteName) then
-                                local EliteTarget = game:GetService("Workspace").Enemies:FindFirstChild(EliteName)
-                                if EliteTarget:FindFirstChild("HumanoidRootPart") and EliteTarget:FindFirstChild("Humanoid") and EliteTarget:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(EliteTarget.HumanoidRootPart.Position)
-                                    repeat task.wait()
-                                        EquipWeapon(Weapon)
-                                        AutoHaki()
-                                        EliteTarget.HumanoidRootPart.CFrame = OldPos
-                                        if EliteTarget.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                            TP(EliteTarget.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
-                                        else
-                                            TP(EliteTarget.HumanoidRootPart.CFrame * SetUp)
-                                        end
-                                        FastAttack = true
-                                    until not EliteTarget.Parent or not AutoDoughKing or EliteTarget:FindFirstChild("Humanoid").Health <= 0
-                                    FastAttack = false
-                                end
-                            else
-                                repeat wait() TP(game:GetService("ReplicatedStorage"):FindFirstChild(EliteName):FindFirstChild("HumanoidRootPart").CFrame * SetUp) until (game:GetService("ReplicatedStorage"):FindFirstChild(EliteName):FindFirstChild("HumanoidRootPart").Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 30 or not AutoDoughKing
-                            end
-                        else
-                            DisChest = {500,1000,2000,4000,8000,11000,15000}
-                            for i,v in pairs(DisChest) do
-                                if AutoDoughKing then
-                                    for i2,v2 in pairs(game:GetService("Workspace"):GetChildren()) do
-                                        if v2.Name == "Chest1" or v2.Name == "Chest2" or v2.Name == "Chest3" then
-                                            if (v2.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= v and AutoDoughKing then
-                                                repeat wait()
-                                                    TP(v2.CFrame * CFrame.new(0,2.5,2))
-                                                    if (v2.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
-                                                        game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
-                                                    end
-                                                until not v2.Parent or not AutoDoughKing or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("God's Chalice") or game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban")
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
                     elseif (game.Players.LocalPlayer.Character:FindFirstChild("Red Key") or game.Players.LocalPlayer.Backpack:FindFirstChild("Red Key")) and game:GetService("Workspace").Map.CakeLoaf:FindFirstChild("RedDoor") then
                         repeat wait() TP(CFrame.new(-2681.97998, 64.3921585, -12853.7363)) until (Vector3.new(-2681.97998, 64.3921585, -12853.7363) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoDoughKing
                         EquipWeapon("Red Key")
                         if (Vector3.new(-2681.97998, 64.3921585, -12853.7363) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 and AutoDoughKing then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-2681.97998, 64.3921585, -12853.7363, 0.149007782, -1.87902192e-08, 0.98883605, 3.60619588e-08, 1, 1.35681812e-08, -0.98883605, 3.36376011e-08, 0.149007782)
+                        end
+                    elseif not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("God's Chalice") and not game:GetService("Players").LocalPlayer.Character:FindFirstChild("God's Chalice") then
+                        local Elite = game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban") or game:GetService("Workspace").Enemies:FindFirstChild("Diablo") or game:GetService("Workspace").Enemies:FindFirstChild("Deandre") or game:GetService("Workspace").Enemies:FindFirstChild("Urban")
+                        if Elite then
+                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter")
+                            end
+                            if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, Elite.Name) then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                            end
+                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true then
+                                for i,v in pairs(EliteList) do
+                                    if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("EliteHunter"), v) then
+                                        if game:GetService("Workspace").Enemies:FindFirstChild(v) then
+                                            local Elite = game:GetService("Workspace").Enemies:FindFirstChild(v)
+                                            if Elite:FindFirstChild("HumanoidRootPart") and Elite:FindFirstChild("Humanoid") and Elite:FindFirstChild("Humanoid").Health > 0 then
+                                                repeat task.wait()
+                                                    EquipWeapon(Weapon)
+                                                    AutoHaki()
+                                                    if Elite.HumanoidRootPart:FindFirstChild("BodyPosition") then
+                                                        TP(Elite.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
+                                                    else
+                                                        TP(Elite.HumanoidRootPart.CFrame * SetUp)
+                                                    end
+                                                    Elite.Humanoid.WalkSpeed = 0
+                                                    SuperAttack = true
+                                                until not Elite.Parent or not AutoEliteHunter or Elite:FindFirstChild("Humanoid").Health <= 0
+                                                SuperAttack = false
+                                            end
+                                        else
+                                            local Elite = game:GetService("ReplicatedStorage"):FindFirstChild("Diablo") or game:GetService("ReplicatedStorage"):FindFirstChild("Deandre") or game:GetService("ReplicatedStorage"):FindFirstChild("Urban")
+                                            TP(Elite.HumanoidRootPart.CFrame)
+                                        end
+                                    end
+                                end
+                            end
+                        else
+                            local Chest = GetNearestChest()
+                            if Chest ~= 0 then
+                                TP(Chest.CFrame)
+                                if (Chest.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 then
+                                    game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
+                                end
+                            end
                         end
                     end
                 end
@@ -3513,16 +3668,15 @@ if World3 then
                             end
                             local CaptainElephant = game:GetService("Workspace").Enemies:FindFirstChild("Captain Elephant")
                             if CaptainElephant:FindFirstChild("HumanoidRootPart") and CaptainElephant:FindFirstChild("Humanoid") and CaptainElephant:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(CaptainElephant.HumanoidRootPart.Position)
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    CaptainElephant.HumanoidRootPart.CFrame = OldPos
                                     if CaptainElephant.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                         TP(CaptainElephant.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CaptainElephant.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    v.Humanoid.WalkSpeed = 0
                                     FastAttack = true
                                 until not CaptainElephant.Parent or not AutoTwinHook or CaptainElephant:FindFirstChild("Humanoid").Health <= 0
                                 FastAttack = false
@@ -3564,7 +3718,6 @@ if World3 then
                             end
                             local BeautifulPirate = game:GetService("Workspace").Enemies:FindFirstChild("Beautiful Pirate")
                             if BeautifulPirate:FindFirstChild("HumanoidRootPart") and BeautifulPirate:FindFirstChild("Humanoid") and BeautifulPirate:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(BeautifulPirate.HumanoidRootPart.Position)
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
@@ -3574,6 +3727,7 @@ if World3 then
                                     else
                                         TP(BeautifulPirate.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    BeautifulPirate.Humanoid.WalkSpeed = 0
                                     FastAttack = true
                                 until not BeautifulPirate.Parent or not AutoCavander or BeautifulPirate:FindFirstChild("Humanoid").Health <= 0
                                 FastAttack = false
@@ -3613,16 +3767,15 @@ if World3 then
                             end
                             local CakeQueen = game:GetService("Workspace").Enemies:FindFirstChild("Cake Queen")
                             if CakeQueen:FindFirstChild("HumanoidRootPart") and CakeQueen:FindFirstChild("Humanoid") and CakeQueen:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(CakeQueen.HumanoidRootPart.Position)
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    v.HumanoidRootPart.CFrame = OldPos
                                     if CakeQueen.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                         TP(CakeQueen.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(CakeQueen.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    CakeQueen.Humanoid.WalkSpeed = 0
                                     FastAttack = true
                                 until not CakeQueen.Parent or not AutoBuddy or CakeQueen:FindFirstChild("Humanoid").Health <= 0
                                 FastAttack = false
@@ -3649,16 +3802,15 @@ if World3 then
                         if game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") then
                             local SoulReaper = game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper")
                             if SoulReaper:FindFirstChild("HumanoidRootPart") and SoulReaper:FindFirstChild("Humanoid") and SoulReaper:FindFirstChild("Humanoid").Health > 0 then
-                                local OldPos = CFrame.new(SoulReaper.HumanoidRootPart.Position)
                                 repeat task.wait()
                                     EquipWeapon(Weapon)
                                     AutoHaki()
-                                    SoulReaper.HumanoidRootPart.CFrame = OldPos
                                     if SoulReaper.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                         TP(SoulReaper.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                     else
                                         TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    SoulReaper.Humanoid.WalkSpeed = 0
                                     SuperAttack = true
                                 until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoHallowScythe or not SoulReaper.Parent
                                 SuperAttack = false
@@ -3674,15 +3826,14 @@ if World3 then
                             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                 if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                                     if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoHallowScythe and not (game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper")) then
-                                        local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                        TargetName = v.Name
-                                        TargetPos = OldPos
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-                                            v.HumanoidRootPart.CFrame = OldPos
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
                                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
+                                            v.Humanoid.WalkSpeed = 0
+                                            TargetName = v.Name
+                                            TargetPos = v.HumanoidRootPart.CFrame
                                             Magnet = true
                                             FastAttack = true
                                         until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoHallowScythe or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence") or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper")
@@ -3701,6 +3852,192 @@ if World3 then
         end)
     end)
     
+    Weapon:Seperator("Gun 🔫")
+    
+    Weapon:Toggle("Auto Soul Guitar [Error]",AutoSoulGuitar,function(value)
+        AutoSoulGuitar = value
+        StopTween(AutoSoulGuitar)
+    end)
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoSoulGuitar then
+                    if GetInventory("Soul Guitar") == false then
+                        if (CFrame.new(-9681.458984375, 6.139880657196045, 6341.3720703125).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5000 then
+							if game:GetService("Workspace").NPCs:FindFirstChild("Skeleton Machine") then
+								game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("soulGuitarBuy",true)
+							else
+							    if game:GetService("Workspace").Map["Haunted Castle"].Candle1.Transparency == 0 then
+									if game:GetService("Workspace").Map["Haunted Castle"].Tablet.Segment1:FindFirstChild("ClickDetector") then
+										if game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part1:FindFirstChild("ClickDetector") then
+											repeat wait() TP(CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625)) until (CFrame.new(-9553.5986328125, 65.62338256835938, 6041.58837890625).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 3 or not AutoSoulGuitar
+											wait(1)
+											repeat wait() TP(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.CFrame) until (game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part3.ClickDetector)
+											wait(1)
+											repeat wait() TP(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.CFrame) until (game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.ClickDetector)
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.ClickDetector)
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part4.ClickDetector)
+											wait(1)
+											repeat wait() TP(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.CFrame) until (game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.ClickDetector)
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part6.ClickDetector)
+											wait(1)
+											repeat wait() TP(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.CFrame) until (game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part8.ClickDetector)
+											wait(1)
+											repeat wait() TP(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.CFrame) until (game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.ClickDetector)
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.ClickDetector)
+											wait(1)
+											fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"]["Lab Puzzle"].ColorFloor.Model.Part10.ClickDetector)
+										end
+									elseif game:GetService("Workspace").Map["Haunted Castle"].Placard1.Left.Part.Transparency == 0 then
+										repeat wait() TP(CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875)) until (CFrame.new(-8762.69140625, 176.84783935546875, 6171.3076171875).Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard7.Left.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard6.Left.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard5.Left.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard4.Right.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard3.Left.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard2.Right.ClickDetector)
+										wait(1)
+										fireclickdetector(game:GetService("Workspace").Map["Haunted Castle"].Placard1.Right.ClickDetector)
+										wait(1)
+								    else
+								        if game:GetService("Workspace").NPCs:FindFirstChild("Ghost") then
+											local args = {
+												[1] = "GuitarPuzzleProgress",
+												[2] = "Ghost"
+											}
+
+											game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+										end
+								    end
+								else
+								    if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Error") then
+										repeat wait() TP(CFrame.new(-8653.2060546875, 140.98487854003906, 6160.033203125)) until (Vector3.new(-8653.2060546875, 140.98487854003906, 6160.033203125) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoSoulGuitar
+									elseif string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Nothing") then
+										game.StarterGui:SetCore("SendNotification", {
+                                            Title = "Huy Hub";
+                                            Text = "Waitting For The Next Night";
+                                            Duration = 5;
+                                        })
+                                        wait(5)
+									else
+										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2,true)
+									end
+							    end
+							end
+				        end
+                    end
+                end
+            end
+        end)
+    end)
+    
+    Weapon:Seperator("Enchancement Color ☻️")
+    local HakiColor = Weapon:Label("Enchancement Color : ???")
+    spawn(function()
+        pcall(function()
+            while wait(1) do
+                HakiColor:Set("Enchancement Color : "..tostring(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","1")))
+            end
+        end)
+    end)
+    
+    Weapon:Button("Buy Enchancement Color",function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","2")
+    end)
+    
+    Weapon:Toggle("Auto Buy Enchancement Color",AutoBuyEnchancementColor,function(value)
+       AutoBuyEnchancementColor = value
+       while AutoBuyEnchancementColor do
+           pcall(function()
+              wait()
+              game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","2")
+           end)
+       end
+    end)
+    
+    Weapon:Toggle("Auto Rainbow Haki",AutoRainbowHaki,function(value)
+        AutoRainbowHaki = value
+        StopTween(AutoRainbowHaki)
+    end)
+    
+    local BossRainbow = {"Stone","Island Empress","Kilo Admiral","Captain Elephant","Beautiful Pirate","Cake Queen"}
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                if AutoRainbowHaki then
+                    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false then
+                        repeat wait() TP(CFrame.new(-11892.0703125, 930.57672119141, -8760.1591796875)) until (Vector3.new(-11892.0703125, 930.57672119141, -8760.1591796875) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 or not AutoRainbowHaki
+                        wait(1)
+                        if (Vector3.new(-11892.0703125, 930.57672119141, -8760.1591796875) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 5 and AutoRainbowHaki then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("HornedMan","Bet")
+                            wait(1)
+                        end
+                    end
+                    for i,v in pairs(BossRainbow) do
+                        if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("HornedMan"), v) and AutoRainbowHaki then
+                            if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, v) then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                            elseif string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, v) then
+                                if game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v) then
+                                    if game:GetService("Workspace").Enemies:FindFirstChild(v) then
+                                        local Boss = game:GetService("Workspace").Enemies:FindFirstChild(v)
+                                        if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
+                                            repeat task.wait()
+                                                EquipWeapon(Weapon)
+                                                AutoHaki()
+                                                if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
+                                                    TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
+                                                else
+                                                    TP(Boss.HumanoidRootPart.CFrame * SetUp)
+                                                end
+                                                Boss.Humanoid.WalkSpeed = 0
+                                                SuperAttack = true
+                                            until not AutoRainbowHaki or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
+                                            SuperAttack = false
+                                        end
+                                    else
+                                        CheckBossQuest(v)
+                                        if v == "Beautiful Pirate" and (Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656) - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude > 1000 then
+                                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
+				                        end
+                                        repeat wait() TP(CFrameBoss) until (CFrameBoss.Position - game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 6 or not AutoRainbowHaki
+                                    end
+                                else
+                                    game.StarterGui:SetCore("SendNotification", {
+                                        Title = "Huy Hub";
+                                        Text = "Waiting For The Boss";
+                                        Duration = 5;
+                                    })
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end)
+    end)
 elseif World2 then
     Weapon:Seperator("Second Sea Event 🎉")
     Weapon:Toggle("Auto Factory",AutoFactory,function(value)
@@ -3744,16 +4081,15 @@ elseif World2 then
                        if game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard") then
                            local DarkBeard = game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard")
                            if DarkBeard:FindFirstChild("HumanoidRootPart") and DarkBeard:FindFirstChild("Humanoid") and DarkBeard:FindFirstChild("Humanoid").Health > 0 then
-                               local OldPos = CFrame.new(DarkBeard.HumanoidRootPart.Position)
                                repeat task.wait()
                                    EquipWeapon(Weapon)
                                    AutoHaki()
-                                   DarkBeard.HumanoidRootPart.CFrame = OldPos
                                    if DarkBeard.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                        TP(DarkBeard.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                    else
                                        TP(DarkBeard.HumanoidRootPart.CFrame * SetUp)
                                    end
+                                   DarkBeard.Humanoid.WalkSpeed = 0
                                    FastAttack = true
                                until DarkBeard:FindFirstChild("Humanoid").Health <= 0 or not AutoDarkBeard or not DarkBeard.Parent
                                FastAttack = false
@@ -3795,14 +4131,14 @@ elseif World2 then
                                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                         if v.Name == "Zombie" then
                                             if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and AutoRaceV2 then
-                                                local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                                TargetName = v.Name
-                                                TargetPos = OldPos
                                                 repeat task.wait()
                                                     AutoHaki()
                                                     EquipWeapon(Weapon)
                                                     v.HumanoidRootPart.CFrame = OldPos
                                                     TP(v.HumanoidRootPart.CFrame * SetUp)
+                                                    v.Humanoid.WalkSpeed = 0
+                                                    TargetName = v.Name
+                                                    TargetPos = v.HumanoidRootPart.CFrame
                                                     Magnet = true
                                                     FastAttack = true
                                                 until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") or not AutoRaceV2 or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
@@ -3849,14 +4185,13 @@ elseif World2 then
                             for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                 if v.Name == "Snow Lurker" or v.Name == "Arctic Warrior" then
                                     if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoRengoku then
-                                        local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                        TargetName = v.Name
-                                        TargetPos = OldPos
                                         repeat task.wait()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
-                                            v.HumanoidRootPart.CFrame = OldPos
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
+                                            v.Humanoid.WalkSpeed = 0
+                                            TargetName = v.Name
+                                            TargetPos = v.HumanoidRootPart.CFrame
                                             Magnet = true
                                             FastAttack = true
                                         until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") or not AutoRengoku or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
@@ -3890,14 +4225,13 @@ elseif World2 then
                                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                     if v.Name == "Swan Pirate" then
                                         if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoBartilo then
-                                            local OldPos = CFrame.new(v.HumanoidRootPart.Position)
-                                            TargetName = v.Name
-                                            TargetPos = OldPos
                                             repeat task.wait()
                                                 EquipWeapon(Weapon)
                                                 AutoHaki()
-                                                v.HumanoidRootPart.CFrame = OldPos
                                                 TP(v.HumanoidRootPart.CFrame * SetUp)
+                                                TargetName = v.Name
+                                                TargetPos = v.HumanoidRootPart.CFrame
+                                                v.Humanoid.WalkSpeed = 0
                                                 FastAttack = true
                                                 Magnet = true
                                             until not v.Parent or v:FindFirstChild("Humanoid").Health <= 0 or not AutoBartiloQuest or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
@@ -3921,16 +4255,15 @@ elseif World2 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") then
                                 local Jeremy = game:GetService("Workspace").Enemies:FindFirstChild("Jeremy")
                                 if Jeremy:FindFirstChild("HumanoidRootPart") and Jeremy:FindFirstChild("Humanoid") and Jeremy:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(Jeremy.HumanoidRootPart.Position)
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        Jeremy.HumanoidRootPart.CFrame = OldPos
                                         if Jeremy.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                             TP(Jeremy.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(Jeremy.HumanoidRootPart.CFrame * SetUp)
                                         end
+                                        Jeremy.Humanoid.WalkSpeed = 0
                                         FastAttack = true
                                     until not Jeremy.Parent or Jeremy:FindFirstChild("Humanoid").Health <= 0 or not AutoBartiloQuest
                                     FastAttack = false
@@ -3967,7 +4300,7 @@ elseif World2 then
         end)
     end)
     
-    Weapon:Toggle("Auto Don't Swan",AutoDonSwan,function(value)
+    Weapon:Toggle("Auto Don Swan",AutoDonSwan,function(value)
         AutoDonSwan = value
         StopTween(AutoDonSwan)
     end)
@@ -3981,16 +4314,15 @@ elseif World2 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") then
                                 local DonSwan = game:GetService("Workspace").Enemies:FindFirstChild("Don Swan")
                                 if DonSwan:FindFirstChild("HumanoidRootPart") and DonSwan:FindFirstChild("Humanoid") and DonSwan:FindFirstChild("Humanoid").Health > 0 then
-                                    local OldPos = CFrame.new(DonSwan.HumanoidRootPart.Position)
                                     repeat task.wait()
                                         EquipWeapon(Weapon)
                                         AutoHaki()
-                                        DonSwan.HumanoidRootPart.CFrame = OldPos
                                         if DonSwan.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                             TP(DonSwan.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                         else
                                             TP(DonSwan.HumanoidRootPart.CFrame * SetUp)
                                         end
+                                        DonSwan.Humanoid.WalkSpeed = 0
                                         FastAttack = true
                                     until DonSwan:FindFirstChild("Humanoid").Health <= 0 or not AutoDonSwan or not DonSwan.Parent
                                     FastAttack = false
@@ -4010,7 +4342,50 @@ elseif World2 then
             end
         end)
     end)
+    
+    Weapon:Seperator("Legendary Sword 🗡")
+
+    Weapon:Button("Buy Legendary Katana",function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","1")
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","2")
+    end)
+    
+    Weapon:Toggle("Auto Buy Legendary Katana",AutoBuyLegendaryKatana,function(value)
+        AutoBuyLegendaryKatana = value
+        while AutoBuyLegendaryKatana do
+            wait()
+            pcall(function()
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","1")
+                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","2")
+            end)
+        end
+    end)
+    
+    Weapon:Seperator("Enchancement Color ☻️")
+    local HakiColor = Weapon:Label("Enchancement Color : ???")
+    spawn(function()
+        pcall(function()
+            while wait(1) do
+                HakiColor:Set("Enchancement Color : "..tostring(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","1")))
+            end
+        end)
+    end)
+    
+    Weapon:Button("Buy Enchancement Color",function()
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","2")
+    end)
+    
+    Weapon:Toggle("Auto Buy Enchancement Color",AutoBuyEnchancementColor,function(value)
+       AutoBuyEnchancementColor = value
+       while AutoBuyEnchancementColor do
+          wait()
+           pcall(function()
+              game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ColorsDealer","2")
+           end)
+       end
+    end)
 end
+
 
 if not World3 then
     Sea:Seperator("Only Third Sea❗")
@@ -4109,7 +4484,7 @@ else
                     for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
                         if v.Name == "SmallGroup" or v.Name == "SmallCluster" or v.Name == "MediumGroup" or v.Name == "MediumFlat" or v.Name == "Large" or v.Name == "Largest" then
                             for i2,v2 in pairs(v:GetChildren()) do
-                                if v2:IsA("MeshPart") then
+                                if v2:IsA("MeshPart") and ThroughRocks then
                                     v2.CanCollide = false
                                 end
                             end
@@ -4729,10 +5104,14 @@ Setting:Toggle("Auto Turn V4 Skill",AutoTurnV4,function(value)
     end
 end)
 
+Setting:Toggle("Auto Fast Attack",AutoFastAttack,function(value)
+   SuperAttack = value
+end)
+
 Setting:Toggle("Auto Tap",AutoTap,function(value)
     AutoTap = value
     while AutoTap do
-        wait(1)
+        wait()
         game:GetService'VirtualUser':CaptureController()
         game:GetService'VirtualUser':Button1Down(Vector2.new(1280, 672))
     end
@@ -4850,6 +5229,7 @@ Shop:Button("Buy Melee",function()
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon",true)
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyDragonTalon")
     elseif MeleeSelect == "Godhuman" then
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman",true)
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyGodhuman")
     elseif MeleeSelect == "Sanguine Art" then
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuySanguineArt")
@@ -4867,15 +5247,6 @@ Shop:Button("Race Reroll [3.000F]",function()
     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","1")
 	game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Reroll","2")
 end)
-
-if World2 then
-Shop:Seperator("Legendary Sword 🗡")
-
-Shop:Button("Buy True Triple Katana",function()
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","1")
-    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("MysteriousMan","2")
-end)
-end
 
 Misc:Seperator("Server ⚠️")
 
