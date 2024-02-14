@@ -6046,18 +6046,15 @@ spawn(function()
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 							    if Dis(v.HumanoidRootPart.Position) <= 300 then
 								    repeat task.wait()
-									    EquipWeapon(Weapon)
-									    AutoHaki()
-									    TP(v.HumanoidRootPart.CFrame * SetUp)
+									    v.Humanoid.Health = 0
 									    v.Humanoid.WalkSpeed = 0
-									    SuperAttack = true
 								    until not AutoTrail or not v.Parent or v.Humanoid.Health <= 0
 							    end
 						    end
 					    end
 					end
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Skypiea" then
-					if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
+					if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true and game:GetService("Workspace").Map:FindFirstChild("SkyTrial") and Dis(game:GetService("Workspace").Map.SkyTrial) <= 500 then
 					    TP(game:GetService("Workspace").Map.SkyTrial.Model.FinishPart.CFrame)
 					end
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Fishman" then
@@ -6136,14 +6133,10 @@ spawn(function()
 					    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 						        if Dis(v.HumanoidRootPart.Position) <= 300 then
-						            repeat wait()
-						                EquipWeapon(Weapon)
-						                AutoHaki()
-						                TP(v.HumanoidRootPart.CFrame * SetUp)
+						            repeat task.wait()
 						                v.Humanoid.WalkSpeed = 0
-						                SuperAttack = true 
-						            until v.Humanoid.Health <= 0 or not AutoTrail or not v.Parent or game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == false
-						            SuperAttack = false
+						                v.Humanoid.Health = 0
+						            until v.Humanoid.Health <= 0 or not AutoTrail or not v.Parent
 						        end
 							end
 						end
