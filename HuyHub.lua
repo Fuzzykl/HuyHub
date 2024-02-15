@@ -2176,7 +2176,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2190,7 +2190,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -2583,11 +2583,6 @@ spawn(function()
                     if AutoFarmAllBoss then
                         if game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v) then
                             CheckBossQuest(v)
-                            game.StarterGui:SetCore("SendNotification", {
-                                Title = "Huy Hub";
-                                Text = "Boss : "..v;
-                                Duration = 2;
-                            })
                             if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, v) then
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                             end
@@ -2623,6 +2618,11 @@ spawn(function()
                                         SuperAttack = false
                                     end
                                 else
+                                    game.StarterGui:SetCore("SendNotification", {
+                                        Title = "Huy Hub";
+                                        Text = "Defeat The Boss : "..v;
+                                        Duration = 2;
+                                    })
                                     CheckBossQuest(v)
                                     if v == "Beautiful Pirate" and Dis(Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656)) > 1000 then
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
@@ -2788,7 +2788,6 @@ spawn(function()
                                 until v:FindFirstChild("Humanoid").Health <= 0 or not AutoCakePrince or not v.Parent or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince")
                                 Magnet = false
                                 FastAttack = false
-                                SuperAttack = false
                             end
                         end
                     end
@@ -3913,11 +3912,7 @@ if World3 then
 								    if string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Error") then
 										repeat wait() TP(CFrame.new(-8653.2060546875, 140.98487854003906, 6160.033203125)) until Dis(Vector3.new(-8653.2060546875, 140.98487854003906, 6160.033203125)) <= 5 or not AutoSoulGuitar
 									elseif string.find(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2), "Nothing") then
-										game.StarterGui:SetCore("SendNotification", {
-                                            Title = "Huy Hub";
-                                            Text = "Waitting For The Next Night";
-                                            Duration = 5;
-                                        })
+										require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Waitting For The Next Night<Color=/>"):Display()
                                         wait(5)
 									else
 										game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("gravestoneEvent",2,true)
@@ -4008,11 +4003,7 @@ if World3 then
                                         repeat wait() TP(CFrameBoss) until Dis(CFrameBoss.Position) < 6 or not AutoRainbowHaki
                                     end
                                 else
-                                    game.StarterGui:SetCore("SendNotification", {
-                                        Title = "Huy Hub";
-                                        Text = "Waiting For The Boss";
-                                        Duration = 5;
-                                    })
+                                    require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Waiting For The Boss<Color=/>"):Display()
                                 end
                             end
                         end
@@ -4107,11 +4098,7 @@ elseif World2 then
                                 repeat wait()
                                     TP(game:GetService("Workspace"):FindFirstChild("Flower1").CFrame)
                                     if Dis(game:GetService("Workspace"):FindFirstChild("Flower1").Position) < 6 and AutoRaceV2 and game:GetService("Workspace"):FindFirstChild("Flower1").Transparency == 1 then
-                                        game.StarterGui:SetCore("SendNotification", {
-                                            Title = "Huy Hub";
-                                            Text = "Wait Until Tonight To Collect This Flower";
-                                            Duration = 5;
-                                        })
+                                        require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Wait Until Tonight To Collect This Flower<Color=/>"):Display()
                                         wait(5)
                                     end
                                 until Dis(game:GetService("Workspace"):FindFirstChild("Flower1").Position) < 6 or not AutoRaceV2
@@ -4172,8 +4159,8 @@ elseif World2 then
                                 if game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v) then
                                     game.StarterGui:SetCore("SendNotification", {
                                         Title = "Huy Hub";
-                                        Text = "Defeat : "..v;
-                                        Duration = 5;
+                                        Text = "Defeat The Boss : "..v;
+                                        Duration = 2;
                                     })
                                     if game:GetService("Workspace").Enemies:FindFirstChild(v) then
                                         local HumanRaceBoss = game:GetService("Workspace").Enemies:FindFirstChild(v)
@@ -4552,7 +4539,7 @@ else
         end)
     end
     
-    Sea:Dropdown("Select Dangerous Level",{"6","5","4","3","2","1"},function(value)
+    local DangerDropdown = Sea:Dropdown("Select Dangerous Level",{"6","5","4","3","2","1"},function(value)
         SelectDangerousLevel = value
     end)
     
@@ -4641,11 +4628,7 @@ else
                             if SelectBoat then
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BuyBoat",SelectBoat)
                             else
-                                game.StarterGui:SetCore("SendNotification", {
-                                    Title = "Huy Hub";
-                                    Text = "Please Choose A Boat";
-                                    Duration = 2;
-                                })
+                                require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Please Choose A Boat<Color=/>"):Display()
                                 wait(5)
                             end
                         end
@@ -4689,7 +4672,7 @@ else
         while wait() do
             pcall(function()
                 if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" then
-                Moon:Set("🌕: 100% Moon")
+                    Moon:Set("🌕: 100% Moon")
                 elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" then
                     Moon:Set("🌖 : 75% Moon")
                 elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709143733" then
@@ -4699,7 +4682,7 @@ else
                 elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149680" then
                     Moon:Set("🌘: 15% Moon")
                 else
-                    FM:Set("Long Time To Full Moon ❌️")
+                    FM:Set("❌️ : Wait For Moon")
                 end
             end)
         end 
@@ -4718,7 +4701,7 @@ else
             end
         end)
     end)
-   
+    
     Sea:Toggle("TP To Kitsine Island",TPToKitsune,function(value)
         TPToKitsune = value
         while TPToKitsune do
@@ -4777,24 +4760,35 @@ else
         end)
     end)
 
-    Sea:Toggle("TP To Mirage Island",TeleportToMirage,function(value)
+    Sea:Toggle("Teleport To Mirage Island",TeleportToMirage,function(value)
         TeleportToMirage = value
         repeat wait()
             TP(CFrame.new(game:GetService("Workspace").Map.MysticIsland.Center.Position.X,500,game:GetService("Workspace").Map.MysticIsland.Center.Position.Z))
         until not TeleportToMirage or not game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
         StopTween(TeleportToMirage)
     end)
+    
+    Sea:Toggle("Teleport to Highest Point",TPHighestPoint,function(value)
+        TPHighestPoint = value
+        while TeleportToMirage and game:GetService("Workspace").Map:FindFirstChild("MysticIsland") do
+            wait()
+            for _,v in pairs(game:GetService("Workspace").Map.MysticIsland:GetDescendants()) do
+			    if v:IsA("MeshPart") then
+				    if v.MeshId == "rbxassetid://6745037796" then
+					    repeat wait() TP(v.CFrame * CFrame.new(0, 211.88, 0)) until Dis(v.CFrame * CFrame.new(0, 211.88, 0)) <= 5 or not TPHighestPoint or not game:GetService("Workspace").Map:FindFirstChild("MysticIsland")
+				    end
+			    end
+		    end
+        end
+        StopTween(TPHighestPoint)
+    end)
 
     Sea:Toggle("Find Advanced Fruit Dealer",FindAdvancedFruitDealer,function(value)
         FindAdvancedFruitDealer = value
         while FindAdvancedFruitDealer do
             if game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer") and Dis(game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer").HumanoidRootPart.Position) > 5 then
-                game.StarterGui:SetCore("SendNotification", {
-                    Title = "Huy Hub";
-                    Text = "Found NPC";
-                    Duration = 5;
-                })
-                repeat wait() TP(game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer").HumanoidRootPart.CFrame) until Dis(game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer").HumanoidRootPart.Position) < 6 or not FindAdvancedFruitDealer or not game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer")
+                require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | NPC Found<Color=/>"):Display()
+                repeat wait() TP(game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer").HumanoidRootPart.CFrame) until Dis(game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer").HumanoidRootPart.Position) <= 30 or not FindAdvancedFruitDealer or not game:GetService("Workspace").NPCs:FindFirstChild("Advanced Fruit Dealer")
             end
             wait()
         end
@@ -4809,11 +4803,7 @@ else
 			    for i,v in pairs(game:GetService("Workspace").Map.MysticIsland:GetChildren()) do 
 				    if v:IsA("MeshPart")then 
                         if v.Material == Enum.Material.Neon then  
-                            game.StarterGui:SetCore("SendNotification", {
-                                Title = "Huy Hub";
-                                Text = "Gear Found";
-                                Duration = 5;
-                            })
+                            require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Gear Found<Color=/>"):Display()
                             repeat wait() TP(v.CFrame) until Dis(v.Position) <= 5 or not TPToGear or not v.Parent
                         end
                     end
@@ -4830,7 +4820,7 @@ else
         end
     end)
 
-    Sea:Button("Remove Fog + Sky",function()
+    Sea:Button("Remove Fog",function()
         game:GetService("Lighting").LightingLayers:Destroy()
     end)
     
@@ -5448,13 +5438,17 @@ Setting:Toggle("Auto Turn Skill V4",AutoTurnV4,function(value)
     AutoTurnV4 = value
     while AutoTurnV4 do
         wait()
-        if game:GetService("Players").LocalPlayer.Character.RaceTransformed.Value == false then
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed") and game:GetService("Players").LocalPlayer.Character.RaceTransformed.Value == false then
             game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening").RemoteFunction:InvokeServer(true)
         end
     end
 end)
 
 Setting:Toggle("Auto Fast Attack",AutoFastAttack,function(value)
+    FastAttack = value
+end)
+
+Setting:Toggle("Auto Super Attack",AutoSuperAttack,function(value)
    SuperAttack = value
 end)
 
@@ -5913,10 +5907,82 @@ spawn(function()
             elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149680" then
                 FM:Set("🌘: 15% Moon")
             else
-                FM:Set("Long Time To Full Moon")
+                FM:Set("❌️ : Wait For Moon")
             end
         end)
     end 
+end)
+
+function FullMoonCheck()
+    function GetFloorTime()
+       return math.floor(game:GetService("Lighting").ClockTime)
+    end
+    local Time = game:GetService("Lighting").ClockTime
+    if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" and Time <= 5 then
+        return tostring(GetFloorTime()) .. " ( Will End Moon In " .. math.floor(5 - Time) .. " Minutes )"
+    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" and (Time > 5 and Time < 12) then
+        return tostring(GetFloorTime()) .. " ( Fake Moon )"
+    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" and (Time > 12 and Time < 18) then
+        return tostring(GetFloorTime()) .. " ( Will Full Moon In " .. math.floor(18 - Time) .. " Minutes )"
+    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" and (Time > 18 and Time <= 24) then
+        return tostring(GetFloorTime()) .. " ( Will End Moon In " .. math.floor(24 + 6 - Time) .. " Minutes )"
+    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" and Time < 12 then
+        return tostring(GetFloorTime()) .. " ( Will Full Moon In " .. math.floor(18 - Time) .. " Minutes )"
+    elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" and Time > 12 then
+        return tostring(GetFloorTime()) .. " ( Will Full Moon In " .. math.floor(18 + 12 - Time) .. " Minutes )"
+    end
+    return tostring(GetFloorTime())
+end
+
+
+
+function CheckAcientOneStatus()
+    if not game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed") then
+        return "You Don't Have Race V4"
+    end
+    local v227 = nil
+    local v228 = nil
+    local v229 = nil
+    v229, v228, v227 = game.ReplicatedStorage.Remotes.CommF_:InvokeServer("UpgradeRace", "Check")
+    if v229 == 1 or v229 == 3 then
+        return "Train More"
+    elseif v229 == 2 or v229 == 4 or v229 == 7 then
+        return "Can Buy Gear With " .. v227 .. " Fragments"
+    elseif v229 == 5 then
+        return "You're Full of Gears"
+    elseif v229 == 6 then
+        return "Upgrades completed: " .. v228 - 2 .. "/3, Need Trains More"
+    elseif v229 == 0 then
+        return "Ready For Trial"
+    else
+        return "You Don't Have Race V4"
+    end
+end
+function GetTime()
+    if game:GetService("Lighting").ClockTime >= 18 or game:GetService("Lighting").ClockTime < 5 then
+        return "Night"
+    else
+        return "Day"
+    end
+    return "Error"
+end
+
+local RaceStatus = Race:Label("Race Status : ???")
+local TimeStatus = Race:Label("Time Status : ???")
+local FullMoonCheck = Race:Label("Moon Status : ???")
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            RaceStatus:Set("Race Status : "..CheckAcientOneStatus())
+            TimeStatus:Set("Time Status : "..GetTime())
+            if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" or game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" then
+                FullMoonCheck:Set("Moon Status : "..FullMoonCheck())
+            else
+                FullMoonCheck:Set("Moon Status : ???")
+            end
+        end
+    end)
 end)
 
 local PlayersList = {}
@@ -5927,7 +5993,7 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
 end
 
 local PlayerDropdown = Race:Dropdown("Select Player",PlayersList,function(value)
-    SelectPlayerTrail = value
+    SelectPlayerTrial = value
 end)
 
 Race:Button("Refresh",function()
@@ -5943,16 +6009,12 @@ Race:Toggle("Auto Turn Skill Race Same Time",AutoTurnSameTime,function(value)
     AutoTurnSameTime = value
     while AutoTurnSameTime do
         wait()
-        if SelectPlayerTrail then
-            if game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Last Resort") or game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Energy Core") or game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Agility") or game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Heightened Senses") or game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Heavenly Blood") or game:GetService("Players"):FindFirstChild(SelectPlayerTrail).Character.HumanoidRootPart:FindFirst("Water Body") then
+        if SelectPlayerTrial then
+            if game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Last Resort") or game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Energy Core") or game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Agility") or game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Heightened Senses") or game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Heavenly Blood") or game:GetService("Players"):FindFirstChild(SelectPlayerTrial).Character.HumanoidRootPart:FindFirstChild("Water Body") then
                 game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("ActivateAbility")
             end
         else
-             game.StarterGui:SetCore("SendNotification", {
-                Title = "Huy Hub";
-                Text = "Please Select Player";
-                Duration = 1;
-            })
+            require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Please Select A Player<Color=/>"):Display()
         end
     end
 end)
@@ -5988,11 +6050,7 @@ spawn(function()
                 elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaceV4Progress","Check") == 3 then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaceV4Progress","Continue")
                 elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("RaceV4Progress","Check") == 4 then
-                    game.StarterGui:SetCore("SendNotification", {
-                        Title = "Huy Hub";
-                        Text = "Completed, Please Turn Off This Function";
-                        Duration = 5;
-                    })
+                    require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Completed, Please Turn Off This Function<Color=/>"):Display()
                     wait(5)
                 end
             end
@@ -6031,15 +6089,15 @@ spawn(function()
     end)
 end)
 
-Race:Toggle("Auto Trail Race V4",AutoTrail,function(value)
-    AutoTrail = value
-    StopTween(AutoTrail)
+Race:Toggle("Auto Trial Race V4",AutoTrial,function(value)
+    AutoTrial = value
+    StopTween(AutoTrial)
 end)
 
 spawn(function()
     pcall(function()
         while wait() do
-            if AutoTrail then
+            if AutoTrial then
 				if game:GetService("Players").LocalPlayer.Data.Race.Value == "Human" then
 				    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
 					    for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
@@ -6048,7 +6106,7 @@ spawn(function()
 								    repeat task.wait()
 									    v.Humanoid.Health = 0
 									    v.Humanoid.WalkSpeed = 0
-								    until not AutoTrail or not v.Parent or v.Humanoid.Health <= 0
+								    until not AutoTrial or not v.Parent or v.Humanoid.Health <= 0
 							    end
 						    end
 					    end
@@ -6136,7 +6194,7 @@ spawn(function()
 						            repeat task.wait()
 						                v.Humanoid.WalkSpeed = 0
 						                v.Humanoid.Health = 0
-						            until v.Humanoid.Health <= 0 or not AutoTrail or not v.Parent
+						            until v.Humanoid.Health <= 0 or not AutoTrial or not v.Parent
 						        end
 							end
 						end
@@ -6147,6 +6205,68 @@ spawn(function()
 					end
 				end
 			end
+        end
+    end)
+end)
+
+Race:Toggle("Auto Train",AutoTrain,function(value)
+    AutoTrain = value
+    StopTween(AutoTrain)
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoTrain and game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed") then
+                RaceInfo1, RaceInfo2, RaceInfo3 = game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("UpgradeRace", "Check")
+            end
+        end
+    end)
+end)
+
+spawn(function()
+    pcall(function()
+        while wait() do
+            if AutoTrain and game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed") then
+                if RaceInfo1 ~= 0 then
+                    if game:GetService("Workspace").Enemies:FindFirstChild("Cocoa Warrior") or game:GetService("Workspace").Enemies:FindFirstChild("Chocolate Bar Battler") or game:GetService("Workspace").Enemies:FindFirstChild("Sweet Thief") or game:GetService("Workspace").Enemies:FindFirstChild("Candy Rebel") then
+                        for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                            if v.Name == "Cocoa Warrior" or v.Name == "Chocolate Bar Battler" or v.Name == "Sweet Thief" or v.Name == "Candy Rebel" then
+                                if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoTrain and RaceInfo1 ~= 0 then
+                                    repeat task.wait()
+                                        EquipWeapon(Weapon)
+                                        AutoHaki()
+                                        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed").Value == true then
+                                            TP(CFrame.new(210.93252563476562, 126.59194946289062, -12605.1748046875))
+                                            FastAttack = false
+                                            Magnet = false
+                                        else
+                                            TP(v.HumanoidRootPart.CFrame * SetUp)
+                                            v.Humanoid.WalkSpeed = 0
+                                            TargetName = v.Name
+                                            TargetPos = v.HumanoidRootPart.CFrame
+                                            FastAttack = true
+                                            Magnet = true
+                                            game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening").RemoteFunction:InvokeServer(true)
+                                        end
+                                    until v:FindFirstChild("Humanoid").Health <= 0 or not AutoTrain or not v.Parent or RaceInfo1 == 2 or RaceInfo1 == 4 or RaceInfo1 == 7 or RaceInfo1 == 0
+                                    FastAttack = false
+                                    Magnet = false
+                                    if RaceInfo1 == 2 or RaceInfo1 == 4 or RaceInfo1 == 7 then
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("UpgradeRace","Buy")
+                                    end
+                                    wait(1)
+                                end 
+                            end
+                        end
+                    else
+                        repeat wait() TP(CFrame.new(210.93252563476562, 126.59194946289062, -12605.1748046875)) until Dis(Vector3.new(210.93252563476562, 126.59194946289062, -12605.1748046875)) < 6 or not Autotrain
+                    end
+                else
+                    require(game.ReplicatedStorage.Notification).new("<Color=Red>Huy Hub | Train Success<Color=/>"):Display()
+                    wait(5)
+                end
+            end
         end
     end)
 end)
