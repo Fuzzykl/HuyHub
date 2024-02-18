@@ -2191,7 +2191,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+            if AutoTrial or TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
@@ -2205,7 +2205,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
+		    if AutoTrial or TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -6138,12 +6138,9 @@ spawn(function()
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 							    if Dis(v.HumanoidRootPart.Position) <= 300 then
 								    repeat task.wait()
-								        EquipWeapon(Weapon)
-								        FastAttack = true
 									    v.Humanoid.Health = 0
-									    TP(v.HumanoidRootPart.CFrame * SetUp)
+									    sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
 								    until not AutoTrial or not v.Parent or v.Humanoid.Health <= 0
-								    FastAttack = false
 							    end
 						    end
 					    end
@@ -6151,7 +6148,9 @@ spawn(function()
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Skypiea" and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
 					for i,v in pairs(game:GetService("Workspace").Map.SkyTrial.Model:GetDescendants()) do
 						if v.Name == "snowisland_Cylinder.081" then
-							TP(v.CFrame* CFrame.new(0,0,0))
+						    if Dis(v.CFrame) <= 500 then
+							    TP(v.CFrame* CFrame.new(0,0,0))
+							end
 						end
 					end
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Fishman" then
@@ -6231,12 +6230,9 @@ spawn(function()
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 						        if Dis(v.HumanoidRootPart.Position) <= 300 then
 						            repeat task.wait()
-						                EquipWeapon(Weapon)
-								        FastAttack = true
 									    v.Humanoid.Health = 0
-									    TP(v.HumanoidRootPart.CFrame * SetUp)
+									    sethiddenproperty(game:GetService("Players").LocalPlayer,"SimulationRadius",math.huge)
 						            until v.Humanoid.Health <= 0 or not AutoTrial or not v.Parent
-						            FastAttack = false
 						        end
 							end
 						end
@@ -6245,7 +6241,9 @@ spawn(function()
 				    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
 					    for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
 						    if v.Name == "StartPoint" then
-							    TP(v.CFrame* CFrame.new(0,10,0))
+						        if Dis(v.CFrame) <= 500 then
+							        TP(v.CFrame* CFrame.new(0,10,0))
+							    end
 					  	    end
 				   	    end
 					end
