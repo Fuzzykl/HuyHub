@@ -1961,6 +1961,17 @@ function StopTween(target)
         _G.StopTween = false
     end
 end
+
+function Collide(Target)
+    Target.HumanoidRootPart.CFrame = CFrame.new(Target.HumanoidRootPart.Position)
+    Target.Humanoid.WalkSpeed = 0
+    Target.HumanoidRootPart.Size = Vector3.new(60,60,60)
+    for i,v in pairs(Target:GetChildren()) do
+        if v:IsA("BasePart") then
+            v.CanCollide = false
+        end
+    end
+end
 function Dis(Pos)
     if typeof(Pos) == "CFrame" then
        Pos = Pos.Position
@@ -2164,9 +2175,13 @@ spawn(function()
     game:GetService("RunService").Heartbeat:Connect(function()
 		pcall(function()
 	    	for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-				if Magnet and v.Name == TargetName and (v.HumanoidRootPart.Position - TargetPos.Position).magnitude <= 700 then
-				    v.HumanoidRootPart.CFrame = TargetPos
-				    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius",  math.huge)
+				if Magnet and v.Name == TargetMagnet.Name then
+				    sethiddenproperty(game.Players.LocalPlayer, "SimulationRadius", 10000)
+				    v.HumanoidRootPart.CFrame = TargetMagnet.HumanoidRootPart.CFrame
+				    v.HumanoidRootPart.Size = Vector3.new(60,60,60)
+				    if v.Humanoid:FindFirstChild("Animator") then
+                        v.Humanoid.Animator:Destroy()
+                    end
 				end
 			end
 	    end)
@@ -2177,7 +2192,7 @@ spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
             if TPHighestPoint or AutoTrain or TPRaceDoor or AutoRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddy or AutoCavander or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or FarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoNearestFarm or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportToMirage or TPToAdvancedFruitDealer or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TPToKitsune or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportToIsland then
-		        for _, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+		        for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 	                if v:IsA("BasePart") then
 				    	v.CanCollide = false
 			    	end
@@ -2283,11 +2298,12 @@ spawn(function()
                                             EquipWeapon(Weapon)
                                             AutoHaki()
 					                        TP(v.HumanoidRootPart.CFrame * SetUp)
-					                        v.Humanoid.WalkSpeed = 0
-					                        TargetPos = v.HumanoidRootPart.CFrame
-					                        TargetName = v.Name
+                                            Collide(v)
                                             FastAttack = true
-                                            Magnet = true
+                                            if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                TargetMagnet = v
+                                                Magnet = true
+                                            end
                                         until v:FindFirstChild("Humanoid").Health <= 0 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false or not AutoFarmLevel or not v.Parent or wait(10)
                                         Magnet = false
                                         FastAttack = false
@@ -2317,15 +2333,16 @@ spawn(function()
                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                     if Dis(v.HumanoidRootPart.Position) <= 700 then
                         if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoNearestFarm and not string.find(v:FindFirstChild("Humanoid").DisplayName, "Boss") then
-                             repeat task.wait()
+                            repeat task.wait()
                                 EquipWeapon(Weapon)
                                 AutoHaki()
                                 TP(v.HumanoidRootPart.CFrame * SetUp)
-                                v.Humanoid.WalkSpeed = 0
-                                TargetPos = v.HumanoidRootPart.CFrame
-		                        TargetName = v.Name
+                                Collide(v)
                                 FastAttack = true
-                                Magnet = true
+                                if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                     TargetMagnet = v
+                                     Magnet = true
+                                end
                             until v:FindFirstChild("Humanoid").Health <= 0 or not AutoNearestFarm or not v.Parent
                             FastAttack = false
                             Magnet = false
@@ -2367,11 +2384,12 @@ if World2 then
                                         EquipWeapon(Weapon)
                                         AutoHaki()
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                        v.Humanoid.WalkSpeed = 0
-                                        TargetPos = v.HumanoidRootPart.CFrame
-                                        TargetName = v.Name
-                                        Magnet = true
+                                        Collide(v)
                                         FastAttack = true
+                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                            TargetMagnet = v
+                                            Magnet = true
+                                        end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmEctoplasm
                                     FastAttack = false
                                     Magnet = false
@@ -2421,7 +2439,7 @@ if World1 then
                                         else
                                             TP(BossIce.HumanoidRootPart.CFrame * SetUp)
                                         end
-                                        BossIce.Humanoid.WalkSpeed = 0
+                                        Collide(BossIce)
                                         FastAttack = true
                                     until BossIce:FindFirstChild("Humanoid").Health <= 0 or not BossIce.Parent or not AutoSecondSea
                                     FastAttack = false
@@ -2467,9 +2485,9 @@ elseif World2 then
                                         else
                                             TP(Rip.HumanoidRootPart.CFrame * SetUp)
                                         end
-                                        Rip.Humanoid.WalkSpeed = 0
-                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
+                                        Collide(Rip)
                                         FastAttack = true
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
                                     until not AutoThirdSea or Rip:FindFirstChild("Humanoid").Health <= 0 or not Rip.Parent
                                     FastAttack = false
                                 end
@@ -2547,12 +2565,12 @@ spawn(function()
                             repeat task.wait()
                                 EquipWeapon(Weapon)
                                 AutoHaki()
-                                Boss.Humanoid.WalkSpeed = 0
                                 if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
                                     TP(Boss.HumanoidRootPart.CFrame * CFrame.new(50,50,50))
                                 else
                                     TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                 end
+                                Collide(Boss)
                                 SuperAttack = true
                             until not AutoFarmBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
                             SuperAttack = false
@@ -2612,7 +2630,7 @@ spawn(function()
                                             else
                                                 TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                             end
-                                            Boss.Humanoid.WalkSpeed = 0
+                                            Collide(Boss)
                                             SuperAttack = true
                                         until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
                                         SuperAttack = false
@@ -2752,8 +2770,7 @@ spawn(function()
                                     else
                                         TP(CakePrince.HumanoidRootPart.CFrame * SetUp)
                                     end
-                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-                                    CakePrince.Humanoid.WalkSpeed = 0
+                                    Collide(CakePrince)
                                     SuperAttack = true
                                 until CakePrince:FindFirstChild("Humanoid").Health <= 0 or not AutoCakePrince or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0
                                 SuperAttack = false
@@ -2779,12 +2796,14 @@ spawn(function()
                                     else
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
                                     end
+                                    Collide(v)
                                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner",true)
                                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-                                    TargetPos = v.HumanoidRootPart.CFrame
-                                    TargetName = v.Name
                                     FastAttack = true
-                                    Magnet = true
+                                    if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                         TargetMagnet = v
+                                         Magnet = true
+                                    end
                                 until v:FindFirstChild("Humanoid").Health <= 0 or not AutoCakePrince or not v.Parent or game:GetService("Workspace").Enemies:FindFirstChild("Cake Prince") or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Prince")
                                 Magnet = false
                                 FastAttack = false
@@ -2822,18 +2841,20 @@ spawn(function()
                     for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                         if v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy" then
                            if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid").Health > 0 and AutoFarmBone then
+                               wait(1)
                                repeat task.wait()
                                    EquipWeapon(Weapon)
                                    AutoHaki()
                                    TP(v.HumanoidRootPart.CFrame * SetUp)
-                                   TargetName = v.Name
-                                   TargetPos = v.HumanoidRootPart.CFrame
-                                   Magnet = true
+                                   Collide(v)
                                    FastAttack = true
+                                   if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                       TargetMagnet = v
+                                       Magnet = true
+                                   end
                                until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmBone
                                Magnet = false
                                FastAttack = false
-                               wait(1)
                            end
                         end
                     end
@@ -2952,7 +2973,7 @@ spawn(function()
                                         repeat task.wait()
                                             AutoHaki()
                                             SlowAttack = true
-                                            v.Humanoid.WalkSpeed = 0
+                                            Collide(v)
                                             if v.Humanoid.Health * 100 / v.Humanoid.MaxHealth <= Kill then
                                                 EquipWeapon(TargetBF)
                                                 TP(v.HumanoidRootPart.CFrame * CFrame.new(0,0,20))
@@ -3039,11 +3060,12 @@ elseif World3 then
                                         EquipWeapon(Weapon)
                                         AutoHaki()
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                        v.Humanoid.WalkSpeed = 0
-                                        TargetPos = v.HumanoidRootPart.CFrame
-                                        TargetName = v.Name
-                                        Magnet = true
+                                        Collide(v)
                                         FastAttack = true
+                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                            TargetMagnet = v
+                                            Magnet = true
+                                        end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not FarmDragonScale or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                     FastAttack = false
                                     Magnet = false
@@ -3078,11 +3100,12 @@ elseif World3 then
                                         EquipWeapon(Weapon)
                                         AutoHaki()
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                        v.Humanoid.WalkSpeed = 0
-                                        TargetName = v.Name
-                                        TargetPos = v.HumanoidRootPart.CFrame
+                                        Collide(v)
                                         FastAttack = true
-                                        Magnet = true
+                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                            TargetMagnet = v
+                                            Magnet = true
+                                        end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not AutoFarmCocoa or not v.Parent
                                     FastAttack = false
                                     Magnet = false
@@ -3129,11 +3152,12 @@ elseif World3 then
                                         EquipWeapon(Weapon)
                                         AutoHaki()
                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                        v.Humanoid.WalkSpeed = 0
-                                        TargetPos = v.HumanoidRootPart.CFrame
-                                        TargetName = v.Name
-                                        Magnet = true
+                                        Collide(v)
                                         FastAttack = true
+                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                            TargetMagnet = v
+                                            Magnet = true
+                                        end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoFarmFishTail
                                     FastAttack = false
                                     Magnet = false
@@ -3185,7 +3209,7 @@ if World3 then
                                          EquipWeapon(Weapon)
                                          AutoHaki()
                                          TP(v.HumanoidRootPart.CFrame * SetUp)
-                                         v.Humanoid.WalkSpeed = 0
+                                         Collide(v)
                                          PiratePos = v.HumanoidRootPart.CFrame
                                          PirateMagnet = true
                                          FastAttack = true
@@ -3237,11 +3261,12 @@ if World3 then
                                                     EquipWeapon(Weapon)
                                                     AutoHaki()
                                                     TP(v.HumanoidRootPart.CFrame * SetUp)
-                                                    v.Humanoid.WalkSpeed = 0
-                                                    TargetName = v.Name
-                                                    TargetPos = v.HumanoidRootPart.CFrame
-                                                    Magnet = true
+                                                    Collide(v)
                                                     FastAttack = true
+                                                    if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                        TargetMagnet = v
+                                                        Magnet = true
+                                                    end
                                                 until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoElectricClaw or MasMelee.Level.Value >= 400
                                                 Magnet = false
                                                 FastAttack = false
@@ -3292,9 +3317,7 @@ if World3 then
                                                 else
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                                 end
-                                                v.Humanoid.WalkSpeed = 0
-                                                TargetName = v.Name
-                                                TargetPos = v.HumanoidRootPart.CFrame
+                                                Collide(SoulReaper)
                                                 SuperAttack = true
                                             until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoDragonTalon or not SoulReaper.Parent
                                             SuperAttack = false
@@ -3314,11 +3337,12 @@ if World3 then
                                                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
                                                         end
                                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                                        v.Humanoid.WalkSpeed = 0
-                                                        TargetName = v.Name
-                                                        TargetPos = v.HumanoidRootPart.CFrame
-                                                        Magnet = true
+                                                        Collide(v)
                                                         FastAttack = true
+                                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                            TargetMagnet = v
+                                                            Magnet = true
+                                                        end
                                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fire Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fire Essence") or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence")
                                                     Magnet = false
                                                     FastAttack = false
@@ -3346,7 +3370,7 @@ if World3 then
                                                 else
                                                     TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                                 end
-                                                SoulReaper.Humanoid.WalkSpeed = 0
+                                                Collide(SoulReaper)
                                                 SuperAttack = true
                                             until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoDragonTalon or not SoulReaper.Parent
                                             SuperAttack = false
@@ -3363,11 +3387,12 @@ if World3 then
                                                         EquipWeapon("Dragon Claw")
                                                         AutoHaki()
                                                         TP(v.HumanoidRootPart.CFrame * SetUp)
-                                                        v.Humanoid.WalkSpeed = 0
-                                                        TargetName = v.Name
-                                                        TargetPos = v.HumanoidRootPart.CFrame
-                                                        Magnet = true
+                                                        Collide(v)
                                                         FastAttack = true
+                                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                            TargetMagnet = v
+                                                            Magnet = true
+                                                        end
                                                     until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoDragonTalon or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper") or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence")
                                                     Magnet = false
                                                     FastAttack = false
@@ -3440,7 +3465,7 @@ if World3 then
                                                 else
                                                     TP(Elite.HumanoidRootPart.CFrame * SetUp)
                                                 end
-                                                Elite.Humanoid.WalkSpeed = 0
+                                                Collide(Elite)
                                                 SuperAttack = true
                                             until not Elite.Parent or not AutoEliteHunter or Elite:FindFirstChild("Humanoid").Health <= 0
                                             SuperAttack = false
@@ -3494,7 +3519,7 @@ if World3 then
                                         else
                                             TP(DoughKing.HumanoidRootPart.CFrame * SetUp)
                                         end
-                                        DoughKing.Humanoid.WalkSpeed = 0
+                                        Collide(DoughKing)
                                         SuperAttack = true
                                     until not DoughKing.Parent or DoughKing:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0
                                     SuperAttack = false
@@ -3522,11 +3547,12 @@ if World3 then
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
                                         end
                                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")
-                                        v.Humanoid.WalkSpeed = 0
-                                        TargetPos = v.HumanoidRootPart.CFrame
-                                        TargetName = v.Name
+                                        Collide(v)
                                         FastAttack = true
-                                        Magnet = true
+                                        if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                            TargetMagnet = v
+                                            Magnet = true
+                                        end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or not v.Parent or game:GetService("Workspace").Enemies:FindFirstChild("Dough King") or game:GetService("ReplicatedStorage"):FindFirstChild("Dough King")
                                     Magnet = false
                                     FastAttack = false
@@ -3542,11 +3568,12 @@ if World3 then
                                             EquipWeapon(Weapon)
                                             AutoHaki()
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
-                                            v.Humanoid.WalkSpeed = 0
-                                            TargetName = v.Name
-                                            TargetPos = v.HumanoidRootPart.CFrame
+                                            Collide(v)
                                             FastAttack = true
-                                            Magnet = true
+                                            if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                TargetMagnet = v
+                                                Magnet = true
+                                            end
                                         until v:FindFirstChild("Humanoid").Health <= 0 or not AutoDoughKing or not v.Parent
                                         FastAttack = false
                                         Magnet = false
@@ -3586,7 +3613,7 @@ if World3 then
                                                     else
                                                         TP(Elite.HumanoidRootPart.CFrame * SetUp)
                                                     end
-                                                    Elite.Humanoid.WalkSpeed = 0
+                                                    Collide(Elite)
                                                     SuperAttack = true
                                                 until not Elite.Parent or not AutoDoughKing or Elite.Humanoid.Health <= 0
                                                 SuperAttack = false
@@ -3654,10 +3681,10 @@ if World3 then
                                     else
                                         TP(CaptainElephant.HumanoidRootPart.CFrame * SetUp)
                                     end
-                                    v.Humanoid.WalkSpeed = 0
-                                    FastAttack = true
+                                    Collide(CaptainElephant)
+                                    SuperAttack = true
                                 until not CaptainElephant.Parent or not AutoTwinHook or CaptainElephant:FindFirstChild("Humanoid").Health <= 0
-                                FastAttack = false
+                                SuperAttack = false
                             end
                         else
                             if Dis(Vector3.new(-13221, 325, -8405)) > 1000 then
@@ -3705,10 +3732,10 @@ if World3 then
                                     else
                                         TP(BeautifulPirate.HumanoidRootPart.CFrame * SetUp)
                                     end
-                                    BeautifulPirate.Humanoid.WalkSpeed = 0
-                                    FastAttack = true
+                                    Collide(BeautifulPirate)
+                                    SuperAttack = true
                                 until not BeautifulPirate.Parent or not AutoCavander or BeautifulPirate:FindFirstChild("Humanoid").Health <= 0
-                                FastAttack = false
+                                SuperAttack = false
                             end
                         else
                             if Dis(Vector3.new(5182, 23, -20)) > 1000 then
@@ -3753,10 +3780,10 @@ if World3 then
                                     else
                                         TP(CakeQueen.HumanoidRootPart.CFrame * SetUp)
                                     end
-                                    CakeQueen.Humanoid.WalkSpeed = 0
-                                    FastAttack = true
+                                    Collide(CakeQueen)
+                                    SuperAttack = true
                                 until not CakeQueen.Parent or not AutoBuddy or CakeQueen:FindFirstChild("Humanoid").Health <= 0
-                                FastAttack = false
+                                SuperAttack = false
                             end
                         else
                             repeat wait() TP(CFrame.new(-715.467102, 381.69104, -11019.8896)) until Dis(Vector3.new(-715.467102, 381.69104, -11019.8896)) < 6 or not AutoBuddy
@@ -3788,7 +3815,7 @@ if World3 then
                                     else
                                         TP(SoulReaper.HumanoidRootPart.CFrame * SetUp)
                                     end
-                                    SoulReaper.Humanoid.WalkSpeed = 0
+                                    Collide(SoulReaper)
                                     SuperAttack = true
                                 until SoulReaper:FindFirstChild("Humanoid").Health <= 0 or not AutoHallowScythe or not SoulReaper.Parent
                                 SuperAttack = false
@@ -3809,11 +3836,12 @@ if World3 then
                                             AutoHaki()
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
                                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Buy",1,1)
-                                            v.Humanoid.WalkSpeed = 0
-                                            TargetName = v.Name
-                                            TargetPos = v.HumanoidRootPart.CFrame
-                                            Magnet = true
+                                            Collide(v)
                                             FastAttack = true
+                                            if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                TargetMagnet = v
+                                                Magnet = true
+                                            end
                                         until v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent or not AutoHallowScythe or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hallow Essence") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hallow Essence") or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper")
                                         Magnet = false
                                         FastAttack = false
@@ -3990,7 +4018,7 @@ if World3 then
                                                 else
                                                     TP(Boss.HumanoidRootPart.CFrame * SetUp)
                                                 end
-                                                Boss.Humanoid.WalkSpeed = 0
+                                                Collide(Boss)
                                                 SuperAttack = true
                                             until not AutoRainbowHaki or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
                                             SuperAttack = false
@@ -4063,10 +4091,10 @@ elseif World2 then
                                    else
                                        TP(DarkBeard.HumanoidRootPart.CFrame * SetUp)
                                    end
-                                   DarkBeard.Humanoid.WalkSpeed = 0
-                                   FastAttack = true
+                                   Collide(DarkBeard)
+                                   SuperAttack = true
                                until DarkBeard:FindFirstChild("Humanoid").Health <= 0 or not AutoDarkBeard or not DarkBeard.Parent
-                               FastAttack = false
+                               SuperAttack = false
                            end
                        else
                            repeat wait() TP(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375)) until Dis(Vector3.new(3780.0302734375, 22.652164459229, -3498.5859375)) < 6 or not AutoDarkBeard or game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard")
@@ -4113,11 +4141,12 @@ elseif World2 then
                                                     AutoHaki()
                                                     EquipWeapon(Weapon)
                                                     TP(v.HumanoidRootPart.CFrame * SetUp)
-                                                    v.Humanoid.WalkSpeed = 0
-                                                    TargetName = v.Name
-                                                    TargetPos = v.HumanoidRootPart.CFrame
-                                                    Magnet = true
+                                                    Collide(v)
                                                     FastAttack = true
+                                                    if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                        TargetMagnet = v
+                                                        Magnet = true
+                                                    end
                                                 until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Flower 3") or not AutoRaceV2 or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
                                                 Magnet = false
                                                 FastAttack = false
@@ -4173,7 +4202,7 @@ elseif World2 then
                                                 else
                                                     TP(HumanRaceBoss.HumanoidRootPart.CFrame * SetUp)
                                                 end
-                                                HumanRaceBoss.Humanoid.WalkSpeed = 0
+                                                Collide(HumanRaceBoss)
                                                 SuperAttack = true
                                             until not HumanRaceBoss.Parent or not AutoRaceV3 or HumanRaceBoss.Humanoid.Health <= 0
                                             SuperAttack = false
@@ -4200,12 +4229,10 @@ elseif World2 then
                                         FastAttack = true
                                         AimbotSkill = true
                                         AutoUseSkill = true
-                                        print("repeat")
                                     until v.Humanoid.Health <= 0 or not v.Parent or not AutoRaceV3 or game:GetService("Players").LocalPlayer.Character.Humanoid.Health <= 0 or game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1") == 2 or ChangePlayerToKill == true
                                     if ChangePlayerToKill == true then
                                         ChangePlayerToKill = false
                                     end
-                                    print("exit repeat")
                                     FastAttack = false
                                     AutoUseSkill = false
                                     AimbotSkill = false
@@ -4319,11 +4346,12 @@ elseif World2 then
                                             EquipWeapon(Weapon)
                                             AutoHaki()
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
-                                            v.Humanoid.WalkSpeed = 0
-                                            TargetName = v.Name
-                                            TargetPos = v.HumanoidRootPart.CFrame
-                                            Magnet = true
+                                            Collide(v)
                                             FastAttack = true
+                                            if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                TargetMagnet = v
+                                                Magnet = true
+                                            end
                                         until game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Hidden Key") or not AutoRengoku or v:FindFirstChild("Humanoid").Health <= 0 or not v.Parent
                                         Magnet = false
                                         FastAttack = false
@@ -4359,11 +4387,12 @@ elseif World2 then
                                                 EquipWeapon(Weapon)
                                                 AutoHaki()
                                                 TP(v.HumanoidRootPart.CFrame * SetUp)
-                                                TargetName = v.Name
-                                                TargetPos = v.HumanoidRootPart.CFrame
-                                                v.Humanoid.WalkSpeed = 0
+                                                Collide(v)
                                                 FastAttack = true
-                                                Magnet = true
+                                                if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                    TargetMagnet = v
+                                                    Magnet = true
+                                                end
                                             until not v.Parent or v:FindFirstChild("Humanoid").Health <= 0 or not AutoBartiloQuest or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false
                                             Magnet = false
                                             FastAttack = false
@@ -4393,10 +4422,10 @@ elseif World2 then
                                         else
                                             TP(Jeremy.HumanoidRootPart.CFrame * SetUp)
                                         end
-                                        Jeremy.Humanoid.WalkSpeed = 0
-                                        FastAttack = true
+                                        Collide(Jeremy)
+                                        SuperAttack = true
                                     until not Jeremy.Parent or Jeremy:FindFirstChild("Humanoid").Health <= 0 or not AutoBartiloQuest
-                                    FastAttack = false
+                                    SuperAttack = false
                                 end
                             else
                                 repeat wait() TP(CFrame.new(2203.76953, 448.966034, 752.731079)) until not AutoBartiloQuest or Dis(Vector3.new(2203.76953, 448.966034, 752.731079)) < 6 or game:GetService("Workspace").Enemies:FindFirstChild("Jeremy")
@@ -4452,10 +4481,10 @@ elseif World2 then
                                         else
                                             TP(DonSwan.HumanoidRootPart.CFrame * SetUp)
                                         end
-                                        DonSwan.Humanoid.WalkSpeed = 0
-                                        FastAttack = true
+                                        Collide(DonSwan)
+                                        SuperAttack = true
                                     until DonSwan:FindFirstChild("Humanoid").Health <= 0 or not AutoDonSwan or not DonSwan.Parent
-                                    FastAttack = false
+                                    SuperAttack = false
                                 end
                             else
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(2284.912109375, 15.537666320801, 905.48291015625))
@@ -4612,7 +4641,7 @@ else
                                             else
                                                 TP(SeaEventTarget.HumanoidRootPart.CFrame * SetUp)
                                             end
-                                            SeaEventTarget.Humanoid.WalkSpeed = 0
+                                            Collide(SeaEventTarget)
                                             FastAttack = true
                                         until not SeaEventTarget.Parent or not AutoSeaEvent or SeaEventTarget.Humanoid.Health <= 0
                                         FastAttack = false
@@ -5913,10 +5942,11 @@ spawn(function()
     end 
 end)
 
+function GetFloorTime()
+    return math.floor(game:GetService("Lighting").ClockTime)
+end
+
 function FullMoonCheck()
-    function GetFloorTime()
-       return math.floor(game:GetService("Lighting").ClockTime)
-    end
     local Time = game:GetService("Lighting").ClockTime
     if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" and Time <= 5 then
         return tostring(GetFloorTime()) .. " ( Will End Moon In " .. math.floor(5 - Time) .. " Minutes )"
@@ -5929,7 +5959,7 @@ function FullMoonCheck()
     elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" and Time < 12 then
         return tostring(GetFloorTime()) .. " ( Will Full Moon In " .. math.floor(18 - Time) .. " Minutes )"
     elseif game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" and Time > 12 then
-        return tostring(GetFloorTime()) .. " ( Will Full Moon In " .. math.floor(18 + 12 - Time) .. " Minutes )"
+        return tostring(GetFloorTime()).." ( Will Full Moon In "..math.floor(18 + 12 - Time) .." Minutes )"
     end
     return tostring(GetFloorTime())
 end
@@ -5976,11 +6006,7 @@ spawn(function()
         while wait() do
             RaceStatus:Set("Race Status : "..CheckAcientOneStatus())
             TimeStatus:Set("Time Status : "..GetTime())
-            if game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149052" or game:GetService("Lighting").Sky.MoonTextureId=="http://www.roblox.com/asset/?id=9709149431" then
-                FullMoonCheck:Set("Moon Status : "..FullMoonCheck())
-            else
-                FullMoonCheck:Set("Moon Status : ???")
-            end
+            FullMoonCheck:Set("Moon Status : "..FullMoonCheck())
         end
     end)
 end)
@@ -6056,6 +6082,15 @@ spawn(function()
             end
         end
     end)
+end)
+
+Race:Toggle("Reset If Trial Success",AutoReset,function(value)
+    while value do
+        wait()
+        if Dis(Vector3.new(28720.033203125, 14907.943359375, -57.29161834716797)) <= 250 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
+            game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+        end
+    end
 end)
 
 Race:Toggle("TP To Race Door",TPRaceDoor,function(value)
@@ -6242,11 +6277,12 @@ spawn(function()
                                             Magnet = false
                                         else
                                             TP(v.HumanoidRootPart.CFrame * SetUp)
-                                            v.Humanoid.WalkSpeed = 0
-                                            TargetName = v.Name
-                                            TargetPos = v.HumanoidRootPart.CFrame
+                                            Collide(v)
                                             FastAttack = true
-                                            Magnet = true
+                                            if Dis(v.HumanoidRootPart.Position) <= 30 then
+                                                TargetMagnet = v
+                                                Magnet = true
+                                            end
                                             game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening").RemoteFunction:InvokeServer(true)
                                         end
                                     until v:FindFirstChild("Humanoid").Health <= 0 or not AutoTrain or not v.Parent or RaceInfo1 == 2 or RaceInfo1 == 4 or RaceInfo1 == 7 or RaceInfo1 == 0
