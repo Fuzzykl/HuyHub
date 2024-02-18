@@ -6084,7 +6084,8 @@ spawn(function()
 end)
 
 Race:Toggle("Reset If Trial Success",AutoReset,function(value)
-    while value do
+    AutoReset = value
+    while AutoReset do
         wait()
         if Dis(Vector3.new(28720.033203125, 14907.943359375, -57.29161834716797)) <= 250 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head") then
             game:GetService("Players").LocalPlayer.Character.Head:Destroy()
@@ -6148,7 +6149,7 @@ spawn(function()
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Skypiea" and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
 					for i,v in pairs(game:GetService("Workspace").Map.SkyTrial.Model:GetDescendants()) do
 						if v.Name == "snowisland_Cylinder.081" then
-						    if Dis(v.CFrame) <= 500 then
+						    if Dis(v.CFrame) <= 1000 then
 							    TP(v.CFrame* CFrame.new(0,0,0))
 							end
 						end
@@ -6241,7 +6242,7 @@ spawn(function()
 				    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
 					    for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
 						    if v.Name == "StartPoint" then
-						        if Dis(v.CFrame) <= 500 then
+						        if Dis(v.CFrame) <= 1000 then
 							        TP(v.CFrame* CFrame.new(0,10,0))
 							    end
 					  	    end
