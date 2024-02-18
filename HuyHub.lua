@@ -6006,7 +6006,6 @@ spawn(function()
         while wait() do
             RaceStatus:Set("Race Status : "..CheckAcientOneStatus())
             TimeStatus:Set("Time Status : "..GetTime())
-            FullMoonCheck:Set("Moon Status : "..FullMoonCheck())
         end
     end)
 end)
@@ -6139,16 +6138,21 @@ spawn(function()
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 							    if Dis(v.HumanoidRootPart.Position) <= 300 then
 								    repeat task.wait()
+								        EquipWeapon(Weapon)
+								        FastAttack = true
 									    v.Humanoid.Health = 0
-									    v.Humanoid.WalkSpeed = 0
+									    TP(v.HumanoidRootPart.CFrame * SetUp)
 								    until not AutoTrial or not v.Parent or v.Humanoid.Health <= 0
+								    FastAttack = false
 							    end
 						    end
 					    end
 					end
-				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Skypiea" then
-					if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true and game:GetService("Workspace").Map:FindFirstChild("SkyTrial") and Dis(game:GetService("Workspace").Map.SkyTrial) <= 500 then
-					    TP(game:GetService("Workspace").Map.SkyTrial.Model.FinishPart.CFrame)
+				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Skypiea" and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
+					for i,v in pairs(game:GetService("Workspace").Map.SkyTrial.Model:GetDescendants()) do
+						if v.Name == "snowisland_Cylinder.081" then
+							TP(v.CFrame* CFrame.new(0,0,0))
+						end
 					end
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Fishman" then
 					for i,v in pairs(game:GetService("Workspace").SeaBeasts.SeaBeast1:GetDescendants()) do
@@ -6227,16 +6231,23 @@ spawn(function()
 						    if v:FindFirstChild("Humanoid") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 then
 						        if Dis(v.HumanoidRootPart.Position) <= 300 then
 						            repeat task.wait()
-						                v.Humanoid.WalkSpeed = 0
-						                v.Humanoid.Health = 0
+						                EquipWeapon(Weapon)
+								        FastAttack = true
+									    v.Humanoid.Health = 0
+									    TP(v.HumanoidRootPart.CFrame * SetUp)
 						            until v.Humanoid.Health <= 0 or not AutoTrial or not v.Parent
+						            FastAttack = false
 						        end
 							end
 						end
 					end
 				elseif game:GetService("Players").LocalPlayer.Data.Race.Value == "Mink" then
 				    if game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
-					    TP(game:GetService("Workspace").Map.MinkTrial.Ceiling.CFrame * CFrame.new(0,-5,0))
+					    for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+						    if v.Name == "StartPoint" then
+							    TP(v.CFrame* CFrame.new(0,10,0))
+					  	    end
+				   	    end
 					end
 				end
 			end
