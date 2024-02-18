@@ -4545,22 +4545,9 @@ if not World3 then
 else
     Sea:Seperator("Sea Event 🐬")
     
-    local BoatList = {"Dinghy","PirateSloop","MarineSloop","MarineBrigade","MarineBrigade","MarineGrandBrigade","MarineGrandBrigade","Miracle","The Sentinel","Guardian","Lantern","Sleigh","Beast Hunter"}
-    local PirateBoatList = {"Dinghy","PirateSloop","PirateBrigade","PirateGrandBrigade","Miracle","The Sentinel","Guardian","Lantern","Sleigh","Beast Hunter"}
-    local MarineBoatList = {"Dinghy","MarineSloop","MarineBrigade","MarineGrandBrigade","Miracle","The Sentinel","Guardian","Lantern","Sleigh","Beast Hunter"}
-    if tostring(game:GetService("Players").LocalPlayer.Team) == "Pirates" then
-        Sea:Dropdown("Select Boat",PiratesBoatList,function(value)
+        Sea:Dropdown("Select Boat",{"Dinghy","PirateSloop","MarineSloop","MarineBrigade","MarineBrigade","MarineGrandBrigade","MarineGrandBrigade","Miracle","The Sentinel","Guardian","Lantern","Sleigh","Beast Hunter"},function(value)
             SelectBoat = value
         end)
-    elseif tostring(game:GetService("Players").LocalPlayer.Team) == "Marines" then
-        Sea:Dropdown("Select Boat",MarineBoatList,function(value)
-            SelectBoat = value
-        end)
-    else
-        Sea:Dropdown("Select Boat",BoatList,function(value)
-            SelectBoat = value
-        end)
-    end
     
     local DangerDropdown = Sea:Dropdown("Select Dangerous Level",{"6","5","4","3","2","1"},function(value)
         SelectDangerousLevel = value
