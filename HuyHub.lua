@@ -1935,7 +1935,7 @@ function GetMaterial(MaterialName)
 	return 0
 end
 
-function 
+function AutoHaki()
     if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("HasBuso") then
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
     end
