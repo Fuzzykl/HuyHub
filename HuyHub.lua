@@ -1528,7 +1528,7 @@ end
 			    CFrameBoss = nil
 			    CFrameQuestBoss = nil
 			    LevelBoss = 0
-				if (game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan")) and Dis(Vector3.new(2284.912109375, 15.537666320801, 905.48291015625)) > 300 then
+				if CheckBossHit("Don Swan") and (game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan")) and Dis(Vector3.new(2284.912109375, 15.537666320801, 905.48291015625)) > 300 then
 		            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(2284.912109375, 15.537666320801, 905.48291015625))
 		        end
 			elseif SelectedBoss == "Smoke Admiral" then
@@ -1967,8 +1967,8 @@ end
 function GetMaterial(MaterialName)
     for i,v in pairs(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("getInventory")) do
 	    if type(v) == "table" then
-		    if v.Name == MaterialName then
-		        if v.Type == "Material" then
+	        if v.Type == "Material" then
+		        if v.Name == MaterialName then
 			        return v.Count
 			    end
 		    end
@@ -2398,7 +2398,7 @@ if World2 then
     spawn(function()
         pcall(function()
             while wait() do
-                Ectophasm:Set("Ectoplasm : "..tostring(GetMaterial("Ectoplasm")))
+                Ectoplasm:Set("Ectoplasm : "..tostring(GetMaterial("Ectoplasm")))
             end
         end)
     end)
@@ -2458,7 +2458,7 @@ if World1 then
                     if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 1 then
                         if (game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Key") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Key")) and game:GetService("Workspace").Map.Ice.Door.Transparency == 0 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
                             EquipWeapon("Key")
-                            repeat wait() TP(CFrame.new(1348.312744140625, 37.349327087402344, -1326.2479248046875)) until Dis(Vector3.new(1348.312744140625, 37.349327087402344, -1326.2479248046875)) < 6 or not AutoSecondSea
+                            repeat wait() TP(CFrame.new(1347.86646, 37.3493385, -1326.25745, 0.445431441, 6.075269e-08, 0.895316064, 6.98548508e-09, 1, -7.13315131e-08, -0.895316064, 3.80275154e-08, 0.445431441)) until Dis(CFrame.new(1347.86646, 37.3493385, -1326.25745)) < 6 or not AutoSecondSea
                         elseif game:GetService("Workspace").Map.Ice.Door.Transparency == 1 and game:GetService("Players").LocalPlayer.Data.Level.Value >= 700 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral") then
                                 local BossIce = game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
@@ -2477,7 +2477,7 @@ if World1 then
                                     SuperAttack = false
                                 end
                             else
-                                repeat wait() TP(CFrame.new(1348.05469, 37.8902702, -1326.51892, 0.607307553, 8.30034708e-08, 0.794466794, -9.89606832e-08, 1, -2.88292714e-08, -0.794466794, -6.11127433e-08, 0.607307553)) until Dis(Vector3.new(1306.806884765625, 30.175724029541016, -1353.4013671875)) < 6 or not AutoSecondSea
+                                repeat wait() TP(CFrame.new(1348.05469, 37.8902702, -1326.51892, 0.607307553, 8.30034708e-08, 0.794466794, -9.89606832e-08, 1, -2.88292714e-08, -0.794466794, -6.11127433e-08, 0.607307553)) until Dis(Vector3.new(1306.806884765625, 30.175724029541016, -1353.4013671875)) < 6 or not AutoSecondSea or game:GetService("Workspace").Enemies:FindFirstChild("Ice Admiral")
                             end
                         end
                     elseif game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("DressrosaQuestProgress","Detective") == 2 then
@@ -2550,19 +2550,30 @@ spawn(function()
 end)
 
 if World1 then
-	TableBoss = {"The Saw","The Gorilla King","Bobby","Yeti","Mob Leader","Vice Admiral","Warden","Chief Warden","Swan","Magma Admiral","Fishman Lord","Wysper","Thunder God","Cyborg","Greybeard"}
-    TableAllBoss = {"The Saw","The Saw","The Gorilla King","The Gorilla King","Bobby","Bobby","Yeti","Yeti","Mob Leader","Mob Leader","Vice Admiral","Vice Admiral","Warden","Warden","Chief Warden","Chief Warden","Swan","Swan","Magma Admiral","Magma Admiral","Fishman Lord","Fishman Lord","Wysper","Wysper","Thunder God","Thunder God","Cyborg","Cyborg","Greybeard","Greybeard"}
+	TableBoss = {"The Saw","Saber Expert","The Gorilla King","Bobby","Yeti","Mob Leader","Vice Admiral","Warden","Chief Warden","Swan","Magma Admiral","Fishman Lord","Wysper","Thunder God","Cyborg","Greybeard"}
 elseif World2 then
 	TableBoss = {"Diamond","Jeremy","Fajita","Don Swan","Smoke Admiral","Awakened Ice Admiral","Tide Keeper","Cursed Captain","Darkbeard","Order"}
-	TableAllBoss = {"Diamond","Diamond","Jeremy","Jeremy","Fajita","Fajita","Don Swan","Don Swan","Smoke Admiral","Smoke Admiral","Awakened Ice Admiral","Awakened Ice Admiral","Tide Keeper","Tide Keeper","Cursed Captain","Cursed Captain","Darkbeard","Darkbeard"}
 elseif World3 then
 	TableBoss = {"Stone","Island Empress","Kilo Admiral","Captain Elephant","Beautiful Pirate","Longma","Cake Queen","rip_indra True Form","Soul Reaper"}
-    TableAllBoss = {"Stone","Stone","Island Empress","Island Empress","Kilo Admiral","Kilo Admiral","Captain Elephant","Captain Elephant","Beautiful Pirate","Beautiful Pirate","Longma","Longma","Cake Queen","Cake Queen","rip_indra True Form","rip_indra True Form","Soul Reaper","Soul Reaper"}
+end
+
+function GetBoss()
+    if World1 then
+        return tostring((game:GetService("Workspace").Enemies:FindFirstChild("The Saw") or game:GetService("ReplicatedStorage"):FindFirstChild("The Saw") or game:GetService("Workspace").Enemies:FindFirstChild("Saber Expert") or game:GetService("ReplicatedStorage"):FindFirstChild("Saber Expert") or game:GetService("Workspace").Enemies:FindFirstChild("The Gorilla King") or game:GetService("ReplicatedStorage"):FindFirstChild("The Gorilla King") or game:GetService("Workspace").Enemies:FindFirstChild("Bobby") or game:GetService("ReplicatedStorage"):FindFirstChild("Bobby") or game:GetService("Workspace").Enemies:FindFirstChild("Yeti") or game:GetService("ReplicatedStorage"):FindFirstChild("Yeti") or game:GetService("Workspace").Enemies:FindFirstChild("Vice Admiral") or game:GetService("ReplicatedStorage"):FindFirstChild("Vice Admiral") or game:GetService("Workspace").Enemies:FindFirstChild("Warden") or game:GetService("ReplicatedStorage"):FindFirstChild("Warden") or game:GetService("Workspace").Enemies:FindFirstChild("Chief Warden") or game:GetService("ReplicatedStorage"):FindFirstChild("Chief Warden") or game:GetService("Workspace").Enemies:FindFirstChild("Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Swan") or game:GetService("Workspace").Enemies:FindFirstChild("Magma Admiral") or game:GetService("ReplicatedStorage"):FindFirstChild("Magma Admiral") or game:GetService("Workspace").Enemies:FindFirstChild("Fishman Lord") or game:GetService("ReplicatedStorage"):FindFirstChild("Fishman Lord") or game:GetService("Workspace").Enemies:FindFirstChild("Wysper") or game:GetService("ReplicatedStorage"):FindFirstChild("Wysper") or game:GetService("Workspace").Enemies:FindFirstChild("Thunder God") or game:GetService("ReplicatedStorage"):FindFirstChild("Thunder God") or game:GetService("Workspace").Enemies:FindFirstChild("Cyborg") or game:GetService("ReplicatedStorage"):FindFirstChild("Cyborg") or game:GetService("Workspace").Enemies:FindFirstChild("Greybeard") or game:GetService("ReplicatedStorage"):FindFirstChild("Greybeard")).Name)
+    elseif World2 then
+        return tostring((game:GetService("Workspace").Enemies:FindFirstChild("Diamond") or game:GetService("ReplicatedStorage"):FindFirstChild("Diamond") or game:GetService("Workspace").Enemies:FindFirstChild("Jeremy") or game:GetService("ReplicatedStorage"):FindFirstChild("Jeremy") or game:GetService("Workspace").Enemies:FindFirstChild("Fajita") or game:GetService("ReplicatedStorage"):FindFirstChild("Fajita") or game:GetService("Workspace").Enemies:FindFirstChild("Don Swan") or game:GetService("ReplicatedStorage"):FindFirstChild("Don Swan") or game:GetService("Workspace").Enemies:FindFirstChild("Smoke Admiral") or game:GetService("ReplicatedStorage"):FindFirstChild("Smoke Admiral") or game:GetService("Workspace").Enemies:FindFirstChild("Awakened Ice Admiral") or game:GetService("ReplicatedStorage"):FindFirstChild("Awakened Ice Admiral") or game:GetService("Workspace").Enemies:FindFirstChild("Tide Keeper") or game:GetService("ReplicatedStorage"):FindFirstChild("Tide Keeper") or game:GetService("Workspace").Enemies:FindFirstChild("Cursed Captain") or game:GetService("ReplicatedStorage"):FindFirstChild("Cursed Captain") or game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard") or game:GetService("ReplicatedStorage"):FindFirstChild("Darkbeard")).Name)
+    elseif World3 then
+        return tostring((game:GetService("Workspace").Enemies:FindFirstChild("Stone") or game:GetService("ReplicatedStorage"):FindFirstChild("Stone") or game:GetService("Workspace").Enemies:FindFirstChild("Island Empress") or game:GetService("ReplicatedStorage"):FindFirstChild("Island Empress") or game:GetService("Workspace").Enemies:FindFirstChild("Kilo Admiral") or game:GetService("ReplicatedStorage"):FindFirstChild("Kilo Admiral") or game:GetService("Workspace").Enemies:FindFirstChild("Captain Elephant") or game:GetService("ReplicatedStorage"):FindFirstChild("Captain Elephant") or game:GetService("Workspace").Enemies:FindFirstChild("Beautiful Pirate") or game:GetService("ReplicatedStorage"):FindFirstChild("Beautiful Pirate") or game:GetService("Workspace").Enemies:FindFirstChild("Longma") or game:GetService("ReplicatedStorage"):FindFirstChild("Longma") or game:GetService("Workspace").Enemies:FindFirstChild("Cake Queen") or game:GetService("ReplicatedStorage"):FindFirstChild("Cake Queen") or game:GetService("Workspace").Enemies:FindFirstChild("rip_indra True Form") or game:GetService("ReplicatedStorage"):FindFirstChild("rip_indra True Form") or game:GetService("Workspace").Enemies:FindFirstChild("Soul Reaper") or game:GetService("ReplicatedStorage"):FindFirstChild("Soul Reaper")).Name)
+    end
 end
 
 function CheckBossHit(TargetCheck)
     if TargetCheck == "Longma" then
-        
+        if game:GetService("Workspace").Map.Turtle.TushitaGate.TushitaGate.Transparency == 1 then
+            return true
+        else
+            return false
+        end
     elseif TargetCheck == "Don Swan" then
         if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TalkTrevor","1") == 0 then
             return true
@@ -2571,9 +2582,9 @@ function CheckBossHit(TargetCheck)
         end
     elseif TargetCheck == "Saber Expert" then
         if game:GetService("Workspace").Map.Jungle.Final.Part.Transparency == 1 then
-            return false
-        else
             return true
+        else
+            return false
         end
     else
         return true
@@ -2599,7 +2610,6 @@ spawn(function()
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
                     end
                     if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and CFrameQuestBoss and game:GetService("Players").LocalPlayer.Data.Level.Value >= LevelBoss then
-                        print("bad")
                         if SelectBoss == "Beautiful Pirate" and Dis(CFrameQuestBoss.Position) > 1000 then
                             game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
 				        end
@@ -2653,47 +2663,46 @@ spawn(function()
     while wait() do
         if AutoFarmAllBoss then
             pcall(function()
-                for i,v in pairs(TableAllBoss) do
-                    if AutoFarmAllBoss then
-                        if (game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v)) and (game:GetService("Workspace").Enemies:FindFirstChild(v) or game:GetService("ReplicatedStorage"):FindFirstChild(v)).Humanoid.Health > 0 then
-                            CheckBossQuest(v)
-                            if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, v) then
-                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                NameBoss = GetBoss()
+                if NameBoss then
+                    if (game:GetService("Workspace").Enemies:FindFirstChild(NameBoss) or game:GetService("ReplicatedStorage"):FindFirstChild(NameBoss)) and (game:GetService("Workspace").Enemies:FindFirstChild(NameBoss) or game:GetService("ReplicatedStorage"):FindFirstChild(NameBoss)).Humanoid.Health > 0 then
+                        CheckBossQuest(NameBoss)
+                        if not string.find(game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Container.QuestTitle.Title.Text, NameBoss) then
+                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("AbandonQuest")
+                        end
+                        if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and CFrameQuestBoss and game:GetService("Players").LocalPlayer.Data.Level.Value >= LevelBoss then
+                            if NameBoss == "Beautiful Pirate" and Dis(CFrameQuestBoss.Position) > 1000 then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
+				            end
+                            repeat wait() TP(CFrameQuestBoss) until Dis(CFrameQuestBoss.Position) < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not AutoFarmAllBoss
+                            if Dis(CFrameQuestBoss.Position) < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and AutoFarmAllBoss then
+                                game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuestBoss,LevelQuestBoss)
                             end
-                            if game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and CFrameQuestBoss and game:GetService("Players").LocalPlayer.Data.Level.Value >= LevelBoss then
-                                if v == "Beautiful Pirate" and Dis(CFrameQuestBoss.Position) > 1000 then
-                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
-				                end
-                                repeat wait() TP(CFrameQuestBoss) until Dis(CFrameQuestBoss.Position) < 6 or game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not AutoFarmAllBoss
-                                if Dis(CFrameQuestBoss.Position) < 6 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == false and AutoFarmAllBoss then
-                                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StartQuest",NameQuestBoss,LevelQuestBoss)
-                                end
-                            elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not CFrameQuestBoss or game:GetService("Players").LocalPlayer.Data.Level.Value < LevelBoss then
-                                if CheckBossHit(v) then
-                                    if game:GetService("Workspace").Enemies:FindFirstChild(v) then
-                                        local Boss = game:GetService("Workspace").Enemies:FindFirstChild(v)
-                                        if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
-                                            repeat task.wait()
-                                                EquipWeapon(Weapon)
-                                                AutoHaki()
-                                                if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
-                                                    TP(Boss.HumanoidRootPart.CFrame * CFrame.new(0,0,20))
-                                                else
-                                                    TP(Boss.HumanoidRootPart.CFrame * SetUp)
-                                                end
-                                                Collide(Boss)
-                                                SuperAttack = true
-                                            until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
-                                            SuperAttack = false
-                                        end
-                                    else
-                                        CheckBossQuest(v)
-                                        if v == "Beautiful Pirate" and Dis(Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656)) > 1000 then
-                                            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
-				                        end
-				                        if CFrameBoss then
-                                            repeat wait() TP(CFrameBoss) until Dis(CFrameBoss.Position) < 6 or not AutoFarmAllBoss or game:GetService("Workspace").Enemies:FindFirstChild(v)
-                                        end
+                        elseif game:GetService("Players").LocalPlayer.PlayerGui.Main.Quest.Visible == true or not CFrameQuestBoss or game:GetService("Players").LocalPlayer.Data.Level.Value < LevelBoss then
+                            if CheckBossHit(NameBoss) then
+                                if game:GetService("Workspace").Enemies:FindFirstChild(NameBoss) then
+                                    local Boss = game:GetService("Workspace").Enemies:FindFirstChild(NameBoss)
+                                    if Boss:FindFirstChild("Humanoid") and Boss:FindFirstChild("HumanoidRootPart") and Boss:FindFirstChild("Humanoid").Health > 0 then
+                                        repeat task.wait()
+                                            EquipWeapon(Weapon)
+                                            AutoHaki()
+                                            if Boss.HumanoidRootPart:FindFirstChild("BodyPosition") then
+                                                TP(Boss.HumanoidRootPart.CFrame * CFrame.new(0,0,20))
+                                            else
+                                                TP(Boss.HumanoidRootPart.CFrame * SetUp)
+                                            end
+                                            Collide(Boss)
+                                            SuperAttack = true
+                                        until not AutoFarmAllBoss or not Boss.Parent or Boss:FindFirstChild("Humanoid").Health <= 0
+                                        SuperAttack = false
+                                    end
+                                else
+                                    CheckBossQuest(NameBoss)
+                                    if NameBoss == "Beautiful Pirate" and Dis(Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656)) > 1000 then
+                                        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(5314.58203125, 25.419387817382812, -125.94227600097656))
+				                    end
+				                    if CFrameBoss then
+                                        repeat wait() TP(CFrameBoss) until Dis(CFrameBoss.Position) < 6 or not AutoFarmAllBoss or game:GetService("Workspace").Enemies:FindFirstChild(NameBoss)
                                    end
                                 end
                             end
@@ -4271,16 +4280,22 @@ elseif World2 then
             while wait() do
                 if AutoFactory then
                     if game:GetService("Workspace").Enemies:FindFirstChild("Core") or game:GetService("ReplicatedStorage"):FindFirstChild("Core") then
-                        if game:GetService("Workspace").Enemies:FindFirstChild("Core") then
-                            repeat task.wait()
-                                EquipWeapon(Weapon)
-                                AutoHaki()
-                                TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
-                                SuperAttack = true
-                            until not game:GetService("Workspace").Enemies:FindFirstChild("Core") or not AutoFactory
-                            SuperAttack = false
+                        if Dis(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617)) <= 1000 then
+                            if game:GetService("Workspace").Enemies:FindFirstChild("Core") then
+                                repeat task.wait()
+                                    EquipWeapon(Weapon)
+                                    AutoHaki()
+                                    TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617))
+                                    SuperAttack = true
+                                until not game:GetService("Workspace").Enemies:FindFirstChild("Core") or not AutoFactory
+                                SuperAttack = false
+                            else
+                                repeat wait() TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617)) until Dis(Vector3.new(424.12698364258, 211.16171264648, -427.54049682617)) < 6 or not AutoFactory
+                            end
                         else
-                            repeat wait() TP(CFrame.new(424.12698364258, 211.16171264648, -427.54049682617)) until Dis(Vector3.new(424.12698364258, 211.16171264648, -427.54049682617)) < 6 or not AutoFactory
+                            game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosIsland("The Cafe")
+                            game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+                            wait(5)
                         end
                     end
                 end
@@ -4289,7 +4304,7 @@ elseif World2 then
     end)
     Weapon:Seperator("Dark Coat 🌑")
     
-    Weapon:Toggle("Auto Dark Coat",AutoDarkBeard,function(value)
+    Weapon:Toggle("Auto Dark Beard",AutoDarkBeard,function(value)
         AutoDarkBeard = value
         StopTween(AutoDarkBeard)
     end)
@@ -4318,6 +4333,16 @@ elseif World2 then
                        else
                            repeat wait() TP(CFrame.new(3780.0302734375, 22.652164459229, -3498.5859375)) until Dis(Vector3.new(3780.0302734375, 22.652164459229, -3498.5859375)) < 6 or not AutoDarkBeard or game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard")
                        end
+                   elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Fist of Darkness") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Fist of Darkness") then
+                       repeat wait() TP(CFrame.new(3780.02539, 15.8924818, -3499.91357)) until not AutoDarkBeard or Dis(CFrame.new(3780.02539, 15.8924818, -3499.91357)) <= 5 or game:GetService("Workspace").Enemies:FindFirstChild("Darkbeard")
+                   else
+                       local Chest = GetNearestChest()
+                       if Chest then
+                           TP(Chest.CFrame)
+                           if Dis(Chest.Position) <= 5 then
+                               game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
+                           end
+                      end
                    end
                end
             end
@@ -4603,7 +4628,7 @@ elseif World2 then
                             if game:GetService("Workspace").Enemies:FindFirstChild("Swan Pirate") then
                                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                     if v.Name == "Swan Pirate" then
-                                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoBartilo then
+                                        if v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v:FindFirstChild("Humanoid").Health > 0 and AutoBartiloQuest then
                                             repeat task.wait()
                                                 EquipWeapon(Weapon)
                                                 AutoHaki()
@@ -4654,26 +4679,26 @@ elseif World2 then
                             end
                         else
                             repeat wait() TP(CFrame.new(-456.28952, 73.0200958, 299.895966)) until not AutoBartiloQuest or Dis(Vector3.new(-456.28952, 73.0200958, 299.895966)) < 6
-                            if Dis(Vector3.new(-456.28952, 73.0200958, 299.895966)) <= 10 and AutoBartilo then
+                            if Dis(Vector3.new(-456.28952, 73.0200958, 299.895966)) <= 10 and AutoBartiloQuest then
                                 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo")
                             end
                         end
                     elseif game:GetService("Players").LocalPlayer.Data.Level.Value >= 800 and game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BartiloQuestProgress","Bartilo") == 2 and game:GetService("Workspace").Map.Dressrosa.CellDoor:GetChildren()[1].CanCollide == true then
-                        repeat TP(CFrame.new(-1850.49329, 13.1789551, 1750.89685)) wait() until not AutoBartilo or Dis(Vector3.new(-1850.49329, 13.1789551, 1750.89685)) <= 10
+                        repeat TP(CFrame.new(-1850.49329, 13.1789551, 1750.89685)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1850.49329, 13.1789551, 1750.89685)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1858.87305, 19.3777466, 1712.01807)) wait() until not AutoBartilo or Dis(Vector3.new(-1858.87305, 19.3777466, 1712.01807)) <= 10
+                        repeat TP(CFrame.new(-1858.87305, 19.3777466, 1712.01807)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1858.87305, 19.3777466, 1712.01807)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1803.94324, 16.5789185, 1750.89685)) wait() until not AutoBartilo or Dis(Vector3.new(-1803.94324, 16.5789185, 1750.89685)) <= 10
+                        repeat TP(CFrame.new(-1803.94324, 16.5789185, 1750.89685)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1803.94324, 16.5789185, 1750.89685)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1858.55835, 16.8604317, 1724.79541)) wait() until not AutoBartilo or Dis(Vector3.new(-1858.55835, 16.8604317, 1724.79541)) <= 10
+                        repeat TP(CFrame.new(-1858.55835, 16.8604317, 1724.79541)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1858.55835, 16.8604317, 1724.79541)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1869.54224, 15.987854, 1681.00659)) wait() until not AutoBartilo or Dis(Vector3.new(-1869.54224, 15.987854, 1681.00659)) <= 10
+                        repeat TP(CFrame.new(-1869.54224, 15.987854, 1681.00659)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1869.54224, 15.987854, 1681.00659)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1800.0979, 16.4978027, 1684.52368)) wait() until not AutoBartilo or Dis(Vector3.new(-1800.0979, 16.4978027, 1684.52368)) <= 10
+                        repeat TP(CFrame.new(-1800.0979, 16.4978027, 1684.52368)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1800.0979, 16.4978027, 1684.52368)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1819.26343, 14.795166, 1717.90625)) wait() until not AutoBartilo or Dis(Vector3.new(-1819.26343, 14.795166, 1717.90625)) <= 10
+                        repeat TP(CFrame.new(-1819.26343, 14.795166, 1717.90625)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1819.26343, 14.795166, 1717.90625)) <= 10
                         wait(1)
-                        repeat TP(CFrame.new(-1813.51843, 14.8604736, 1724.79541)) wait() until not AutoBartilo or Dis(Vector3.new(-1813.51843, 14.8604736, 1724.79541)) <= 10
+                        repeat TP(CFrame.new(-1813.51843, 14.8604736, 1724.79541)) wait() until not AutoBartiloQuest or Dis(Vector3.new(-1813.51843, 14.8604736, 1724.79541)) <= 10
                     end
                 end 
             end
@@ -4823,8 +4848,8 @@ elseif World1 then
                         if game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 and (game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torch")) and game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 then
                             EquipWeapon("Torch")
                             repeat wait() TP(CFrame.new(1114.61475, 5.04679728, 4350.22803, -0.648466587, -1.28799094e-09, 0.761243105, -5.70652914e-10, 1, 1.20584542e-09, -0.761243105, 3.47544882e-10, -0.648466587)) until Dis(CFrame.new(1114.61475, 5.04679728, 4350.22803)) <= 5 or not AutoSaber or game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 1
-                        elseif game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 and not (game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torch")) and game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 then
-                            repeat wait() TP(CFrame.new(-1610.05591, 12.0120544, 163.585754, -0.803700328, -5.06366327e-08, -0.595034242, -2.32499762e-08, 1, -5.36954303e-08, 0.595034242, -2.93205016e-08, -0.803700328)) until Dis(CFrame.new(-1610.05591, 12.0120544, 163.585754)) <= 5 or not AutoSaber or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torch")
+                        elseif game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 0 and not (game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torch")) then
+                            repeat wait() TP(CFrame.new(-1610.05591, 12.0120544, 163.585754, -0.803700328, -5.06366327e-08, -0.595034242, -2.32499762e-08, 1, -5.36954303e-08, 0.595034242, -2.93205016e-08, -0.803700328)) until Dis(CFrame.new(-1610.05591, 12.0120544, 163.585754)) <= 5 or not AutoSaber or game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Torch") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Torch") or game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 1
                         elseif game:GetService("Workspace").Map.Desert.Burn.Part.Transparency == 1 then
                             if game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("ProQuestProgress","SickMan") ~= 0 then
                                 if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Cup") or game:GetService("Players").LocalPlayer.Character:FindFirstChild("Cup") then
@@ -5742,7 +5767,6 @@ end
         if SelectIsland and GetPosIsland(SelectIsland) then
             game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = GetPosIsland(SelectIsland)
             game:GetService("Players").LocalPlayer.Character.Head:Destroy()
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("SetSpawnPoint")
         end
     end)
 
@@ -5784,12 +5808,18 @@ Setting:Toggle("Auto Turn Haki",AutoTurnHaki,function(value)
     end
 end)
 
-Setting:Toggle("Auto Turn Observation Haki",AutoKen,function(value)
+Setting:Toggle("Auto Turn Observation Haki",true,function(value)
     AutoKen = value
-    while AutoKen do
-        game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken",true)
-        wait(.5)
-    end
+end)
+
+spawn(function()
+   pcall(function()
+       while wait(.5) do
+           if AutoKen then
+               game:GetService("ReplicatedStorage").Remotes.CommE:FireServer("Ken",true)
+           end
+       end
+   end)
 end)
 
 Setting:Toggle("Auto Activate Ability",AutoTurnV3,function(value)
