@@ -1606,7 +1606,7 @@ end
 			elseif SelectedBoss == "Longma" then
 				CFrameBoss = CFrame.new(-10248.3936, 353.79129, -9306.34473)
 			    CFrameQuestBoss = nil
-				if (game:GetService("Workspace").Enemies:FindFirstChild("Longma") or game:GetService("ReplicatedStorage"):FindFirstChild("Longma")) and Dis(Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875)) > 3000 then
+				if CheckBossHit("Longma") and (game:GetService("Workspace").Enemies:FindFirstChild("Longma") or game:GetService("ReplicatedStorage"):FindFirstChild("Longma")) and Dis(Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875)) > 3000 then
                     game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("requestEntrance",Vector3.new(-11993.580078125, 334.7812805175781, -8844.1826171875))
 				end
 				LevelBoss = 0
