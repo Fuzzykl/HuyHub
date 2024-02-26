@@ -2254,7 +2254,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-            if FarmMiniTusk or FarmDemonicWisp or FarmVampireFang or FarmRadioActive or FarmMysticDroplet or AutoSaber or FarmAngelWings or FarmScrapMetalLeather or FarmMagmaOre or AutoFarmFishTail or AutoTrial or TeleportHighestPoint or AutoTrain or TeleportRaceDoor or AutoUpgradeRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddySword or AutoCavanderSword or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or AutoFarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoFarmNearest or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportMirage or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TeleportKitsuneIsland or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoUpgradeRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportIsland then
+            if AutoUpgradeRaceV3 or FarmMiniTusk or FarmDemonicWisp or FarmVampireFang or FarmRadioActive or FarmMysticDroplet or AutoSaber or FarmAngelWings or FarmScrapMetalLeather or FarmMagmaOre or AutoFarmFishTail or AutoTrial or TeleportHighestPoint or AutoTrain or TeleportRaceDoor or AutoUpgradeRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddySword or AutoCavanderSword or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or AutoFarmChest or AutoBringFruit or NoClip or AutoFarmLevel or AutoFarmNearest or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportMirage or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TeleportKitsuneIsland or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoUpgradeRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportIsland then
 		        GetWeapon = true
 		        for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 	                if v:IsA("BasePart") then
@@ -2271,7 +2271,7 @@ end)
 spawn(function()
 	pcall(function()
 		game:GetService("RunService").Stepped:Connect(function()
-		    if FarmMiniTusk or FarmDemonicWisp or FarmVampireFang or FarmRadioActive or FarmMysticDroplet or AutoSaber or FarmAngelWings or FarmScrapMetalLeather or FarmMagmaOre or AutoFarmFishTail or AutoTrial or TeleportHighestPoint or AutoTrain or TeleportRaceDoor or AutoUpgradeRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddySword or AutoCavanderSword or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or AutoFarmChest or AutoBringFruit or AutoFarmLevel or AutoFarmNearest or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportMirage or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TeleportKitsuneIsland or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoUpgradeRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportIsland then
+		    if AutoUpgradeRaceV3 or FarmMiniTusk or FarmDemonicWisp or FarmVampireFang or FarmRadioActive or FarmMysticDroplet or AutoSaber or FarmAngelWings or FarmScrapMetalLeather or FarmMagmaOre or AutoFarmFishTail or AutoTrial or TeleportHighestPoint or AutoTrain or TeleportRaceDoor or AutoUpgradeRaceV3 or AutoRainbowHaki or AutoFarmEctoplasm or AutoFarmFishTail or AutoFarmMastery or AutoSealedKing or AutoDoughKing or AutoBuddySword or AutoCavanderSword or AutoTwinHook or AutoFarmCocoa or AutoEliteHunter or AutoElectricClaw or AutoHallowScythe or AutoFarmChest or AutoBringFruit or AutoFarmLevel or AutoFarmNearest or AutoSecondSea or AutoThirdSea or AutoFarmBoss or AutoFarmAllBoss or TeleportMirage or AutoCakePrince or AutoFarmBone or FarmDragonScale or AutoPirateRaid or TeleportKitsuneIsland or AutoSeaEvent or AutoDragonTalon or AutoFactory or AutoDarkBeard or AutoUpgradeRaceV2 or AutoRengoku or AutoBartiloQuest or AutoDonSwan or AutoNextIsland or TeleportIsland then
 			 	if not game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
 					local Noclip = Instance.new("BodyVelocity")
 					Noclip.Name = "BodyClip"
@@ -4840,7 +4840,7 @@ elseif World2 then
                         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Wenlocktoad","2")
                     elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1") == 1 then
                         if game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","info") == "You haven't completed my order yet. Talk to me again once you defeat Jeremy, Fajita and Diamond." then
-                            BossName = HumanV3QuestBoss()
+                            local BossName = HumanV3QuestBoss()
                             if game:GetService("Workspace").Enemies:FindFirstChild(v) then
                                 for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
                                     if v.Name == BossName then
@@ -4888,6 +4888,16 @@ elseif World2 then
                                     AimbotSkill = false
                                 end
                             end
+                        elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","info") == "You haven't completed my order yet. Talk to me again once you pick up 30 treasure chests." then
+                            repeat wait()
+                                local Chest = GetNearestChest()
+                                if Chest then
+                                    TP(Chest.CFrame)
+                                    if Dis(Chest.Position) <= 5 then
+                                        game:GetService"Players".LocalPlayer.Character:FindFirstChild("Humanoid"):ChangeState("Jumping")
+                                    end
+                                end
+                            until not AutoUpgradeRaceV3 or game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1") == 2
                         end
                     elseif game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1") == 2 then
                         game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","3")
@@ -6321,7 +6331,7 @@ end)
     spawn(function()
         while wait() do
             pcall(function()
-                if AutoTurnAwarkening and game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed") and game:GetService("Players").LocalPlayer.Character.RaceTransformed.Value == false then
+                if AutoTurnAwarkening and game:GetService("Players").LocalPlayer.Character.Humanoid.Health > 0 and game:GetService("Players").LocalPlayer.Character:FindFirstChild("RaceTransformed") and game:GetService("Players").LocalPlayer.Character.RaceTransformed.Value == false and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening") then
                     game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Awakening").RemoteFunction:InvokeServer(true)
                 end
             end)
@@ -7136,6 +7146,16 @@ spawn(function()
 					end
 				end
 			end
+        end)
+    end
+end)
+
+spawn(function()
+    while task.wait() do
+        pcall(function()
+            if AutoTrial and Dis(Vector3.new(28286.35546875, 14896.5078125, 102.62469482421875)) <= 10 and game:GetService("Players").LocalPlayer.PlayerGui.Main.Timer.Visible == true then
+                StopTween(false)
+            end
         end)
     end
 end)
